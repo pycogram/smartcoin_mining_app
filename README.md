@@ -16,6 +16,6 @@ Features includes the following:
 - Profile 
 - Settings and many more
 
-Application will be hosted on Render
+Application will be hosted on Render.
 
-The application structure is broken down into components and folder and sub-folders to avoid crashing while on production stage
+The application structure is broken down into components and folders and sub-folders with its different files to avoid crashing while on production stage.
