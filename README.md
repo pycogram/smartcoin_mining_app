@@ -1,10 +1,10 @@
 # SmartCoin, the mining application.
 
 Smartcoin is my first full-stack application made with:
-- REACT TYPESCRIPT,
-- EXPRESS, 
-- MONGODB AND 
-- NODEJS
+- React + TypeScript + Vite,
+- Express, 
+- MongoDB & 
+- NodeJs
 
 Features includes the following: 
 - Signup/ login system 
