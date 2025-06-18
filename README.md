@@ -1,21 +1,29 @@
-# SmartCoin, the mining application.
+# SmartCoin - the mining application.
 
-Smartcoin is my first full-stack application made with:
+**Smartcoin** is my first full-stack application built with:
 - React + TypeScript + Vite,
 - Express, 
-- MongoDB & 
-- NodeJs
+- MongoDB,
+- NodeJs,
+- Tailwindcss (CSS)
 
-Features includes the following: 
+### Features include: 
 - Signup/ login system 
-- Email verificaction 
+- Email verififaction 
 - Bonus based on Referral 
 - Send & Receive $SC from user
 - Lock/stake $SC mechanism 
-- Community chats 
-- Profile 
-- Settings and many more
+- Community chat 
+- User profile 
+- Settings
+- And many more
 
-Application will be hosted on Render.
+### Hosting platform:
+Application hosted is on **Render**.
 
-The application structure is broken down into components and folders and sub-folders with its different files to avoid crashing while on production stage.
+### SC Architecture:
+The architecture is organized into clearly defined components, folders, and subfolders to maintain clean separation of concerns and ensure stability in production.
+
+### UI Prototype:
+The frontend was first designed and prototyped by me on **Figma** and then developed using Javascript libraries and CSS framework.
+
