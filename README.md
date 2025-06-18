@@ -9,8 +9,8 @@
 
 ### Features include: 
 - Signup/ login system 
-- Email verififaction 
-- Bonus based on Referral 
+- Email verificaction 
+- Referral-based bonus system 
 - Send & Receive $SC from user
 - Lock/stake $SC mechanism 
 - Community chat 
