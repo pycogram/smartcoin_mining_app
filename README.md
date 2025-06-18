@@ -1,6 +1,6 @@
 # SmartCoin - the mining application.
 
-Smartcoin is my first full-stack application built with:
+**Smartcoin** is my first full-stack application built with:
 - React + TypeScript + Vite,
 - Express, 
 - MongoDB,
@@ -25,5 +25,5 @@ Application hosted is on **Render**.
 The architecture is organized into clearly defined components, folders, and subfolders to maintain clean separation of concerns and ensure stability in production.
 
 ### UI Prototype:
-The frontend was first designed and prototyped by me on **Figma** and then developed using React with TypeScript and Tailwind CSS.
+The frontend was first designed and prototyped by me on **Figma** and then developed using Javascript libraries and CSS framework.
 
