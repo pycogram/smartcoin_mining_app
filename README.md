@@ -8,13 +8,14 @@
 - Tailwindcss (CSS)
 
 ### Features include: 
-- Signup/ login system 
+- Signup / login system 
 - Email verificaction 
 - Referral-based bonus system 
-- Send & Receive $SC from user
+- Send & Receive $SC between user
 - Lock/stake $SC mechanism 
 - Community chat 
 - User profile 
+- Report User
 - Settings
 - And many more
 
