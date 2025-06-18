@@ -5,7 +5,8 @@
 - Express, 
 - MongoDB,
 - NodeJs,
-- Tailwindcss (CSS)
+- Tailwindcss (CSS),
+- Figma ( Designs )
 
 ### Features include: 
 - Signup / login system 
