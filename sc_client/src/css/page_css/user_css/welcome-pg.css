@@ -1,0 +1,39 @@
+@import "tailwindcss";
+
+.welcomepage{
+    @apply
+    w-[100%] place-self-center relative block py-[2rem] lg:py-[1rem];
+}
+.welcomepage .w-box{
+    @apply block place-content-center place-items-center
+}
+.w-box .img-text{
+    @apply relative block items-center justify-center
+}
+.img-text .img-box{
+    @apply h-fit w-[100%] inline-block relative place-items-center place-content-center mb-3 
+}
+.img-box img{
+    @apply w-[70px] lg:w-[80px] h-[70px] lg:h-[80px] animate-bounce transition-all ease-in-out delay-200
+}
+.w-box .text-body{
+    @apply h-fit w-[100%] inline-block relative place-items-center place-content-center
+}
+.text-body h2{
+    @apply  text-2xl font-bold lg:text-4xl
+}
+.text-body h2::after{
+    content: '!';
+}
+.text-body h3{
+    @apply text-[17px] w-screen h-fit text-wrap px-4 sm:w-[90%] mt-4 md:px-8 md:w-md lg:w-[60%] lg:text-2xl lg:px-0 md:text-xl
+}
+.w-box .btn{
+    @apply w-[60%] md:w-[35%] lg:w-[25%] mt-10
+}
+.mining-pic{
+    @apply w-fit relative place-items-center place-content-center mt-5 
+}
+.mining-pic img{
+    @apply w-35 h-30 
+}
