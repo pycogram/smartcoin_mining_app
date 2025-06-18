@@ -8,7 +8,7 @@ Smartcoin is my first full-stack application made with:
 
 Features includes the following: 
 - Signup/ login system 
-- Email verififaction 
+- Email verificaction 
 - Bonus based on Referral 
 - Send & Receive $SC from user
 - Lock/stake $SC mechanism 
