@@ -4,7 +4,8 @@ Smartcoin is my first full-stack application built with:
 - React + TypeScript + Vite,
 - Express, 
 - MongoDB,
-- NodeJs
+- NodeJs,
+- Tailwindcss (CSS)
 
 ### Features include: 
 - Signup/ login system 
@@ -17,6 +18,12 @@ Smartcoin is my first full-stack application built with:
 - Settings
 - And many more
 
-Application **hosted is on Render**.
+### Hosting platform:
+Application hosted is on **Render**.
 
+### SC Architecture:
 The architecture is organized into clearly defined components, folders, and subfolders to maintain clean separation of concerns and ensure stability in production.
+
+### UI Prototype:
+The frontend was first designed and prototyped by me on **Figma** and then developed using React with TypeScript and Tailwind CSS.
+
