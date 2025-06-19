@@ -17,6 +17,7 @@ const SendCoin = React.lazy(() => import('./pages/users/send-sc'));
 const ApproveTx = React.lazy(() => import('./pages/users/approve-tx'));
 const NotificationPg = React.lazy(() => import('./pages/users/notification'));
 const SelectPkg = React.lazy(() => import('./pages/users/select-pkg'));
+const LockPkg = React.lazy(() => import('./pages/users/lock-pkg'));
 
 function App() {
   return (
@@ -33,6 +34,7 @@ function App() {
                 <Route path='approve-tx' element={<ApproveTx />} />
                 <Route path='notification' element={<NotificationPg />} />
                 <Route path='select-pkg' element={<SelectPkg />} />
+                <Route path='lock-pkg' element={<LockPkg />} />
             </Route>
             <Route>
               <Route path='/welcome' element={<WelcomePage />} />
