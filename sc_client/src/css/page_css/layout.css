@@ -39,13 +39,27 @@
 }
 .nav-down{
     @apply bottom-0 fixed flex gap-x-2 justify-around items-center py-2 px-4 
-    w-full z-10 shadow-lg border-1 border-gray-300 
-    md:hidden 
+    w-full z-10 shadow-lg border-0 border-t-1 border-gray-300 
+    md:hidden bg-white  
 }
 .nav-down .nd-option{
-    @apply text-center block place-items-center place-content-center
-    text-xs font-normal hover:text-blue-950 active:text-blue-950
+    @apply h-full block space-y-1 place-items-center place-content-center px-1 py-1
+    transition ease-in-out delay-200 border-2 border-transparent 
 }
-.nav-down .nd-option .ndo-link{
-    @apply size-5
+.nav-down .nd-option:hover,
+.nav-down .nd-option:active{
+    @apply border-b-gray-800
+}
+.nd-option i{
+    @apply text-[18px] text-gray-700
+} 
+.nd-option .db-iconx{
+    @apply text-[22px] 
+}
+.nd-option p{
+    @apply text-[11px] capitalize leading-none text-gray-700
+}
+.nd-option:hover i, .nd-option:hover p,
+.nd-option:active i, .nd-option:active p{
+    @apply text-gray-800 
 }
