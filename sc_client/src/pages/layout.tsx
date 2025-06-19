@@ -59,36 +59,36 @@ const Layout = () => {
                 <Outlet />
             </main>
             <footer className="nav-down">
-
-                    <div className="nd-option">
-                        <i className="fa-solid fa-comment"></i>
-                        <p className="nd-text">chat</p>
-                    </div>
-
                 <Link to={""}>
                     <div className="nd-option">
-                        <i className="fa-solid fa-lock"></i>
-                        <p className="nd-text">lock</p>
+                        <i className="fa-solid fa-comment"></i>
+                        <p>chat</p>
                     </div>
                 </Link>
                 <Link to={""}>
                     <div className="nd-option">
                         <i className="fa-solid fa-coins db-iconx"></i>
-                        <p className="nd-text">dashboard</p>
+                        <p>dashboard</p>
                     </div>
                 </Link>
                 <Link to={""}>
                     <div className="nd-option">
+                        <i className="fa-solid fa-lock"></i>
+                        <p>lock</p>
+                    </div>
+                </Link>
+                {/* <Link to={""}>
+                    <div className="nd-option">
                         <i className="fa-solid fa-user"></i>
-                        <p className="nd-text">profile</p>
+                        <p>profile</p>
                     </div>
                 </Link>
                 <Link to={""}>
                     <div className="nd-option">
                         <i className="fa-solid fa-gear"></i>
-                        <p className="nd-text">setting</p>
+                        <p>setting</p>
                     </div>
-                </Link>
+                </Link> */}
             </footer>
         </div>
     );
