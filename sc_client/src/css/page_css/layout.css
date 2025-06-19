@@ -48,16 +48,16 @@
 }
 .nav-down .nd-option:hover,
 .nav-down .nd-option:active{
-    @apply border-b-gray-800
+    @apply border-b-gray-400
 }
 .nd-option i{
-    @apply text-[18px] text-gray-700
+    @apply text-[18px] text-gray-600
 } 
 .nd-option .db-iconx{
     @apply text-[22px] 
 }
 .nd-option p{
-    @apply text-[11px] capitalize leading-none text-gray-700
+    @apply text-[11px] capitalize leading-none text-gray-600
 }
 .nd-option:hover i, .nd-option:hover p,
 .nd-option:active i, .nd-option:active p{

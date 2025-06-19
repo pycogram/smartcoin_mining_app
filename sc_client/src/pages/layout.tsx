@@ -73,7 +73,7 @@ const Layout = () => {
                 </Link>
                 <Link to={""}>
                     <div className="nd-option">
-                        <i className="fa-solid fa-wallet db-iconx"></i>
+                        <i className="fa-solid fa-coins db-iconx"></i>
                         <p className="nd-text">dashboard</p>
                     </div>
                 </Link>
