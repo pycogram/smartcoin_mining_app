@@ -1,0 +1,20 @@
+@import 'tailwindcss';
+
+.verify-page{
+    @apply w-[100%] relative block py-[1.5rem] lg:py-[1rem]
+}
+.verify-page form{
+    @apply w-[90%] block place-self-center sm:w-[400px]  
+}
+form .header-text{
+    @apply text-2xl font-bold lg:text-center lg:text-4xl
+}
+form .verify-info{
+    @apply text-sm lg:text-[20px] border border-gray-400 px-3 py-2 my-4 bg-white
+}
+form img{
+    @apply h-[250px] w-[150] place-self-center
+}
+form .for-secondary-btn{
+    @apply  w-[95%] md:w-[90%] place-self-center
+}
