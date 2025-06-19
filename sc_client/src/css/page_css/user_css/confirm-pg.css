@@ -1,0 +1,61 @@
+@import "tailwindcss";
+
+.confirm-page{
+    @apply w-[100%] relative block py-[2rem] lg:py-[1rem]
+}
+.confirm-page form{
+    @apply w-[90%] block place-self-center sm:w-[400px]  
+}
+form header{
+    @apply text-sm md:text-lg lg:text-xl font-medium w-fit text-gray-700
+}
+form .input-box{
+    @apply bg-white relative flex flex-wrap w-full place-self-center place-content-center 
+    gap-x-2 gap-y-2 px-4 md:px-1 h-[100px] rounded-sm outline outline-gray-400
+}
+.input-box input{
+    @apply outline outline-gray-400 px-2 md:px-3 lg:pl-4 rounded-sm 
+    h-[30px] w-[30px] sm:h-[40px] sm:w-[40px] md:h-[45px] md:w-[45px] bg-green-100
+}
+.input-box input:focus{
+    @apply bg-white outline-gray-700
+}
+form .input-btn{
+    @apply flex w-[100%] mt-2 flex-nowrap place-content-between place-items-center place-self-center 
+}
+form .input-btn .icon-btn{
+    @apply cursor-pointer transition-all ease-in-out delay-75 
+    text-gray-600 hover:text-gray-400 bg-gray-200 border border-gray-300 rounded-full
+    px-1.5 py-1.5 text-center hover:bg-white 
+}
+form .confirm-info{
+    @apply text-sm lg:text-[20px] border border-gray-400 px-3 py-2 my-4 bg-white 
+}
+form .confirm-info::first-letter{
+    @apply capitalize
+}
+form img{
+    @apply h-[250px] w-[150] place-self-center
+}
+form .for-secondary-btn{
+    @apply  w-[95%] md:w-[90%] lg:w-[100%] place-self-center mt-4
+}
+
+.approve-page{
+    @apply py-[5rem] lg:py-[2rem]
+}
+form .approve-h1-img{
+    @apply border-0 pb-1 lg:pb-4 flex place-items-center place-content-center w-full relative
+    gap-x-2 lg:gap-x-4
+}
+.approve-h1-img h1{
+    @apply text-4xl font-bold lg:text-6xl text-gray-600
+}
+.approve-h1-img h1::before{
+    @apply bg-gray-600 w-5 lg:w-10 h-1.5 lg:h-2 flex absolute 
+    -ml-[2rem] lg:-ml-[4rem] mt-[1rem] lg:mt-[1.5rem]
+    ;content: "";
+}
+.approve-h1-img img{
+    @apply w-8 h-8 lg:w-12 lg:h-12
+}
