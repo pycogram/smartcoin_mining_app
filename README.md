@@ -29,5 +29,6 @@ The architecture is organized into clearly defined components, folders, and subf
 ### UI Prototype:
 The frontend was first designed and prototyped by me on **Figma** and then developed using Javascript libraries and CSS framework.
 
-### Screenshot of Smartcoin Design build with figma
+### Smartcoin Design:
+SC was first designed on figma before I started coding it. The below is the all-in-one screenshot.
 ![Screenshot](./sc-figma.png)
