@@ -5,7 +5,7 @@
 .nav-link{
     @apply flex sm:gap-x-10 justify-around items-center py-2.5 top-0 
     fixed w-full z-10  border border-transparent border-b-gray-100
-    md:hidden 
+    md:hidden bg-white bg-[radial-gradient(#e5e7eb_1px,transparent_1px)] [background-size:16px_16px]
 }
 .nav-link .img-pdp{
     @apply flex place-items-center place-content-center gap-x-1 
@@ -39,8 +39,8 @@
 }
 .nav-down{
     @apply bottom-0 fixed flex gap-x-2 justify-around items-center py-2 px-4 
-    w-full z-10 shadow-lg border-0 border-t-1 border-gray-300 
-    md:hidden bg-white  
+    w-full z-10 shadow-lg border-0 border-t-1 border-t-gray-100
+    md:hidden bg-white bg-[radial-gradient(#e5e7eb_1px,transparent_1px)] [background-size:16px_16px] 
 }
 .nav-down .nd-option{
     @apply h-full block space-y-1 place-items-center place-content-center px-1 py-1
