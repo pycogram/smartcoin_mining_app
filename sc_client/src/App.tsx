@@ -18,6 +18,7 @@ const ApproveTx = React.lazy(() => import('./pages/users/approve-tx'));
 const NotificationPg = React.lazy(() => import('./pages/users/notification'));
 const SelectPkg = React.lazy(() => import('./pages/users/select-pkg'));
 const LockPkg = React.lazy(() => import('./pages/users/lock-pkg'));
+const FeedPg = React.lazy(() => import('./pages/users/feed-pg'));
 
 function App() {
   return (
@@ -35,13 +36,14 @@ function App() {
                 <Route path='notification' element={<NotificationPg />} />
                 <Route path='select-pkg' element={<SelectPkg />} />
                 <Route path='lock-pkg' element={<LockPkg />} />
+                <Route path='feed' element={<FeedPg />} />
             </Route>
             <Route>
               <Route path='/welcome' element={<WelcomePage />} />
               <Route path='/register' element={<RegisterPage />} />
-              <Route path='/login' element={<LoginPage />} /> 
-              <Route path='/confirm' element={<ConfirmPage />} />
               <Route path='/verify' element={<VerifyPage />} />
+              <Route path='/confirm' element={<ConfirmPage />} />
+              <Route path='/login' element={<LoginPage />} /> 
             </Route>
         </Routes>
       </Suspense>

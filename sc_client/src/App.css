@@ -10,7 +10,7 @@
   /* color: var(--text1-color-dark-grey); */
   font-weight: normal;
   box-sizing: border-box;
-  @apply text-gray-800
+  /* @apply text-gray-800 */
 }
 a{
   text-decoration: none;
