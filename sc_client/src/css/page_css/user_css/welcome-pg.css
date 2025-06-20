@@ -2,7 +2,7 @@
 
 .welcomepage{
     @apply
-    w-[100%] place-self-center relative block py-[2rem] lg:py-[1rem];
+    w-[100%] place-self-center relative block py-[2rem] lg:py-[1rem] text-gray-700
 }
 .welcomepage .w-box{
     @apply block place-content-center place-items-center

@@ -1,7 +1,7 @@
 @import 'tailwindcss';
 
 .register-page{
-    @apply w-[100%] relative block py-[2rem] lg:py-[1rem]
+    @apply w-[100%] relative block py-[2rem] lg:py-[1rem] text-gray-700
 }
 .register-page form{
     @apply w-[80%] block place-self-center sm:w-[400px] lg:w-[60%]
