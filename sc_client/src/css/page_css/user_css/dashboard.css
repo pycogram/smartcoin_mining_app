@@ -1,0 +1,118 @@
+@import "tailwindcss";
+
+/* .dashboard{
+    @apply w-[100%] grid bg-orange-400 gap-y-2 md:gap-y-4 md:pt-[1rem] md:pb-[2rem] place-self-center
+} */
+ .dashboard{
+    @apply w-[100%] h-fit grid gap-y-2 md:gap-y-4 sm:pt-[2rem] sm:pb-[5rem] 
+    md:py-0 lg:py-[2rem] place-self-center
+ }
+.dashboard .db-navbar{
+    @apply hidden md:flex relative place-content-between place-items-center mb-2 px-[4rem]
+}
+.db-navbar .menu-notify{
+    @apply flex w-fit gap-x-4 hover:cursor-pointer
+}
+.menu-notify .nav-option{
+    @apply size-7 lg:size-8 rounded-full border-2 bg-gray-100 border-gray-300 
+    hover:bg-white hover:border-gray-400 hover:scale-95
+}
+.db-navbar .img-pdp{
+    @apply flex place-items-center gap-x-2
+}
+.img-pdp span{
+    @apply border-2 rounded-4xl h-8 w-8 lg:h-10 lg:w-10 overflow-hidden 
+    bg-white border-gray-200 hover:border-white
+}
+.img-pdp span img{
+    @apply w-full h-full border-transparent border-0 hover:scale-110
+    transition ease-in-out delay-150
+}
+.img-pdp p{
+    @apply text-lg lg:text-2xl
+}
+.dashboard .logo-amt-eye{
+    @apply flex place-content-center place-items-center gap-x-4 rounded-lg
+    text-shadow-sm place-self-center
+    w-fit h-fit mb-5 sm:mt-[3rem] md:mt-0 md:mb-0
+}
+.logo-amt-eye img{
+    @apply w-8 h-8 lg:w-15 lg:h-15
+}
+.logo-amt-eye .mined-amt{
+    @apply flex gap-x-1 place-items-center 
+}
+.mined-amt h2{
+    @apply text-4xl font-semibold text-orange-600 text-shadow-2xs md:text-5xl lg:text-7xl
+}
+.mined-amt h3{
+    @apply text-2xl mt-0.5 font-semibold text-orange-600 lg:text-5xl
+}
+.logo-amt-eye svg{
+    @apply w-7 text-red-400;
+}
+.logo-amt-eye .iconx i{
+    @apply flex place-items-center place-content-center h-8 w-9 text-gray-700
+    rounded-2xl border-2 border-gray-200 bg-white hover:bg-gray-200 hover:border-white ;
+}
+.dashboard .lock-coin{
+    @apply w-70 place-self-center sm:w-100 lg:mt-0 lg:w-120 cursor-pointer
+}
+.lock-coin p{
+    @apply text-[12px] uppercase text-blue-900 font-bold sm:text-[15px] md:text-[17px] lg:text-[20px]
+}
+.dashboard .db-button{
+    @apply bg-white shadow-xs flex place-items-center place-content-around w-70 h-20 
+    rounded-lg border-2 border-gray-300 place-self-center my-2 sm:w-100 lg:w-120 lg:h-30 lg:my-5 
+}
+.db-button span{
+    @apply place-items-center
+}
+.db-button span i{
+    @apply flex place-items-center place-content-center h-9 w-9 text-gray-700
+    rounded-4xl border-2 bg-gray-100 border-gray-300 hover:bg-orange-400 hover:text-white
+    lg:h-12 lg:w-12 lg:text-2xl hover:scale-95
+}
+.db-button span p{
+    @apply text-[14px] mt-1 text-blue-950 font-semibold lg:text-[18px]
+}
+.dashboard .pie-sidebutton{
+    @apply flex place-items-start place-content-evenly sm:place-content-around 
+    lg:place-content-between w-80 place-self-center
+    sm:w-100 md:w-140
+}
+.pie-sidebutton .piechart-sec{
+    @apply w-fit ml-0 block relative md:flex md:gap-x-5 md:place-items-end 
+}
+.piechart-sec span .piechart_css{
+    @apply w-45 h-45 p-[0.5rem] md:p-0 rounded-[100%] border-4 border-gray-300 sm:w-55 sm:h-55 lg:w-60 lg:h-60
+}
+.piechart-sec ul{
+    @apply mt-4
+}
+.piechart-sec ul li{
+    @apply text-xs font-semibold w-fit flex place-items-center md:text-sm lg:text-lg;
+}
+.piechart-sec ul li::before{
+    @apply w-2.5 h-2.5 mr-1.5 relative rounded-xs md:w-4 md:h-4
+    ;content: " ";
+}
+.piechart-sec ul li:nth-child(1)::before{
+    @apply bg-[#0088FE]
+}
+.piechart-sec ul li:nth-child(2)::before{
+    @apply bg-[#00C49F]
+}
+.piechart-sec ul li:nth-child(3)::before{
+    @apply bg-[#FFBB28]
+}
+.pie-sidebutton .db-sidebutton{
+    @apply w-fit 
+}
+.db-sidebutton span{
+    @apply my-2 mx-1 px-1.5 py-1.5 border-2 border-gray-300 rounded-4xl bg-white
+    hover:bg-gray-100 hover:border-gray-400
+}
+.db-sidebutton span img{
+    @apply w-6 h-6 md:w-7 md:h-7 lg:w-8 lg:h-8
+}
