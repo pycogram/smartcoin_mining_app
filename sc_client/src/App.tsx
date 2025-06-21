@@ -19,6 +19,7 @@ const NotificationPg = React.lazy(() => import('./pages/users/notification'));
 const SelectPkg = React.lazy(() => import('./pages/users/select-pkg'));
 const LockPkg = React.lazy(() => import('./pages/users/lock-pkg'));
 const FeedPg = React.lazy(() => import('./pages/users/feed-pg'));
+const UserFeed = React.lazy(() => import('./pages/users/user-feed'));
 
 function App() {
   return (
@@ -37,6 +38,7 @@ function App() {
                 <Route path='select-pkg' element={<SelectPkg />} />
                 <Route path='lock-pkg' element={<LockPkg />} />
                 <Route path='feed' element={<FeedPg />} />
+                <Route path='user-feed' element={< UserFeed />} />
             </Route>
             <Route>
               <Route path='/welcome' element={<WelcomePage />} />
