@@ -38,7 +38,7 @@
     ml-0 md:ml-25 lg:ml-80 
 }
 .nav-down{
-    @apply bottom-0 fixed flex gap-x-2 justify-around items-center py-2 px-4 
+    @apply bottom-0 fixed flex gap-x-2 justify-around items-center py-0.5 px-4 
     w-full z-10 shadow-lg border-0 border-t-1 border-t-gray-100
     md:hidden bg-white bg-[radial-gradient(#e5e7eb_1px,transparent_1px)] [background-size:16px_16px] 
 }
@@ -48,16 +48,17 @@
 }
 .nav-down .nd-option:hover,
 .nav-down .nd-option:active{
-    @apply border-b-gray-400
+    @apply border-b-gray-400 bg-gray-100 rounded-md shadow-2xl 
 }
 .nd-option i{
     @apply text-[18px] text-gray-600
 } 
-.nd-option .db-iconx{
-    @apply text-[22px] 
+.nd-option svg{
+    @apply size-6 text-gray-800 font-bold
 }
 .nd-option p{
-    @apply text-[11px] capitalize leading-none text-gray-600
+    @apply text-[11px] capitalize leading-none text-gray-600 tracking-[0.8px]
+    font-medium
 }
 .nd-option:hover i, .nd-option:hover p,
 .nd-option:active i, .nd-option:active p{
