@@ -1,0 +1,76 @@
+@import "tailwindcss";
+
+.menu-section::-webkit-scrollbar{
+    display: none;
+}
+.menu-section{
+    @apply bg-white bg-[radial-gradient(#e5e7eb_1px,transparent_1px)] [background-size:16px_16px] 
+    border-r-1 border-gray-200 left-0 top-0 w-60 h-screen fixed grid z-20 
+    place-items-center place-content-evenly overflow-y-scroll
+    md:z-0 md:w-25 md:h-screen
+    lg:block lg:place-content-center lg:w-80 lg:h-screen
+}
+/* .menu-section{
+    @apply bg-white border-r-1 border-gray-200 h-screen py-5 w-70 fixed z-20 top-0 left-0 grid 
+    md:z-0 md:w-25 lg:w-80 lg:h-[100%] overflow-y-scroll md:block
+} */
+.menu-section .menu-bar{
+    @apply place-items-center place-content-center w-6 h-6
+    p-0.5 transition duration-300 ease-in-out hover:bg-amber-200 hover:font-extrabold
+    absolute left-4 top-4 cursor-pointer
+    md:hidden bg-gray-200 border border-gray-300 rounded-2xl 
+}
+.menu-bar .menu-bar-icon{
+    @apply size-5 place-self-center
+}
+.menu-section .menu-img{
+    @apply h-fit w-10 place-self-center 
+    md:h-13 md:w-13
+}
+.menu-section img{
+    @apply w-7 h-6 place-self-center md:mt-8 lg:mt-0
+}
+.scrollbar-hidden::-webkit-scrollbar{
+    display: none;
+}
+.menu-section .menu-option{
+    @apply grid mt-0 place-content-center text-start gap-y-2 transition ease-in-out delay-100 
+    md:max-h-[85%] lg:max-h-[70%]  md:w-fit outline-0 border border-transparent md:border-b-gray-300 
+    md:border-t-gray-300 md:px-1 md:block md:place-self-center overflow-y-scroll md:pt-0 md:pb-6 md:mt-5
+    ;scrollbar-width: none;
+}
+.menu-option .dmo-i-p{
+    @apply flex place-items-center gap-x-5 text-gray-800 text-lg
+    rounded-full px-4 py-1.5 ring-0 transition ease-in-out delay-150
+    hover:bg-gray-100 hover:ring-1 hover:ring-gray-300 
+    md:my-4 md:block md:px-4 md:space-y-1 lg:space-y-0
+    lg:px-7 lg:flex lg:my-2.5 
+}
+.dmo-i-p i{
+    @apply text-[18px] opacity-80 md:text-[24px] lg:text-[24px]
+}
+.dmo-i-p svg{
+    @apply size-5 md:size-7
+}
+.dmo-i-p p{
+    @apply text-[20px] capitalize md:text-[14px] text-wrap text-center md:leading-2.5
+    md:w-12 lg:w-fit lg:text-[26px] lg:leading-normal 
+}
+.dmo-i-p:hover i, .dmo-i-p:hover svg, .dmo-i-p:hover p,
+.dmo-i-p:active i, .dmo-i-p:active svg, .dmo-i-p:active p{
+    @apply transition ease-in-out delay-150 opacity-100 text-orange-500 
+}
+
+.menu-section .social-link{
+    @apply bottom-0 flex gap-x-4 place-items-center place-content-center h-10 md:h-20 lg:h-15 w-fit 
+    place-self-center text-lg
+    md:flex-wrap md:text-lg md:gap-y-4 md:w-20  
+    lg:w-full lg:text-xl lg:gap-x-8 
+} 
+.menu-section .social-link :nth-child(1n){
+    @apply  text-gray-600 hover:text-orange-400 hover:animate-pulse active:text-gray-800
+}
+.over-lay{
+    @apply bg-black inset-0 opacity-80 w-full h-full fixed z-15 top-0 transition-all ease-in-out delay-200
+    md:hidden 
+}
