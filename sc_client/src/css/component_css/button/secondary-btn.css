@@ -1,0 +1,31 @@
+@import 'tailwindcss';
+
+.secondary-btn{
+    @apply w-[100%] relative flex place-content-between place-items-center
+}
+.secondary-btn .s-btn1{
+    @apply w-fit px-2 py-1 font-semibold text-[14px] md:text-lg border-white 
+    transition-all ease-in-out delay-75 mt-5 text-orange-500 hover:text-black capitalize
+    flex place-content-center place-items-center text-nowrap gap-x-1.5 
+}
+.s-btn1 .icon-btn{
+    @apply size-4 text-xs lg:text-lg transition-all ease-in-out delay-75 mt-0.5 lg:mb-3;
+    color: orange;
+}
+.secondary-btn .s-btn1:hover > .icon-btn{
+    color: black;
+}
+.icon-btn:hover{
+    color: rgb(90, 82, 82);
+}
+.secondary-btn .s-btn2{
+    @apply bg-gray-500 w-fit lg:w-[140px] text-white 
+    border-2 rounded-md hover:bg-gray-500 hover:border-red-200 gap-x-1.5 lg:gap-x-2
+}
+.s-btn2 .icon-btn{
+    @apply size-4 text-white transition-all ease-in-out delay-75;
+    color: white;
+}
+.secondary-btn .s-btn2:hover > .icon-btn{
+    color: black;
+}
