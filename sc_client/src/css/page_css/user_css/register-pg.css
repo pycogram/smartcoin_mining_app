@@ -76,7 +76,7 @@ form .form-social{
     @apply w-[80%] block place-self-center sm:w-[400px]
 }
 form .login-form2{
-    @apply block space-y-1 mt-2 lg:grid grid-cols-1 lg:gap-y-2 lg:space-y-0
+    @apply block space-y-[1rem] mt-2 lg:grid grid-cols-1 lg:gap-y-2 lg:space-y-0
 }
 .fs-login2 p:first-child::before{
     @apply lg:w-[30%] lg:left-10
