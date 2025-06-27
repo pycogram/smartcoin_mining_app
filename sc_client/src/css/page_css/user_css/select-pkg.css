@@ -1,0 +1,83 @@
+@import "tailwindcss";
+
+.page-box{
+    @apply bg-white w-full min-h-screen max-h-full pt-[1rem] pb-[3rem] z-10 
+    place-content-center place-items-center md:pt-[1rem] 
+}
+.select-pkg{
+    /* @apply w-[90%] h-[100%]  */
+    @apply w-[90%] place-content-start place-items-center
+    md:place-content-center md:my-0 md:h-[100%]
+    sm:w-[70%] md:w-130 text-gray-700 
+}
+.select-pkg .ref-span-go-back{
+    @apply rounded-full bg-gray-100 border border-gray-200 
+    hover:bg-gray-200 hover:border-gray-300 w-fit place-self-start mb-[1rem] md:hidden
+}
+.select-pkg .ref-span-go-back svg{
+    @apply size-7 md:hidden
+}
+.select-pkg h3{
+    @apply capitalize text-[16px] font-bold md:text-[18px] lg:text-[22px] mb-0.5 lg:mb-2
+}
+.select-pkg .active-lock{
+    @apply bg-gray-50 border border-gray-300 py-2 px-1.5 block mb-[1rem] w-full
+    hover:bg-gray-100 hover:border-gray-400 cursor-pointer lg:mb-[2rem] lg:py-3 lg:px-2
+}
+.active-lock p{
+    @apply text-[14px] capitalize md:text-[16px] lg:text-[18px]
+}
+.select-pkg .select-lock-pkg{
+    @apply block w-full h-full space-y-1 md:grid md:grid-cols-2 md:gap-x-1.5 md:place-content-center 
+    transition ease-in-out delay-200 lg:gap-x-2.5 lg:space-y-2.5
+}
+.select-lock-pkg .each-pkg{
+    @apply bg-white border-4 rounded-sm border-gray-200 flex place-items-center place-content-center py-2
+    space-x-4 hover:scale-95 hover:border-blue-300 transition ease-in-out delay-200 lg:h-35 cursor-pointer
+}
+.select-lock-pkg .each-pkg:active{
+    @apply border-blue-300 scale-95
+}
+.each-pkg span:nth-child(1){
+    @apply bg-gray-200 place-items-center place-content-center h-25 w-30 rounded-sm
+}
+.each-pkg span:nth-child(1) h4{
+    @apply text-[14px] capitalize font-bold lg:text-[16px]
+}
+.each-pkg span:nth-child(1) img{
+    @apply w-18 h-16 rounded-sm border border-white
+}
+.each-pkg span:nth-child(2){
+    @apply block place-items-center place-content-center space-y-1.5 capitalize
+}
+.each-pkg span:nth-child(2) h2{
+    @apply text-[20px] font-bold lg:text-[22px]
+}
+.each-pkg span:nth-child(2) h3{
+    @apply text-[15px] font-bold lg:text-[18px]
+}
+
+
+.lock-pkg .each-pkg{
+    @apply block space-y-0 h-full w-full border-0
+}
+.lock-pkg .each-pkg span:nth-child(1){
+    @apply w-fit h-fit bg-transparent 
+}
+
+.lock-pkg .each-pkg span:nth-child(1) h4{
+    @apply text-[22px] lg:text-[26px]
+}
+.lock-pkg .each-pkg span:nth-child(1) img{
+    @apply w-40 h-30 border-0 my-2 lg:my-0 lg:w-45 lg:h-40 
+}
+.lock-pkg .each-pkg span:nth-child(2) h2{
+    @apply text-[25px] lg:text-[30px]
+}
+.lock-pkg .each-pkg span:nth-child(2) h3{
+    @apply text-[20px] lg:text-[25px]
+}
+
+.lock-pkg .w-button{
+    @apply lg:mb-[1rem]
+}
