@@ -3,10 +3,21 @@ import mongoose from 'mongoose';
 import path from 'path';
 import dotenv from 'dotenv';
 import { userRoutes } from './routes/user';
+import cors from 'cors';
 
 dotenv.config({ path: path.resolve(__dirname, '../../.env') }); 
 
 const app = express(); //instanciate an express obj to server with it
+
+if(process.env.NODE_ENV !== 'production') {
+    app.use(
+        cors({
+            origin: 'http://localhost:5173', // allow requests from this origin
+            methods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE'], // allowed methods
+            credentials: true, // allow credentials
+        })
+    )
+}
 
 // middleware that allow json
 app.use(express.json());

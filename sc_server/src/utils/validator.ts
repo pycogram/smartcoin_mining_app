@@ -15,13 +15,13 @@ const nameField = Joi.string()
 const emailField = Joi.string()
     .email({tlds: {allow: ['com', 'net']}})
     .required()
-    .min(6)
+    .min(3)
     .max(60)
     .messages({
         'string.base': '{{#label}} must be a string',
         'string.email': '{{#label}} must be a valid and end with either .com or .net',
         'string.empty': '{{#label}} is required',
-        'string.min': '{{#label}} must be at least 6 characters',
+        'string.min': '{{#label}} must be at least 3 characters',
         'string.max': '{{#label}} must not exceed 60 characters',
         'any.required': '{{#label}} is required'
 });
@@ -33,7 +33,7 @@ const passwordField = Joi.string()
     .messages({
         'string.base': '{{#label}} must be a string',
         'string.empty': '{{#label}} is required',
-        'string.min': '{{#label}} must be at least 6 characters',
+        'string.min': '{{#label}} must be at least 5 characters',
         'string.max': '{{#label}} must not exceed 30 characters',
         'string.pattern.base': '{{#label}} must be alphanumeric and can include @ # $ !',
         'any.required': '{{#label}} is required'
