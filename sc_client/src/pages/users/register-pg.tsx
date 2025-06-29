@@ -1,37 +1,76 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import PrimaryBtn from "../../components/button/primary-btn";
 import "../../css/page_css/user_css/register-pg.css";
+import React, { useState } from "react";
+import { registerUser } from "../../controllers/user";
+import Fail from "../../components/alert/fail";
 
 const RegisterPage = () => {
+    // input state
+    const [formData, setFormData] = useState({
+        first_name: "",
+        last_name: "",
+        email: "",
+        invited_by: "",
+        password: "",
+        confirmed_password: ""
+    });
+
+    //error state
+    const [error, setError] = useState("");
+
+    // use navigate model
+    const navigate = useNavigate();
+
+    // fn that handle register submit request
+    const handleRegister = async (e: React.FormEvent<HTMLFormElement>) => {
+
+        // to prevent page from reloading
+        e.preventDefault();
+
+        setError("");
+
+        // register user
+        try{
+            const data = await registerUser(formData);
+
+            const {first_name, email} = data;
+            navigate('/verify', {state: {first_name, email}})
+
+        } catch(err){
+            setError(`${(err as Error).message}`)
+        }
+    }
     return ( 
         <div className="register-page">
-            <form action="">
+            <form onSubmit={handleRegister}>
                 <header className="header-text">Register</header>
+                {error && <Fail error={error} />}
                 <div className="form-input-box">
                     <div>
                         <label>First name:</label>
-                        <input type="text" placeholder="John"/>
+                        <input value={formData.first_name} onChange={(e) => setFormData({...formData, first_name: e.target.value})} type="text" placeholder="John"/>
                     </div>
                     <div>
                         <label>Last name</label>
-                        <input type="text" placeholder="Doe"/>
+                        <input value={formData.last_name} onChange={(e) => setFormData({...formData, last_name: e.target.value})} type="text" placeholder="Doe"/>
                     </div>
                     <div>
                         <label>Email:</label>
-                        <input type="text" placeholder="johndoe@gmail.com"/>
+                        <input value={formData.email} onChange={(e) => setFormData({...formData, email: e.target.value})} type="text" placeholder="johndoe@gmail.com"/>
                     </div>
                     <div>
                         <label>Invited by:</label>
-                        <input type="text" placeholder="mosaic"/>
+                        <input value={formData.invited_by} onChange={(e) => setFormData({...formData, invited_by: e.target.value})} type="text" placeholder="mosaic"/>
                     </div>
                     <div>
                         <label>Password:</label>
-                        <input type="text" placeholder="*******"/>
+                        <input value={formData.password} onChange={(e) => setFormData({...formData, password: e.target.value})} type="text" placeholder="*******"/>
                         <i className="fa-solid fa-eye-slash"></i>
                     </div>
                     <div>
                         <label>Confirm password:</label>
-                        <input type="text" placeholder="*******"/>
+                        <input value={formData.confirmed_password} onChange={(e) => setFormData({...formData, confirmed_password: e.target.value})} type="text" placeholder="*******"/>
                         <i className="fa-solid fa-eye-slash"></i>
                     </div>
                 </div>
@@ -58,7 +97,7 @@ const RegisterPage = () => {
                             </Link>
                         </li>
                     </ul>
-                    <p>already have an account? Pls <Link to={""} className="login-option">login</Link></p>
+                    <p>already have an account? Pls <Link to={"/login"} className="login-option">login</Link></p>
                 </div>
             </form>
         </div>
