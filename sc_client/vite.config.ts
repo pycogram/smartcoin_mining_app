@@ -23,9 +23,9 @@ export default defineConfig(({ mode }) => ({
     proxy: mode === 'development'
       ? {
           '/api': {
-            target: 'http://localhost:3001', // Your backend dev port
+            target: 'http://localhost:3001',
             changeOrigin: true,
-            rewrite: path => path.replace(/^\/api/, '')
+            secure: false, 
           }
         }
       : undefined
