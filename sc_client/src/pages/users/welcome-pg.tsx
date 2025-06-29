@@ -1,4 +1,5 @@
 import PrimaryBtn from '../../components/button/primary-btn';
+import { Link } from "react-router-dom";
 import logo from '../../images/logos/sc_logo.png';
 import mining_pic from '../../images/pics/miningscpic.png';
 import "../../css/page_css/user_css/welcome-pg.css";
@@ -21,8 +22,10 @@ const WelcomePage = () => {
                         </h3>
                     </span>
                 </div>
-                <div className='btn'>
-                    <PrimaryBtn btnText={"Get Started"} />
+                <div className='btn'> 
+                    <Link to={"/register"}>
+                        <PrimaryBtn btnText={"Get Started"} />
+                    </Link>
                 </div>
                 <div className='mining-pic'>
                     <img src={mining_pic} alt="mining logo" className="" />
