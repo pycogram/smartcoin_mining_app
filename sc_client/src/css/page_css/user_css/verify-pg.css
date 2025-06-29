@@ -8,10 +8,13 @@
     @apply w-[90%] block place-self-center sm:w-[400px]  h-full relative
 }
 form .header-text{
-    @apply text-2xl font-bold lg:text-center lg:text-4xl
+    @apply text-2xl font-bold lg:text-center lg:text-4xl 
 }
 form .verify-info{
     @apply text-sm lg:text-[20px] border border-gray-400 px-3 py-2 my-4 bg-white
+}
+.verify-info b, .verify-info b i{
+    @apply font-bold
 }
 form img{
     @apply h-[250px] w-[150] place-self-center mt-4
