@@ -13,10 +13,10 @@ const nameField = Joi.string()
         'any.required': '{{#label}} is required'
 });
 const emailField = Joi.string()
-    .email({tlds: {allow: ['com', 'net']}})
     .required()
     .min(3)
     .max(60)
+    .email({tlds: {allow: ['com', 'net']}})
     .messages({
         'string.base': '{{#label}} must be a string',
         'string.email': '{{#label}} must be a valid and end with either .com or .net',
@@ -45,5 +45,8 @@ const registerUserSchema = Joi.object({
     email: emailField.label("Email"),              
     password: passwordField.label("Password")
 });
+const verifyUserSchema = Joi.object({       
+    email: emailField.label("Email")
+});
 
-export {registerUserSchema};
+export {registerUserSchema, verifyUserSchema};
