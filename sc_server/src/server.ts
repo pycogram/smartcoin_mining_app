@@ -1,11 +1,11 @@
+import dotenv from 'dotenv';
+import path from 'path';
+dotenv.config({ path: path.resolve(__dirname, '../../.env') }); 
+
 import express from 'express';
 import mongoose from 'mongoose';
-import path from 'path';
-import dotenv from 'dotenv';
 import { userRoutes } from './routes/user';
 import cors from 'cors';
-
-dotenv.config({ path: path.resolve(__dirname, '../../.env') }); 
 
 const app = express(); //instanciate an express obj to server with it
 
