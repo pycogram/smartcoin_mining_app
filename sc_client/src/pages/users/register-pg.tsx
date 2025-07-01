@@ -22,20 +22,33 @@ const RegisterPage = () => {
     // use navigate model
     const navigate = useNavigate();
 
+    // hide and reveal password
+
+    const [revealPwdStatus, setRevealPwdStatus] = useState<boolean>(true);
+    const [revealPwdStatus2, setRevealPwdStatus2] = useState<boolean>(true);
+
+    const hideRevealPassword = (clickID: number) => {
+        if(clickID == 1) return setRevealPwdStatus(! revealPwdStatus);
+        if(clickID == 2) return setRevealPwdStatus2(! revealPwdStatus2);
+    }
+
     // fn that handle register submit request
     const handleRegister = async (e: React.FormEvent<HTMLFormElement>) => {
 
         // to prevent page from reloading
         e.preventDefault();
 
-        setError("");
+        //time to set error to empty string 
+        setTimeout(() => {
+            setError("");
+        }, 10 * 1000);     
 
         // register user
         try{
             const data = await registerUser(formData);
 
             const {first_name, email} = data;
-            navigate('/verify', {state: {first_name, email}})
+            navigate('/verify', {state: {first_name, email}});
 
         } catch(err){
             setError(`${(err as Error).message}`)
@@ -65,13 +78,13 @@ const RegisterPage = () => {
                     </div>
                     <div>
                         <label>Password:</label>
-                        <input value={formData.password} onChange={(e) => setFormData({...formData, password: e.target.value})} type="text" placeholder="*******"/>
-                        <i className="fa-solid fa-eye-slash"></i>
+                        <input value={formData.password} onChange={(e) => setFormData({...formData, password: e.target.value})} type={revealPwdStatus ? "password" : "text"} placeholder="********" />
+                        <i onClick={() => hideRevealPassword(1)} className={revealPwdStatus ? "fa-solid fa-eye-slash" : "fa-solid fa-eye"}></i>
                     </div>
                     <div>
                         <label>Confirm password:</label>
-                        <input value={formData.confirmed_password} onChange={(e) => setFormData({...formData, confirmed_password: e.target.value})} type="text" placeholder="*******"/>
-                        <i className="fa-solid fa-eye-slash"></i>
+                        <input value={formData.confirmed_password} onChange={(e) => setFormData({...formData, confirmed_password: e.target.value})} type={revealPwdStatus2 ? "password" : "text"} placeholder="********" />
+                        <i onClick={() => hideRevealPassword(2)} className={revealPwdStatus2 ? "fa-solid fa-eye-slash" : "fa-solid fa-eye"}></i>
                     </div>
                 </div>
                 <div className="form-btn">

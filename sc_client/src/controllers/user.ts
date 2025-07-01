@@ -1,7 +1,6 @@
 //register user
 
 const registerUser = async (formData : object) => {
-    console.log(formData);
 
     const res = await fetch('/api/user/register', {
         method: 'POST', 
@@ -20,4 +19,22 @@ const registerUser = async (formData : object) => {
     return data;
 }
 
-export { registerUser };
+// verify user
+const verifyUser = async (email : string) => {
+    const res = await fetch("api/user/verify", {
+        method: 'POST', 
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({email})
+    });
+    const data = await res.json();
+
+    if(! res.ok){
+        throw new Error(`${data.message}`);
+    }
+
+    return data;
+}
+
+export { registerUser , verifyUser};
