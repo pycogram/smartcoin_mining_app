@@ -1,3 +1,4 @@
+import { string } from "joi";
 import mongoose from "mongoose";
 
 const userScheme = new mongoose.Schema({
@@ -27,6 +28,18 @@ const userScheme = new mongoose.Schema({
         require: [true, 'password is required'],
         select: false,
         trim: true
+    },
+    verified: {
+        type: Boolean,
+        default: false
+    },
+    verified_code: {
+        type: String,
+        select: false
+    },
+    verified_time: {
+        type: Number,
+        select: false
     }
 }, { timestamps: true });
 
