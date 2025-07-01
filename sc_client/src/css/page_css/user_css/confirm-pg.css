@@ -4,7 +4,7 @@
     @apply w-[100%] relative block py-[2rem] lg:py-[1rem] text-gray-700
 }
 .confirm-page form{
-    @apply w-[90%] block place-self-center sm:w-[400px]  
+    @apply w-[90%] block place-self-center sm:w-[400px] 
 }
 form header{
     @apply text-sm md:text-lg lg:text-xl font-medium w-fit text-gray-700
@@ -35,10 +35,10 @@ form .confirm-info::first-letter{
     @apply capitalize
 }
 form img{
-    @apply h-[250px] w-[150] place-self-center
+    @apply h-[250px] w-[150] place-self-center mb-[1rem]
 }
 form .for-secondary-btn{
-    @apply  w-[95%] md:w-[90%] lg:w-[100%] place-self-center mt-4
+    @apply  w-[95%] md:w-[90%] lg:w-[100%] place-self-center mt-4 
 }
 
 .approve-page{
