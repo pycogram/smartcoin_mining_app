@@ -35,7 +35,7 @@ form .confirm-info::first-letter{
     @apply capitalize
 }
 form img{
-    @apply h-[250px] w-[150] place-self-center mb-[1rem]
+    @apply h-[250px] w-[150] place-self-center mb-[1 rem]
 }
 form .for-secondary-btn{
     @apply  w-[95%] md:w-[90%] lg:w-[100%] place-self-center mt-4 
