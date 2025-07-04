@@ -1,15 +1,23 @@
 import { Request, Response} from "express"; 
 import { errHandler } from "../utils/error-handler";
 import userModel from "../models/user";
-import { registerUserSchema, verifyUserSchema } from "../utils/validator";
-// import tokenizedUser from "../token/tokenized-user";
+import { confirmUserSchema, loginUserSchema, registerUserSchema, verifyUserSchema } from "../utils/validator";
 import HmacProcess from "../utils/hmac-process";
-import { PasswordHash } from "../utils/password-handler";
-import Transport from "../middlewares/send-mail";
-
+import { PasswordHash, PasswordVerify } from "../utils/password-handler";
+import Transport from "../utils/send-mail";
+import { console } from "inspector";
+import mongoose from "mongoose";
+import { signUserToken, verifyUserToken } from "../token/tokenized-user";
+import { sign } from "crypto";
 
 // register user
 const registerUser = async (req: Request, res: Response):Promise<void> => {
+
+    //check if the right properties are provided
+    if(! req.body.first_name || ! req.body.last_name || ! req.body.email || ! req.body.password || ! req.body.confirmed_password) 
+        return errHandler(res, "first name, last name, email, password and confirm password properties are required");
+
+    //destructure user inputs
     const {first_name, last_name, email, password, confirmed_password} = req.body;
 
     //check if all input are empty
@@ -31,15 +39,12 @@ const registerUser = async (req: Request, res: Response):Promise<void> => {
 
     try {
         const userRegistered = await userModel.create({first_name, last_name, email, password: hashedPassword});
-        // if(!userRegistered.email){
-        //     throw new Error("email property not found");
-        // }
-        // const getUserToken  = tokenizedUser(userRegistered?._id, userRegistered?.email);
         res.status(200).json({
             status: `success`,
             message: `Account created successfully, To login, please request for email verification code.`,          
             first_name: userRegistered.first_name,
-            email: userRegistered.email
+            email: userRegistered.email,
+            id: userRegistered._id
         });
     } catch(err){
         res.status(500).json({
@@ -48,9 +53,13 @@ const registerUser = async (req: Request, res: Response):Promise<void> => {
         });
     }
 }
-
-// verify user
+// verify user email by sensding verification code
 const verifyUser = async (req: Request, res: Response):Promise<void> => {
+
+    //check if the right properties are provided
+    if(! req.body.email) 
+        return errHandler(res, "email properties is required");
+
     const {email} = req.body;
 
     //check if email input is empty
@@ -76,8 +85,7 @@ const verifyUser = async (req: Request, res: Response):Promise<void> => {
             }
             return result;
         }    
-        const codeValue = (generateCode(8)); 
-        console.log(`codeValue: ${codeValue}`);
+        const codeValue = (generateCode(6)); 
         
         const info = await Transport.sendMail({
             from: process.env.EMAIL_ADDRESS,
@@ -107,7 +115,6 @@ const verifyUser = async (req: Request, res: Response):Promise<void> => {
                 throw new Error("process.env.EMAIL_VERIFICATION_CODE_SECRET is not defined");
             }
             const hashedCodeValue = HmacProcess(codeValue, process.env.EMAIL_VERIFICATION_CODE_SECRET);
-            console.log(`hashedCodeValue: ${hashedCodeValue}`, typeof hashedCodeValue);
 
             existingUser.verified_code = hashedCodeValue.toString();
 
@@ -116,12 +123,17 @@ const verifyUser = async (req: Request, res: Response):Promise<void> => {
             await existingUser.save();
 
             res.status(200).json({
-                success: "success",
+                status: "success",
                 email: existingUser.email,
                 message: `A verification code has been sent to your email address. 
                           Please check either your email inbox or spam-box.`
             });
         }
+        res.status(500).json({
+            status: "failed",
+            message: 'Code failed to send!'
+        });
+
     } catch(err){
         res.status(500).json({
             status: `failed`,
@@ -129,5 +141,140 @@ const verifyUser = async (req: Request, res: Response):Promise<void> => {
         });
     }
 }
+// confirm user provided code then verify user
+const confirmUser = async (req: Request, res: Response):Promise<void> => {
 
-export {registerUser, verifyUser};
+    //check if the right properties are provided
+    if(! req.body.code || ! req.body.id) 
+        return errHandler(res, "code and id properties are required");
+
+    const {code, id} = req.body;
+
+    //check if code input is empty
+    if(! code ) return errHandler(res, "all values are required");
+
+    // validate and sanitize user inputs
+    const {error, value} = confirmUserSchema.validate({code});
+    if(error) return errHandler(res, error.details[0].message.replace(/"/g, ""));
+
+    //check if the id is a valid ObjectId
+    if (typeof id !== "string" || !mongoose.Types.ObjectId.isValid(id)) {
+    return errHandler(res, "Invalid user ID provided");
+    }; 
+
+    // check if user exist
+    const existingUser = await userModel.findOne({_id: id}).select('+verified_code +verified_time');
+    if(! existingUser) return errHandler(res, "user is not registered yet");
+
+    // check if user is verified already
+    if(existingUser.verified) return errHandler(res, "user already verified!");
+
+    // check if verified code and verified time have values
+    if(! existingUser.verified_code || ! existingUser.verified_time) return errHandler(res, "verify your account first");
+
+    // check if code provided by the user is correct
+    const codeValue = code.toString();
+    const hashedCodeValue = HmacProcess(codeValue, process.env.EMAIL_VERIFICATION_CODE_SECRET!);
+    if(hashedCodeValue !== existingUser.verified_code) return errHandler(res, "invalid verification code: The code provided does not match the code sent to your email");
+
+    // check if code has expired
+    if(Date.now() - existingUser.verified_time > 10 * 60 * 1000) return errHandler(res, "Code already expired. Please request for new code!")
+
+    try{
+        if(hashedCodeValue === existingUser.verified_code){
+            existingUser.verified = true;
+            existingUser.verified_code = undefined;
+            existingUser.verified_time = undefined;
+
+            await existingUser.save();
+
+            res.status(200).json({                                                                                                                                                                                                                                                  
+                status: "success",
+                message: 'Your accout has been verified successfully. Please login!'
+            })            
+        }
+        res.status(400).json({                                                                                                                                                                                                                                                  
+            status: "failed",
+            message: 'The unexpected occured!'
+        })
+    }catch(err){
+        res.status(500).json({
+            status: `failed`,
+            error: `Error occured: ${err as Error}`
+        });
+    }
+
+
+}
+//login user
+const loginUser = async (req: Request, res: Response):Promise<void> => {
+
+    //check if the right properties are provided
+    if(! req.body.email || ! req.body.password) 
+        return errHandler(res, "email and password properties are required");
+
+    //destructure user inputs
+    const {email, password} = req.body;
+
+    //check if all input are empty
+    if(! email || ! password) return errHandler(res, "all fields are required");
+
+    // validate and sanitize user inputs
+    const {error, value} = loginUserSchema.validate({email, password});
+    if(error) return errHandler(res, error.details[0].message.replace(/"/g, ""));
+
+    //check if user exist
+    const userExist = await userModel.findOne({email}).select('+password');
+    if(! userExist) return errHandler(res, "user does not exist!");
+
+    //chech if password provided is correct
+    const matchedPassword = await PasswordVerify(password, userExist?.password!);
+    if(! matchedPassword) return errHandler(res, "email or password incorrect!");
+
+    //check if user is verified
+    if(! userExist.verified) return errHandler(res, "user not verified, please verify your account first!");
+
+    try{
+        
+        // generate user token
+        const signedToken  = signUserToken(userExist._id!);
+
+        res.cookie('Authorization', 'Bearer ' + signedToken, {
+            expires: new Date(Date.now() + 10 * 24 * 60 * 60 * 1000), // token expires in 10days
+            httpOnly: process.env.NODE_ENV === 'production',
+            secure: true
+        }).status(200).json({
+            status: `success`,
+            message: `Logged in successfully`,          
+            email: userExist.email,
+            token: signedToken,
+        });
+
+    }catch(err){
+        res.status(500).json({
+            status: `failed`,
+            error: `Error occured: ${err as Error}`
+        });
+    }
+}
+//dashboard user
+const dashboardUser = async (req: Request, res: Response):Promise<void> => {
+    console.log("dashboard user");
+    try{
+        res.status(200).json({
+            status: "success",                                                                                                                                                                                                                                                  
+            message: 'welcome to dashboard!',
+            user_id: (req as any).user_id
+        })
+    }catch(err){
+        res.status(500).json({
+            status: `failed`,
+            error: `Error occured: ${err as Error}`
+        });
+    }
+}
+
+export {
+    registerUser, verifyUser, confirmUser, loginUser,
+    dashboardUser
+};
