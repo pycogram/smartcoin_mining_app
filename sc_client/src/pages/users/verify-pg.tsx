@@ -1,16 +1,24 @@
 import "../../css/page_css/user_css/verify-pg.css";
 import SecondaryBtn from "../../components/button/secondary-btn";
 import verify_pic from "../../images/pics/verify-illustraction.png";
-import { useLocation, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import Fail from "../../components/alert/fail";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { verifyUser } from "../../controllers/user";
 
 const VerifyPage = () => {
-    // get items stored in state passed from registration page
-    const location = useLocation();
-    console.log(location.state ?? "");
-    const userInfo =  location?.state ?? ""
+    const navigate = useNavigate();
+
+    // get items stored in localstorage
+    const userString = localStorage.getItem("user");
+
+    useEffect(() => {
+        if(!userString){
+            navigate('/register', {state: {message: "Please either register or login"}});
+        }
+    }, []);
+    
+    const userInfo = JSON.parse(userString!); 
 
     //input state
     const first_name = userInfo?.first_name;
@@ -18,20 +26,27 @@ const VerifyPage = () => {
 
     //error state
     const [error, setError] = useState<string>("");    
-    
-    const navigate = useNavigate();
-    
+
+    if(error){
+        setTimeout(() => {
+            setError("");
+        }, 10 * 1000)
+    }
+
     const handleVerify = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
+        
+        setError("");
+
         // register user
-        try{
+        try{ 
             const data = await verifyUser(email);
 
             const {message} = data;
-            navigate('/confirm', {state: {message}});
+            navigate('/confirm', {state: message});
 
         } catch(err){
-            setError(`${(err as Error).message}`)
+            setError(`${(err as Error).message}`);
         }
     }
 
@@ -42,12 +57,12 @@ const VerifyPage = () => {
                 {error && <Fail error={error} />}
                 <p className="verify-info">
                     Hi, <b>{first_name}</b>. Your account has been registered succesfully. 
-                    In order to make use of your account (<b><i> {email} </i></b>). 
+                    In order to make use of your account <b><i> " {email} " </i></b>. 
                     Please hit the verify button to receive email verification code.
                 </p>
                 <img src={verify_pic} alt="" />
                 <div className="for-secondary-btn">
-                    <SecondaryBtn text_1={"Go back"} text_2={"Verify"} />
+                    <SecondaryBtn text_1={"Go back"} text_2={"Verify"} link_1={"/register"} />
                 </div>
             </form>
         </div>
