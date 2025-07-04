@@ -1,10 +1,10 @@
 @import "tailwindcss";
 
 .confirm-page{
-    @apply w-[100%] relative block py-[2rem] lg:py-[1rem] text-gray-700
+    @apply w-[100%] relative block py-[2rem] lg:py-[1rem] text-gray-700 
 }
 .confirm-page form{
-    @apply w-[90%] block place-self-center sm:w-[400px] 
+    @apply w-[90%] block sm:w-[400px] place-self-center h-140 relative lg:h-screen
 }
 form header{
     @apply text-sm md:text-lg lg:text-xl font-medium w-fit text-gray-700
@@ -14,8 +14,8 @@ form .input-box{
     gap-x-2 gap-y-2 px-4 md:px-1 h-[100px] rounded-sm outline outline-gray-400
 }
 .input-box input{
-    @apply outline outline-gray-400 px-2 md:px-3 lg:pl-4 rounded-sm 
-    h-[30px] w-[30px] sm:h-[40px] sm:w-[40px] md:h-[45px] md:w-[45px] bg-green-100
+    @apply outline outline-gray-400 text-center rounded-sm text-[18px] md:text-[20px] 
+    h-[35px] w-[35px] sm:h-[45px] sm:w-[45px] md:h-[50px] md:w-[50px] bg-green-100 font-bold
 }
 .input-box input:focus{
     @apply bg-white outline-gray-700
@@ -26,19 +26,14 @@ form .input-btn{
 form .input-btn .icon-btn{
     @apply cursor-pointer transition-all ease-in-out delay-75 
     text-gray-600 hover:text-gray-400 bg-gray-200 border border-gray-300 rounded-full
-    px-1.5 py-1.5 text-center hover:bg-white 
-}
-form .confirm-info{
-    @apply text-sm lg:text-[20px] border border-gray-400 px-3 py-2 my-4 bg-white 
-}
-form .confirm-info::first-letter{
-    @apply capitalize
+    px-1.5 py-1.5 text-center hover:bg-white active:text-gray-400 active:bg-gray-400
 }
 form img{
-    @apply h-[250px] w-[150] place-self-center mb-[1 rem]
+    @apply h-[250px] w-[150] place-self-center mb-[1rem]
 }
 form .for-secondary-btn{
-    @apply  w-[95%] md:w-[90%] lg:w-[100%] place-self-center mt-4 
+    @apply  w-[90%] lg:w-[100%] place-self-center md:mt-4 
+    absolute bottom-[4rem] md:block md:bottom-0 
 }
 
 .approve-page{

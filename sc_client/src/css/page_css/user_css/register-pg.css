@@ -30,7 +30,7 @@ form .form-input-box{
 .form-input-box div i{
     @apply absolute right-2 bottom-1 lg:bottom-2.5 text-sm place-items-center place-content-center
     bg-gray-100 border border-gray-200 rounded-full text-center h-7 w-7 hover:bg-gray-200 hover:border-gray-300
-    hover:scale-95 transition ease-in-out delay-250 font-semibold
+    transition ease-in-out delay-250 font-semibold cursor-pointer
 }
 form .form-btn{
     @apply relative block place-items-center place-content-center lg:w-[400px] lg:place-self-center lg:mt-4 lg:mb-6
