@@ -2,7 +2,7 @@
 
 .success-alert{
     @apply bg-gray-100 flex place-items-center place-content-start py-2 px-1.5
-    relative mt-2 border border-gray-400 text-gray-700
+    relative mt-2 mb-2 border border-gray-400 text-gray-700
 }
 .success-alert svg{
     @apply size-5 h-full
@@ -11,8 +11,11 @@
     @apply text-[16px] leading-4 mb-0.5 w-[90%] ml-1.5 mr-2 first-letter:capitalize
 }
 .success-alert svg:last-child {
-    @apply size-3 p-0.5 bg-red-400 text-white absolute right-1.5 rounded-full z-10
+    @apply size-3 p-0.5 bg-gray-300 text-white absolute right-1.5 rounded-full z-10
 }
 .fail-alert{
     @apply text-red-700
+}
+.fail-alert svg:last-child {
+    @apply size-3 p-0.5 bg-red-400 text-white absolute right-1.5 rounded-full z-10
 }
