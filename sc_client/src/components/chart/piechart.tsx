@@ -20,7 +20,6 @@ const Piechart = ({basedmine, gifted, boast} : Piechart_type) => {
     const isMobile = useMediaQuery({ query: '(min-width: 768px)' });
     const pieChartWidthHeight =  isMobile ? 350 : 200;
     const pieChartRadius =  isMobile ? 150 : 100;
-    console.log('device width:', isMobile);
 
     const customTooltip = ({active, payload} : any) => {
         if(! active || !payload || !payload.length) return null;
