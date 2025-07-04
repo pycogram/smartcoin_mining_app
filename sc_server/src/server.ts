@@ -6,9 +6,17 @@ import express from 'express';
 import mongoose from 'mongoose';
 import { userRoutes } from './routes/user';
 import cors from 'cors';
+import cookieParser from 'cookie-parser';
+import helmet from 'helmet';
 
-const app = express(); //instanciate an express obj to server with it
+//instanciate an express obj to server with it
+const app = express(); 
 
+// middleware to parse cookies
+app.use(cookieParser());
+
+// security middleware to set various HTTP headers
+app.use(helmet()); 
 if(process.env.NODE_ENV !== 'production') {
     app.use(
         cors({
@@ -39,10 +47,8 @@ if (!DB_URL || !PORT) {
 }
 // connect to db
 mongoose.connect(DB_URL).then(() => {
-
     console.log(`connected to DB successfully`);
     app.listen(PORT || 5000, () => console.log(`listening to the server`));
-
 }).catch((err) => {
     console.log(`DB error - ${err}`)
 })
