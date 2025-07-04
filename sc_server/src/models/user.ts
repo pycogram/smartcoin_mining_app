@@ -4,17 +4,17 @@ import mongoose from "mongoose";
 const userScheme = new mongoose.Schema({
     first_name: {
         type: String,
-        require: [true, "first name is required"],
+        required: [true, "first name is required"],
         trim: true    
     },
     last_name: {
         type: String,
-        require: [true, "last name is required"],
+        required: [true, "last name is required"],
         trim: true
     },
     email: {
         type: String,
-        require: [true, 'email address is required'],
+        required: [true, 'email address is required'],
         lowercase: true,
         trim: true,
         unique: true
