@@ -5,23 +5,21 @@ import { confirmUserSchema, loginUserSchema, registerUserSchema, verifyUserSchem
 import HmacProcess from "../utils/hmac-process";
 import { PasswordHash, PasswordVerify } from "../utils/password-handler";
 import Transport from "../utils/send-mail";
-import { console } from "inspector";
 import mongoose from "mongoose";
 import { signUserToken, verifyUserToken } from "../token/tokenized-user";
-import { sign } from "crypto";
 
 // register user
 const registerUser = async (req: Request, res: Response):Promise<void> => {
-
-    //check if the right properties are provided
-    if(! req.body.first_name || ! req.body.last_name || ! req.body.email || ! req.body.password || ! req.body.confirmed_password) 
-        return errHandler(res, "first name, last name, email, password and confirm password properties are required");
 
     //destructure user inputs
     const {first_name, last_name, email, password, confirmed_password} = req.body;
 
     //check if all input are empty
     if(! first_name || ! last_name || ! email || ! password || ! confirmed_password) return errHandler(res, "all fields are required")
+
+    //check if the right properties are provided
+    if(! req.body.first_name || ! req.body.last_name || ! req.body.email || ! req.body.password || ! req.body.confirmed_password) 
+        return errHandler(res, "first name, last name, email, password and confirm password properties are required");
 
     // validate and sanitize user inputs
     const {error, value} = registerUserSchema.validate({first_name, last_name, email, password});
@@ -41,7 +39,7 @@ const registerUser = async (req: Request, res: Response):Promise<void> => {
         const userRegistered = await userModel.create({first_name, last_name, email, password: hashedPassword});
         res.status(200).json({
             status: `success`,
-            message: `Account created successfully, To login, please request for email verification code.`,          
+            message: `Your account has been registered succesfully.`,          
             first_name: userRegistered.first_name,
             email: userRegistered.email,
             id: userRegistered._id
@@ -56,14 +54,14 @@ const registerUser = async (req: Request, res: Response):Promise<void> => {
 // verify user email by sensding verification code
 const verifyUser = async (req: Request, res: Response):Promise<void> => {
 
-    //check if the right properties are provided
-    if(! req.body.email) 
-        return errHandler(res, "email properties is required");
-
     const {email} = req.body;
 
     //check if email input is empty
     if(! email) return errHandler(res, "email field is required");
+
+    //check if the right properties are provided
+    if(! req.body.email) 
+        return errHandler(res, "email properties is required");
 
     // validate and sanitize email input
     const {error, value} = verifyUserSchema.validate({email});
@@ -144,24 +142,23 @@ const verifyUser = async (req: Request, res: Response):Promise<void> => {
 // confirm user provided code then verify user
 const confirmUser = async (req: Request, res: Response):Promise<void> => {
 
-    //check if the right properties are provided
-    if(! req.body.code || ! req.body.id) 
-        return errHandler(res, "code and id properties are required");
-
     const {code, id} = req.body;
 
     //check if code input is empty
     if(! code ) return errHandler(res, "all values are required");
+
+    //check if the right properties are provided
+    if(! req.body.code || ! req.body.id) 
+        return errHandler(res, "code and id properties are required");
 
     // validate and sanitize user inputs
     const {error, value} = confirmUserSchema.validate({code});
     if(error) return errHandler(res, error.details[0].message.replace(/"/g, ""));
 
     //check if the id is a valid ObjectId
-    if (typeof id !== "string" || !mongoose.Types.ObjectId.isValid(id)) {
-    return errHandler(res, "Invalid user ID provided");
-    }; 
-
+    if (typeof id !== "string" || !mongoose.Types.ObjectId.isValid(id)) 
+        return errHandler(res, "Invalid user ID provided");
+     
     // check if user exist
     const existingUser = await userModel.findOne({_id: id}).select('+verified_code +verified_time');
     if(! existingUser) return errHandler(res, "user is not registered yet");
@@ -209,15 +206,15 @@ const confirmUser = async (req: Request, res: Response):Promise<void> => {
 //login user
 const loginUser = async (req: Request, res: Response):Promise<void> => {
 
-    //check if the right properties are provided
-    if(! req.body.email || ! req.body.password) 
-        return errHandler(res, "email and password properties are required");
-
     //destructure user inputs
     const {email, password} = req.body;
 
     //check if all input are empty
     if(! email || ! password) return errHandler(res, "all fields are required");
+
+    //check if the right properties are provided
+    if(! req.body.email || ! req.body.password) 
+        return errHandler(res, "email and password properties are required");
 
     // validate and sanitize user inputs
     const {error, value} = loginUserSchema.validate({email, password});
@@ -232,7 +229,9 @@ const loginUser = async (req: Request, res: Response):Promise<void> => {
     if(! matchedPassword) return errHandler(res, "email or password incorrect!");
 
     //check if user is verified
-    if(! userExist.verified) return errHandler(res, "user not verified, please verify your account first!");
+    if(! userExist.verified) 
+        return errHandler(res, "user not verified, please verify your account first!", 
+        userExist?._id.toString(), userExist?.first_name, userExist?.email);
 
     try{
         
@@ -240,12 +239,13 @@ const loginUser = async (req: Request, res: Response):Promise<void> => {
         const signedToken  = signUserToken(userExist._id!);
 
         res.cookie('Authorization', 'Bearer ' + signedToken, {
-            expires: new Date(Date.now() + 10 * 24 * 60 * 60 * 1000), // token expires in 10days
+            expires: new Date(Date.now() + 10 * 24 * 60 * 60 * 1000), // stores token in the browser for 10days
             httpOnly: process.env.NODE_ENV === 'production',
             secure: true
         }).status(200).json({
             status: `success`,
-            message: `Logged in successfully`,          
+            message: `Logged in successfully`,
+            id: userExist?._id,         
             email: userExist.email,
             token: signedToken,
         });
