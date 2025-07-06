@@ -64,6 +64,12 @@ const loginUser = async (formData: object) => {
 
     const data = await res.json();
 
+    const {id, first_name, email} = data;
+    
+    if(data.first_name && data.email){
+        localStorage.setItem("user", JSON.stringify({id, first_name, email}));
+    }
+
     if(! res.ok){
         throw new Error(`${data.message}`);
     }
