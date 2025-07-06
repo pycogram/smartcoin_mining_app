@@ -1,24 +1,27 @@
 import "../../css/page_css/user_css/confirm-pg.css";
 import SecondaryBtn from "../../components/button/secondary-btn";
 import confirm_pic from "../../images/pics/verify-illustraction.png";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Fail from "../../components/alert/fail";
 import { confirmUser } from "../../controllers/user";
-import { useLocation, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import Success from "../../components/alert/success";
 
 const ConfirmPage = () => {
     // get items stored in localstorage
-    const location = useLocation();
-    const message = location.state ?? "";
+    const userString = localStorage.getItem("user");
+    const message_user = localStorage.getItem("message_user2") ?? ""; 
+    
+    localStorage.removeItem("message_user");
 
-    const [perfect, setPerfect] = useState<string>(message);
+    useEffect(() => {
+        if(!userString){
+            localStorage.setItem("message_no_user", "Please either login or register");
+            navigate('/login');
+        }
+    }, []);
 
-    if(perfect){
-        setTimeout(() => {
-            setPerfect("");
-        }, 10 * 1000);
-    }
+    const [perfect, setPerfect] = useState<string>(message_user);
 
     // set value entered by the user
     const [codeForm, setCodeForm] = useState({
@@ -33,12 +36,6 @@ const ConfirmPage = () => {
     
     // error state
     const [error, setError] = useState<string>("");
-
-    if(error){
-        setTimeout(() => {
-            setError("");
-        }, 10 * 1000);
-    }  
 
     const navigate = useNavigate();
 
@@ -76,13 +73,6 @@ const ConfirmPage = () => {
         setPerfect("");
         setError("");
 
-        //time to set error to empty string 
-        if(! error){
-            setTimeout(() => {
-                setError("");
-            }, 10 * 1000);
-        }  
-
         // confirm user
         try{
             const userString = localStorage.getItem("user");
@@ -92,14 +82,16 @@ const ConfirmPage = () => {
             const data = await confirmUser(code, id);
             const {message} = data; 
 
-            navigate('/login', {state: message});
+            localStorage.setItem("message_user", message);
+            localStorage.removeItem("message_user2");
+            navigate('/login');
 
         } catch(err){
             setError(`${(err as Error).message}`);
         }
 
     }
-
+    if(!userString){return}
     return ( 
         <div className="container">
             <div className="confirm-page">

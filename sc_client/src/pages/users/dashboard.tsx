@@ -3,12 +3,25 @@ import smartcoin_logo from "../../images/logos/sc_logo.png";
 import mine from "../../images/pics/mine.png";
 import boast from "../../images/pics/Boost.png";
 import gift from "../../images/pics/gift.png";
-import { Link } from "react-router-dom";
+import { Link} from "react-router-dom";
 import pdp from "../../images/pics/pdp.png";
 import Piechart from "../../components/chart/piechart";
+import { useEffect, useState } from "react";
+import Success from "../../components/alert/success";
 
 
 const Dashboard = () => {
+    const message_user = localStorage.getItem("message_user") ?? "";
+
+    const [perfect, setPerfect] = useState<string>(message_user);
+
+    useEffect(()=> {
+        setTimeout(()=> {
+            setPerfect("");
+            localStorage.removeItem("message_user");
+        }, 5 * 1000);
+    }, []);
+
     return ( 
         <div className="dashboard">
             <nav className="db-navbar">
@@ -34,6 +47,7 @@ const Dashboard = () => {
                 </Link>
             </nav>
             <div className="logo-amt-eye">
+                {perfect && <Success success={`${perfect}`} loggedinStatus={true} />}
                 <img src={smartcoin_logo} alt="smartlogo" />
                 <span className="mined-amt">
                     <h2>10,000</h2>

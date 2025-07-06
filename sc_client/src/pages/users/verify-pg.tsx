@@ -11,10 +11,12 @@ const VerifyPage = () => {
 
     // get items stored in localstorage
     const userString = localStorage.getItem("user");
+    const message_user = localStorage.getItem("message_user") ?? "";
 
     useEffect(() => {
         if(!userString){
-            navigate('/register', {state: {message: "Please either register or login"}});
+            localStorage.setItem("message_no_user", "Please either login or register");
+            navigate('/login');
         }
     }, []);
     
@@ -27,15 +29,9 @@ const VerifyPage = () => {
     //error state
     const [error, setError] = useState<string>("");    
 
-    if(error){
-        setTimeout(() => {
-            setError("");
-        }, 10 * 1000)
-    }
-
     const handleVerify = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
-        
+
         setError("");
 
         // register user
@@ -43,20 +39,21 @@ const VerifyPage = () => {
             const data = await verifyUser(email);
 
             const {message} = data;
-            navigate('/confirm', {state: message});
+            localStorage.setItem("message_user2", message);
+            navigate('/confirm');
 
         } catch(err){
             setError(`${(err as Error).message}`);
         }
     }
-
+    if(!userString){return}
     return ( 
         <div className="verify-page">
             <form onSubmit={handleVerify}> 
                 <header className="header-text">Verify</header>
                 {error && <Fail error={error} />}
                 <p className="verify-info">
-                    Hi, <b>{first_name}</b>. Your account has been registered succesfully. 
+                    Hi, <b>{first_name}</b>. {message_user}. 
                     In order to make use of your account <b><i> " {email} " </i></b>. 
                     Please hit the verify button to receive email verification code.
                 </p>

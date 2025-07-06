@@ -1,4 +1,4 @@
-import { Link, useLocation, useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import PrimaryBtn from "../../components/button/primary-btn";
 import "../../css/page_css/user_css/register-pg.css";
 import React, { useState } from "react";
@@ -6,9 +6,6 @@ import { registerUser } from "../../controllers/user";
 import Fail from "../../components/alert/fail";
 
 const RegisterPage = () => {
-    
-    const location = useLocation();
-    const message = location.state?.message ?? "";
 
     // input state
     const [formData, setFormData] = useState({
@@ -21,12 +18,7 @@ const RegisterPage = () => {
     });
 
     //error state
-    const [error, setError] = useState<string>(message);
-    if(message){
-        setTimeout(() => {
-            setError("");
-        }, 10 * 1000);
-    }
+    const [error, setError] = useState<string>("");
 
     // use navigate model
     const navigate = useNavigate();
@@ -46,23 +38,16 @@ const RegisterPage = () => {
 
         // to prevent page from reloading
         e.preventDefault();
-
         setError("");
-
-        //time to set error to empty string 
-        if(! error){
-            setTimeout(() => {
-                setError("");
-            }, 10 * 1000);     
-        }  
 
         // register user
         try{
             const data = await registerUser(formData);
 
-            const {id, first_name, email} = data;
+            const {id, first_name, email, message} = data;
             
             localStorage.setItem("user", JSON.stringify({id, first_name, email}));
+            localStorage.setItem("message_user", message);
             navigate('/verify');
 
         } catch(err){
