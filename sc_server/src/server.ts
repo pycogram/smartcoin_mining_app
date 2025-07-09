@@ -8,6 +8,9 @@ import { userRoutes } from './routes/user';
 import cors from 'cors';
 import cookieParser from 'cookie-parser';
 import helmet from 'helmet';
+import { postRoutes } from './routes/post';
+import { minerRoutes } from './routes/miner';
+import { lockRoutes } from './routes/lock';
 
 //instanciate an express obj to server with it
 const app = express(); 
@@ -35,6 +38,9 @@ app.use(express.urlencoded({ extended: true }));
 
 // endpoint and route handlers
 app.use('/api/user', userRoutes);
+app.use('/api/post', postRoutes);
+app.use('/api/dashboard', minerRoutes);
+app.use('/api/lock', lockRoutes);
 
 app.get('/', (req, res) => {
     res.send('welcome to smartcoin');               
