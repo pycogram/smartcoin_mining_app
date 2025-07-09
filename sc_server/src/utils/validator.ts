@@ -48,6 +48,30 @@ const codeField = Joi.string()
         'string.pattern.base': '{{#label}} must be 6 alphanumeric characters',
         'any.required': '{{#label}} is required'
     });
+const contentField = Joi.string()
+    .required()
+    .messages({
+        'string.base': '{{#label}} must be a string',
+        'string.empty': '{{#label}} is required',
+        'any.required': '{{#label}} is required'
+});
+const mineScField = Joi.boolean()
+    .truthy('yes', 'true')
+    .falsy('no', 'false')
+    .default(false)
+    .required()
+    .messages({
+        'boolean.base': '{{#label}} must be a boolean',
+        'boolean.empty': '{{#label}} is required',
+        'any.required': '{{#label}} is required'
+});
+const lockScField = Joi.number()
+    .required()
+    .messages({
+        'number.base': '{{#label}} must be a number',
+        'any.required': '{{#label}} is required'
+    });
+
 
 const registerUserSchema = Joi.object({
     first_name: nameField.label("First name"),
@@ -65,7 +89,21 @@ const loginUserSchema = Joi.object({
     email: emailField.label("Email"),
     password: passwordField.label("Password")
 });
+const postSchema = Joi.object({
+    content: contentField.label("Content"),
+});
+const mineScSchema = Joi.object({
+    mine_sc: mineScField.label("Mine Sc"),
+});
+const lockScSchema = Joi.object({
+    lock_sc: lockScField.label("Lock Sc"),
+    lock_period: lockScField.label("Lock Time")
+})
+
 
 export {
-    registerUserSchema, verifyUserSchema, confirmUserSchema, loginUserSchema
+    registerUserSchema, verifyUserSchema, confirmUserSchema, loginUserSchema, 
+    postSchema, 
+    mineScSchema,
+    lockScSchema
 };
