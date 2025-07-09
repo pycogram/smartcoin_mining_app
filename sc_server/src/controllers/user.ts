@@ -7,6 +7,7 @@ import { PasswordHash, PasswordVerify } from "../utils/password-handler";
 import Transport from "../utils/send-mail";
 import mongoose from "mongoose";
 import { signUserToken, verifyUserToken } from "../token/tokenized-user";
+import minerModel from "../models/miner";
 
 // register user
 const registerUser = async (req: Request, res: Response):Promise<void> => {
@@ -15,11 +16,7 @@ const registerUser = async (req: Request, res: Response):Promise<void> => {
     const {first_name, last_name, email, password, confirmed_password} = req.body;
 
     //check if all input are empty
-    if(! first_name || ! last_name || ! email || ! password || ! confirmed_password) return errHandler(res, "all fields are required")
-
-    //check if the right properties are provided
-    if(! req.body.first_name || ! req.body.last_name || ! req.body.email || ! req.body.password || ! req.body.confirmed_password) 
-        return errHandler(res, "first name, last name, email, password and confirm password properties are required");
+    if(! first_name || ! last_name || ! email || ! password || ! confirmed_password) return errHandler(res, "all fields are required");
 
     // validate and sanitize user inputs
     const {error, value} = registerUserSchema.validate({first_name, last_name, email, password});
@@ -59,20 +56,31 @@ const verifyUser = async (req: Request, res: Response):Promise<void> => {
     //check if email input is empty
     if(! email) return errHandler(res, "email field is required");
 
-    //check if the right properties are provided
-    if(! req.body.email) 
-        return errHandler(res, "email properties is required");
-
     // validate and sanitize email input
     const {error, value} = verifyUserSchema.validate({email});
     if(error) return errHandler(res, error.details[0].message.replace(/"/g, ""));
 
     //check if user's email is reqistered before it receive verification code
-    const existingUser = await userModel.findOne({email});
+    const existingUser = await userModel.findOne({email}).select('+verified_time');
     if(!existingUser) return errHandler(res, "user does not exist. please register!");
 
     //check if user is verified
     if(existingUser.verified) return errHandler(res, "user already verified!");
+
+    //user can only request a code after after 5mins
+    if(existingUser?.verified_time){
+        const timePassed = Date.now() - existingUser.verified_time;
+        const waitTime = 5 * 60 * 1000;
+        
+        if(timePassed < waitTime){
+
+            const timeLeft = waitTime - timePassed;
+            const min = Math.floor(timeLeft / 60000);
+            const sec = Math.floor((timeLeft % 60000) / 1000);
+
+            return errHandler(res, `Please wait for ${min} minute(s) and ${sec} seconds before requesting for another code`);
+        }
+    }    
 
     try {
         const generateCode = (length : number) => {
@@ -123,14 +131,14 @@ const verifyUser = async (req: Request, res: Response):Promise<void> => {
             res.status(200).json({
                 status: "success",
                 email: existingUser.email,
-                message: `A verification code has been sent to your email address. 
-                          Please check either your email inbox or spam-box.`
+                message: "A verification code has been sent to your email address. Please check either your email inbox or spam-box."
+            });
+        } else {
+            res.status(500).json({
+                status: "failed",
+                message: 'Code failed to send!'
             });
         }
-        res.status(500).json({
-            status: "failed",
-            message: 'Code failed to send!'
-        });
 
     } catch(err){
         res.status(500).json({
@@ -146,10 +154,6 @@ const confirmUser = async (req: Request, res: Response):Promise<void> => {
 
     //check if code input is empty
     if(! code ) return errHandler(res, "all values are required");
-
-    //check if the right properties are provided
-    if(! req.body.code || ! req.body.id) 
-        return errHandler(res, "code and id properties are required");
 
     // validate and sanitize user inputs
     const {error, value} = confirmUserSchema.validate({code});
@@ -167,15 +171,18 @@ const confirmUser = async (req: Request, res: Response):Promise<void> => {
     if(existingUser.verified) return errHandler(res, "user already verified!");
 
     // check if verified code and verified time have values
-    if(! existingUser.verified_code || ! existingUser.verified_time) return errHandler(res, "verify your account first");
+    if(! existingUser.verified_code || ! existingUser.verified_time) 
+        return errHandler(res, "verify your account first");
 
     // check if code provided by the user is correct
     const codeValue = code.toString();
     const hashedCodeValue = HmacProcess(codeValue, process.env.EMAIL_VERIFICATION_CODE_SECRET!);
-    if(hashedCodeValue !== existingUser.verified_code) return errHandler(res, "invalid verification code: The code provided does not match the code sent to your email");
+    if(hashedCodeValue !== existingUser.verified_code) 
+        return errHandler(res, "invalid verification code: The code provided does not match the code sent to your email");
 
     // check if code has expired
-    if(Date.now() - existingUser.verified_time > 10 * 60 * 1000) return errHandler(res, "Code already expired. Please request for new code!")
+    if(Date.now() - existingUser.verified_time > 10 * 60 * 1000) 
+        return errHandler(res, "Code already expired. Please request for new code!");
 
     try{
         if(hashedCodeValue === existingUser.verified_code){
@@ -183,17 +190,21 @@ const confirmUser = async (req: Request, res: Response):Promise<void> => {
             existingUser.verified_code = undefined;
             existingUser.verified_time = undefined;
 
+            // create user's mining db
+            await minerModel.create({user: existingUser?._id});
+
             await existingUser.save();
 
             res.status(200).json({                                                                                                                                                                                                                                                  
                 status: "success",
                 message: 'Your accout has been verified successfully. Please login!'
             })            
+        } else {
+            res.status(400).json({                                                                                                                                                                                                                                                  
+                status: "failed",
+                message: 'The unexpected occured!'
+            });
         }
-        res.status(400).json({                                                                                                                                                                                                                                                  
-            status: "failed",
-            message: 'The unexpected occured!'
-        })
     }catch(err){
         res.status(500).json({
             status: `failed`,
@@ -210,11 +221,7 @@ const loginUser = async (req: Request, res: Response):Promise<void> => {
     const {email, password} = req.body;
 
     //check if all input are empty
-    if(! email || ! password) return errHandler(res, "all fields are required");
-
-    //check if the right properties are provided
-    if(! req.body.email || ! req.body.password) 
-        return errHandler(res, "email and password properties are required");
+    if(! email || ! password) return errHandler(res, "all fields are required");        
 
     // validate and sanitize user inputs
     const {error, value} = loginUserSchema.validate({email, password});
@@ -240,8 +247,10 @@ const loginUser = async (req: Request, res: Response):Promise<void> => {
 
         res.cookie('Authorization', 'Bearer ' + signedToken, {
             expires: new Date(Date.now() + 10 * 24 * 60 * 60 * 1000), // stores token in the browser for 10days
-            httpOnly: process.env.NODE_ENV === 'production',
-            secure: true
+            httpOnly: true,
+            secure: process.env.NODE_ENV === 'production',
+            sameSite: 'strict'
+
         }).status(200).json({
             status: `success`,
             message: `Logged in successfully`,
@@ -257,24 +266,7 @@ const loginUser = async (req: Request, res: Response):Promise<void> => {
         });
     }
 }
-//dashboard user
-const dashboardUser = async (req: Request, res: Response):Promise<void> => {
-    console.log("dashboard user");
-    try{
-        res.status(200).json({
-            status: "success",                                                                                                                                                                                                                                                  
-            message: 'welcome to dashboard!',
-            user_id: (req as any).user_id
-        })
-    }catch(err){
-        res.status(500).json({
-            status: `failed`,
-            error: `Error occured: ${err as Error}`
-        });
-    }
-}
 
 export {
-    registerUser, verifyUser, confirmUser, loginUser,
-    dashboardUser
+    registerUser, verifyUser, confirmUser, loginUser
 };
