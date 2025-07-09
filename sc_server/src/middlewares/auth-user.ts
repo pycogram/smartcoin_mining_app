@@ -1,7 +1,6 @@
 import { Request, Response, NextFunction} from "express"; 
 import { errHandler } from "../utils/error-handler";
 import { verifyUserToken } from "../token/tokenized-user";
-import userModel from "../models/user";
 
 export const authUser = async(req: Request, res:Response , next:NextFunction): Promise<void> => {
     // grab the token from either req header or cookie based on the environment
