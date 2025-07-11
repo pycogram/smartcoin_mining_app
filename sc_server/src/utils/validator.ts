@@ -1,7 +1,5 @@
 import Joi from "joi";
 
-// reusable schema for all fields
-
 const nameField = Joi.string()
     .required()
     .min(2)
@@ -70,7 +68,7 @@ const lockScField = Joi.number()
     .messages({
         'number.base': '{{#label}} must be a number',
         'any.required': '{{#label}} is required'
-    });
+});
 
 
 const registerUserSchema = Joi.object({
@@ -98,12 +96,19 @@ const mineScSchema = Joi.object({
 const lockScSchema = Joi.object({
     lock_sc: lockScField.label("Lock Sc"),
     lock_period: lockScField.label("Lock Time")
-})
+});
+const unLockScSchema = Joi.object({
+    unlock_sc: mineScField.label("Unlock Val"),
+});
+const claimBonusScSchema = Joi.object({
+    claim_sc: mineScField.label("Claim Sc"),
+});
 
 
 export {
     registerUserSchema, verifyUserSchema, confirmUserSchema, loginUserSchema, 
     postSchema, 
     mineScSchema,
-    lockScSchema
+    lockScSchema, unLockScSchema,
+    claimBonusScSchema
 };
