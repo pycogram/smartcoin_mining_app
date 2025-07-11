@@ -1,14 +1,14 @@
 @import "tailwindcss";
 
 .page-box{
-    @apply bg-white w-full min-h-screen max-h-full pt-[1rem] pb-[3rem] z-10 
+    @apply bg-white w-full min-h-screen max-h-full pt-[1rem] pb-[3rem] z-20 
     place-content-center place-items-center md:pt-[1rem] 
 }
 .select-pkg{
     /* @apply w-[90%] h-[100%]  */
     @apply w-[90%] place-content-start place-items-center
     md:place-content-center md:my-0 md:h-[100%]
-    sm:w-[70%] md:w-130 text-gray-700 
+    sm:w-[70%] md:w-130 text-gray-700 relative 
 }
 .select-pkg .ref-span-go-back{
     @apply rounded-full bg-gray-100 border border-gray-200 
@@ -29,11 +29,11 @@
 }
 .select-pkg .select-lock-pkg{
     @apply block w-full h-full space-y-1 md:grid md:grid-cols-2 md:gap-x-1.5 md:place-content-center 
-    transition ease-in-out delay-200 lg:gap-x-2.5 lg:space-y-2.5
+    transition ease-in-out delay-200 lg:gap-x-2.5 lg:space-y-2.5 
 }
 .select-lock-pkg .each-pkg{
     @apply bg-white border-4 rounded-sm border-gray-200 flex place-items-center place-content-center py-2
-    space-x-4 hover:scale-95 hover:border-blue-300 transition ease-in-out delay-200 lg:h-35 cursor-pointer
+    space-x-4 hover:scale-95 hover:border-blue-300 active:border-blue-300 transition ease-in-out delay-200 lg:h-35 cursor-pointer
 }
 .select-lock-pkg .each-pkg:active{
     @apply border-blue-300 scale-95
@@ -59,7 +59,7 @@
 
 
 .lock-pkg .each-pkg{
-    @apply block space-y-0 h-full w-full border-0
+    @apply block space-y-0 h-full w-full border-0 
 }
 .lock-pkg .each-pkg span:nth-child(1){
     @apply w-fit h-fit bg-transparent 
@@ -78,6 +78,16 @@
     @apply text-[20px] lg:text-[25px]
 }
 
+.lock-pkg .w-addy span{
+    @apply my-2
+}
+.lock-pkg .w-addy span input{
+    @apply h-15 text-2xl 
+}
+.lock-pkg .w-addy span i{
+    @apply absolute bottom-2.5 text-xl w-10 h-10 leading-3.5 p-0
+}
+
 .lock-pkg .w-button{
-    @apply lg:mb-[1rem]
+    @apply lg:mb-[1rem] 
 }

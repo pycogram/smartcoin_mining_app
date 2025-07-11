@@ -37,10 +37,9 @@ form .for-secondary-btn{
 }
 
 .approve-page{
-    @apply h-screen z-10 lg:py-[2rem] md:place-content-center 
+    @apply h-[100%] z-20 pb-[4rem] lg:py-[2rem] md:place-content-center 
     md:place-items-center bg-white
 }
-
 form .ref-span-go-back{
     @apply rounded-full bg-gray-100 border border-gray-200 
     hover:bg-gray-200 hover:border-gray-300 w-fit place-self-start mb-[1rem]
@@ -48,7 +47,6 @@ form .ref-span-go-back{
 form .ref-span-go-back svg{
     @apply size-7 md:hidden
 }
-
 form .approve-h1-img{
     @apply border-0 pb-1 lg:pb-4 flex place-items-center place-content-center w-full relative
     gap-x-2 lg:gap-x-4
@@ -62,9 +60,12 @@ form .approve-h1-img{
     ;content: "";
 }
 .approve-h1-img img{
-    @apply w-8 h-8 lg:w-12 lg:h-12
+    @apply w-8 h-8 mb-1 lg:w-12 lg:h-12
+}
+.approve-page .approve-info{
+    @apply ring ring-gray-300 px-1 py-1 my-[1rem] text-[16px] lg:text-[20px] lg:p-3
 }
 .approve-page .for-secondary-btn{
-    @apply absolute bottom-[2rem] w-[90%] 
-    sm:w-[400px] md:relative
+    @apply absolute -bottom-[1.5rem] w-[90%] 
+    sm:w-[400px] md:relative lg:pb-[2.5rem]
 }
