@@ -8,6 +8,8 @@ import Transport from "../utils/send-mail";
 import mongoose from "mongoose";
 import { signUserToken, verifyUserToken } from "../token/tokenized-user";
 import minerModel from "../models/miner";
+import referralModel from "../models/referral";
+import { generateCode } from "../token/generate-code";
 
 // register user
 const registerUser = async (req: Request, res: Response):Promise<void> => {
@@ -28,6 +30,23 @@ const registerUser = async (req: Request, res: Response):Promise<void> => {
     //check if email exists
     const emailExist = await userModel.findOne({email});
     if(emailExist) return errHandler(res, "email registered already, please login!");
+
+    // get query string from the reg link and check if it exist in the db
+    const uplineLink = req.query.ref as string;
+
+    if(uplineLink){
+        const defaultRegLink  = `${req.protocol}://${req.get('host')}${req.originalUrl.slice(0, req.originalUrl.indexOf("?"))}`;
+        if(uplineLink && uplineLink.length != 12) return errHandler(res, `referral link is invalid. Try ${defaultRegLink}`);
+        
+        const uplineExist = await referralModel.findOne({ref_link: uplineLink});
+        if(! uplineExist) return errHandler(res, `referral link is not registered. Try ${defaultRegLink}`);
+        
+        res.cookie('upline_link', uplineLink, {
+            httpOnly: true,
+            sameSite: 'lax',
+            secure: false
+        })
+    }
 
     // hash password
     const hashedPassword = await PasswordHash(password);
@@ -83,15 +102,8 @@ const verifyUser = async (req: Request, res: Response):Promise<void> => {
     }    
 
     try {
-        const generateCode = (length : number) => {
-            const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
-            let result = '';
-            for (let i = 0; i < length; i++) {
-                result += chars.charAt(Math.floor(Math.random() * chars.length));
-            }
-            return result;
-        }    
-        const codeValue = (generateCode(6)); 
+
+        const codeValue = generateCode(6); 
         
         const info = await Transport.sendMail({
             from: process.env.EMAIL_ADDRESS,
@@ -189,15 +201,38 @@ const confirmUser = async (req: Request, res: Response):Promise<void> => {
             existingUser.verified = true;
             existingUser.verified_code = undefined;
             existingUser.verified_time = undefined;
+            
+            await existingUser.save();
 
             // create user's mining db
-            await minerModel.create({user: existingUser?._id});
+            await minerModel.create({user: existingUser._id});
 
-            await existingUser.save();
+            // create user's ref db
+            const refLink = generateCode(12).toString();
+            const referredUser = await referralModel.create({user: existingUser._id, ref_link: refLink});
+    
+            const uplineExist = await referralModel.findOne({ref_link: req.cookies.upline_link});
+
+            if(uplineExist){
+                uplineExist.ref_no += 1;
+                uplineExist.claim_bonus += 30
+                uplineExist.total_bonus += 30 
+                
+                await uplineExist.save();
+            }
+
+            if(referredUser){
+                referredUser.upline_link = req.cookies.upline_link;
+                referredUser.upline_gain = 30
+                
+                await referredUser.save();
+                res.clearCookie('upline_link');
+            }
 
             res.status(200).json({                                                                                                                                                                                                                                                  
                 status: "success",
-                message: 'Your accout has been verified successfully. Please login!'
+                message: ! uplineExist ? 'Your account has been verified successfully. Please login!'
+                                       : 'Your account has been verified successfully and your upline has been rewarded for inviting you. . Please login!'
             })            
         } else {
             res.status(400).json({                                                                                                                                                                                                                                                  
