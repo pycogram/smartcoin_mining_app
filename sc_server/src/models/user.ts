@@ -1,16 +1,22 @@
-import { string } from "joi";
 import mongoose from "mongoose";
 
 const userScheme = new mongoose.Schema({
     first_name: {
         type: String,
         required: [true, "first name is required"],
-        trim: true    
+        trim: true,
+        lowercase: true
     },
     last_name: {
         type: String,
         required: [true, "last name is required"],
-        trim: true
+        trim: true,
+        lowercase: true
+    },
+    user_name: {
+        type: String,
+        trim: true,
+        lowercase: true
     },
     email: {
         type: String,
@@ -18,10 +24,6 @@ const userScheme = new mongoose.Schema({
         lowercase: true,
         trim: true,
         unique: true
-    }, 
-    invited_by: {
-        type: String,
-        trim: true
     },
     password: {
         type: String,
