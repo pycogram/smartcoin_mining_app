@@ -1,9 +1,10 @@
 import express from 'express';
 import { authUser } from '../middlewares/auth-user';
-import { mineSc } from '../controllers/miner';
+import { dashboard, mineSc } from '../controllers/miner';
 
 const router = express.Router();
 
-router.post('/mines', authUser, mineSc);
+router.get('', authUser, dashboard);
+router.post('/mine', authUser, mineSc);
 
 export {router as minerRoutes};
