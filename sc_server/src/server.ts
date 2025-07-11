@@ -11,6 +11,7 @@ import helmet from 'helmet';
 import { postRoutes } from './routes/post';
 import { minerRoutes } from './routes/miner';
 import { lockRoutes } from './routes/lock';
+import { ReferralRoutes } from './routes/referral';
 
 //instanciate an express obj to server with it
 const app = express(); 
@@ -20,6 +21,7 @@ app.use(cookieParser());
 
 // security middleware to set various HTTP headers
 app.use(helmet()); 
+
 if(process.env.NODE_ENV !== 'production') {
     app.use(
         cors({
@@ -40,7 +42,8 @@ app.use(express.urlencoded({ extended: true }));
 app.use('/api/user', userRoutes);
 app.use('/api/post', postRoutes);
 app.use('/api/dashboard', minerRoutes);
-app.use('/api/lock', lockRoutes);
+app.use('/api/package', lockRoutes);
+app.use('/api/referral', ReferralRoutes);
 
 app.get('/', (req, res) => {
     res.send('welcome to smartcoin');               
