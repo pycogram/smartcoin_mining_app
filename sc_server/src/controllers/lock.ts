@@ -1,35 +1,39 @@
-import { Request, Response} from "express"; 
+import e, { Request, Response} from "express"; 
 import minerModel from "../models/miner";
 import { errHandler } from "../utils/error-handler";
 import { lockScSchema, unLockScSchema } from "../utils/validator";
 import { format } from 'date-fns';
+import historyModel from "../models/history";
+import mongoose from "mongoose";
 
 const lockSc = async(req: Request, res: Response):Promise<void> => {
-    const { lock_sc, lock_period } = req.body;
-
-    // get user id stored in the req
-    const userId = (req as any).user_id;
-    if(! userId) return errHandler(res, "user not identified");
-
-    // validate and sanitize user inputs
-    const {error, value} = lockScSchema.validate({lock_sc, lock_period});
-    if(error) return errHandler(res, error.details[0].message.replace(/"/g, ""));
-
-    const minerInfo = await minerModel.findOne({user: userId});
-
-    // check if the miner has enough balance
-    if( minerInfo && lock_sc > minerInfo?.total_mined) 
-        return errHandler(res, `figure should exceed your available balance (${minerInfo.total_mined})`);
-
-    // check if the figure is greater than or equal to one
-    if(minerInfo && lock_sc <= 0)
-        return errHandler(res, "figure should be minimum of one");
-
-    // check if lock period is greater than or equal to 1 hr
-    if(minerInfo && lock_period < 1)
-        return errHandler(res, "lock period should be minimum of one hour");
-
+    const session = await mongoose.startSession();
     try{
+        session.startTransaction();
+        const { lock_sc, lock_period } = req.body;
+
+        // get user id stored in the req
+        const userId = (req as any).user_id;
+        if(! userId) return errHandler(res, "user not identified");
+
+        // validate and sanitize user inputs
+        const {error, value} = lockScSchema.validate({lock_sc, lock_period});
+        if(error) return errHandler(res, error.details[0].message.replace(/"/g, ""));
+
+        const minerInfo = await minerModel.findOne({user: userId}).session(session);
+
+        // check if the miner has enough balance
+        if( minerInfo && lock_sc > minerInfo?.total_mined) 
+            return errHandler(res, `figure should exceed your available balance (${minerInfo.total_mined})`);
+
+        // check if the figure is greater than or equal to one
+        if(minerInfo && lock_sc <= 0)
+            return errHandler(res, "figure should be minimum of one");
+
+        // check if lock period is greater than or equal to 1 hr
+        if(minerInfo && lock_period < 1)
+            return errHandler(res, "lock period should be minimum of one hour");
+
         // check if user has an active lock then marge with the cuurent lock time
         let setNewLock: boolean = true;
         const lockTime = new Date();
@@ -58,21 +62,37 @@ const lockSc = async(req: Request, res: Response):Promise<void> => {
             minerInfo.total_locked += (addReward + lock_sc);
             minerInfo.lock_time = lockTime;
 
-            const minerSc = await minerInfo.save();
+            const minerSc = await minerInfo.save({session});
+
+            // create a history
+            await historyModel.create({
+                user: userId,
+                subject: `lock sc`,
+                detail: setNewLock ? `locked ${lock_sc} SC for ${lock_period} hr(s) with ${addReward} SC bonus. Total of ${minerInfo.total_locked} will be unlocked by ${format(minerInfo?.unlock_time!, "EEEE, MMMM do yyyy, h:mm:ss a")}`
+                                   : `locked another ${lock_sc} SC for ${lock_period} hr(s) with ${addReward} SC bonus. Total of ${minerInfo.total_locked} will be unlocked by ${format(minerInfo?.unlock_time!, "EEEE, MMMM do yyyy, h:mm:ss a")}`,
+                time: new Date()
+            }, {session});
+
+            await session.commitTransaction();
 
             res.status(200).json({
                 status: "success",
                 message: setNewLock ? `${addReward} SC bonus gets added to ${lock_sc} SC (lock amount) . And total of ${minerInfo.total_locked} SC gets unlocked by ${format(minerInfo?.unlock_time!, "EEEE, MMMM do yyyy, h:mm:ss a")}`
                                     : `${addReward} SC bonus gets added to ${lock_sc} SC (lock amount). And total of ${minerInfo.total_locked} SC gets unlocked with the new unlock time: ${format(minerInfo?.unlock_time!, "EEEE, MMMM do yyyy, h:mm:ss a")}`,
-                minerSc
+                data: minerSc
             });
         }
 
     } catch(err){
+        await session.abortTransaction();
+
         res.status(500).json({
             status: "failed",
             error: `Error occured: ${err as Error}`
         });
+        
+    } finally {
+        session.endSession();
     }
 }
 
@@ -113,6 +133,14 @@ const unLockSc = async(req: Request, res: Response):Promise<void> => {
             minerInfo.unlock_time = undefined;
 
             await minerInfo.save();
+
+                // create a history
+                await historyModel.create({
+                    user: userId,
+                    subject: `unlock sc`,
+                    detail: `unlocked ${unLockedSc} SC. your new total balance is ${minerInfo.total_locked}`,
+                    time: new Date()
+                });
 
             res.status(500).json({
                 status: "success",
