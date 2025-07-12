@@ -69,6 +69,15 @@ const lockScField = Joi.number()
         'number.base': '{{#label}} must be a number',
         'any.required': '{{#label}} is required'
 });
+const sendScField = Joi.string()
+    .required()
+    .pattern(new RegExp('^[a-zA-Z0-9]{6}$'))
+    .messages({
+        'string.base': '{{#label}} must be a string',
+        'string.empty': '{{#label}} is required',
+        'string.pattern.base': '{{#label}} must be 6 alphanumeric characters',
+        'any.required': '{{#label}} is required'
+}); 
 
 
 const registerUserSchema = Joi.object({
@@ -103,6 +112,10 @@ const unLockScSchema = Joi.object({
 const claimBonusScSchema = Joi.object({
     claim_sc: mineScField.label("Claim Sc"),
 });
+const sendScSchema = Joi.object({
+    wallet_id: sendScField.label("Wallet Id"),
+    amount_sc: lockScField.label("Amount Sc"),
+});
 
 
 export {
@@ -110,5 +123,6 @@ export {
     postSchema, 
     mineScSchema,
     lockScSchema, unLockScSchema,
-    claimBonusScSchema
+    claimBonusScSchema,
+    sendScSchema
 };
