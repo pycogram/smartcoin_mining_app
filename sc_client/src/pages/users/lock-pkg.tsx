@@ -26,7 +26,7 @@ const LockPkg = () => {
                         <div className="w-addy">
                             <h3>amount</h3>
                             <span>
-                                <input type="text" placeholder="500" />
+                                <input type="number" placeholder="500" />
                                 <i>SC</i>
                             </span>
                             <div>
