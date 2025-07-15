@@ -6,6 +6,6 @@ const router = express.Router();
 
 router.post('/send-sc', authUser, sendSc);
 router.get('/receive-sc', authUser, receiveSc);
-router.get('/', authUser, getWalletDetail); 
+router.get('', authUser, getWalletDetail); 
 
 export {router as walletRoutes}

@@ -1,9 +1,6 @@
 import express from 'express';
-import { 
-    confirmUser, loginUser, registerUser, 
-    verifyUser 
-} from '../controllers/user';
-//import { authUser } from '../middlewares/auth-user';
+import { confirmUser, detailUser, loginUser, registerUser, verifyUser } from '../controllers/user';
+import { authUser } from '../middlewares/auth-user';
 
 const router = express.Router();
 
@@ -12,6 +9,7 @@ router.post('/register', registerUser);
 router.post('/verify', verifyUser);
 router.post('/confirm', confirmUser);
 router.post('/login', loginUser);
-//router.post('/dashboard', authUser, dashboardUser);
+router.get('', authUser, detailUser);
+
 
 export { router as userRoutes };
