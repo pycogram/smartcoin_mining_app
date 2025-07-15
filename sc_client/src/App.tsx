@@ -1,4 +1,4 @@
-import React, { Suspense } from 'react';
+import React, { Suspense} from 'react';
 import './App.css';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 
@@ -26,7 +26,7 @@ function App() {
     <BrowserRouter>
       <Suspense fallback={<i className="fa-solid fa-spinner lazy-page-load-icon"></i>}>
         <Routes>
-            <Route path='/' element={<Layout />} >
+            <Route path='/' element={<Layout />} > 
                 <Route path='dashboard' element={<Dashboard />} />
                 <Route path='update-profile' element={<UpdateProfile />} />
                 <Route path='setting' element={<Setting />} />
@@ -38,7 +38,7 @@ function App() {
                 <Route path='select-pkg' element={<SelectPkg />} />
                 <Route path='lock-pkg' element={<LockPkg />} />
                 <Route path='feed' element={<FeedPg />} />
-                <Route path='user-feed' element={< UserFeed />} />
+                <Route path='feed-user' element={< UserFeed />} />
             </Route>
             <Route>
               <Route path='/welcome' element={<WelcomePage />} />

@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 import "../../css/component_css/menu/menu.css";
 import { useContext } from "react";
-import { MenuContext } from "../../context/menu-context";
+import { MenuContext } from "../../contexts/menu";
 import smartcoinLogo from "../../images/logos/sc_logo.png";
 
 const MenuPart = () => {
