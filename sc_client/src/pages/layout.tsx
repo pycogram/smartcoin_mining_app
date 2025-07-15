@@ -2,13 +2,16 @@ import { Link, Outlet } from "react-router-dom";
 import "../css/page_css/layout.css";
 import MenuPart from "../components/menu/menu";
 import { JSX, useContext, useState } from "react";
-import { MenuContext } from "../context/menu-context";
+import { MenuContext } from "../contexts/menu";
 import pdp from "../images/pics/pdp.png";
+import { UserContext } from "../contexts/user";
 
 const Layout = () => {
     const {menuClick, setMenuClick} = useContext(MenuContext)!;
     const [menuFontIcon, setMenuFontIcon] = useState<JSX.Element | null>(null);
 
+    const {user} = useContext(UserContext)!;
+  
     const handleMenuClick = () => {
         
         setMenuClick((prev) => ! prev);
@@ -21,7 +24,11 @@ const Layout = () => {
             return;
         } 
     }
-    
+    if(! user) return (
+        <div>
+            <i className="fa-solid fa-spinner lazy-page-load-icon"></i>
+        </div>
+    )
     return ( 
         <div className="layout-page">
             <nav className="nav-link">
@@ -48,7 +55,7 @@ const Layout = () => {
                 <Link to={""}>
                     <div className="img-pdp">
                         <img src={pdp} alt="profile pic" />
-                        <p className="">Ifesinachi .D</p>
+                        <p className="">{user?.first_name} .{user?.last_name.charAt(0)}</p>
                     </div>
                 </Link>
             </nav>
