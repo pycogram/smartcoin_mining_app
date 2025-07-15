@@ -65,13 +65,13 @@ const lockSc = async(req: Request, res: Response):Promise<void> => {
             const minerSc = await minerInfo.save({session});
 
             // create a history
-            await historyModel.create({
+            await historyModel.create([{
                 user: userId,
                 subject: `lock sc`,
                 detail: setNewLock ? `locked ${lock_sc} SC for ${lock_period} hr(s) with ${addReward} SC bonus. Total of ${minerInfo.total_locked} will be unlocked by ${format(minerInfo?.unlock_time!, "EEEE, MMMM do yyyy, h:mm:ss a")}`
                                    : `locked another ${lock_sc} SC for ${lock_period} hr(s) with ${addReward} SC bonus. Total of ${minerInfo.total_locked} will be unlocked by ${format(minerInfo?.unlock_time!, "EEEE, MMMM do yyyy, h:mm:ss a")}`,
                 time: new Date()
-            }, {session});
+            }], {session});
 
             await session.commitTransaction();
 
@@ -102,6 +102,9 @@ const unLockSc = async(req: Request, res: Response):Promise<void> => {
     // get user id stored in the req
     const userId = (req as any).user_id;
     if(! userId) return errHandler(res, "user not identified");
+
+    // check if value is true
+    if(! unlock_sc) return errHandler(res, "truthy value is required") 
 
     // validate and sanitize user inputs
     const {error, value} = unLockScSchema.validate({unlock_sc});
@@ -135,12 +138,12 @@ const unLockSc = async(req: Request, res: Response):Promise<void> => {
             await minerInfo.save();
 
                 // create a history
-                await historyModel.create({
+                await historyModel.create([{
                     user: userId,
                     subject: `unlock sc`,
                     detail: `unlocked ${unLockedSc} SC. your new total balance is ${minerInfo.total_locked}`,
                     time: new Date()
-                });
+                }]);
 
             res.status(500).json({
                 status: "success",

@@ -13,8 +13,12 @@ const dashboard = async(req: Request, res: Response):Promise<void> => {
         const userId = (req as any).user_id;
         if(! userId) return errHandler(res, "user not identified");
 
-        const minerInfo = await minerModel.findOne({user: userId}).select('total_mined total_locked');
+        const minerInfo = await minerModel.findOne({user: userId}).select('total_mined total_locked start_time end_time');
         if(! minerInfo) return errHandler(res, "user not found");
+
+        const currentTime = Date.now();
+        const endTime =  new Date ((minerInfo as any).end_time).getTime();
+        //if(currentTime < endTime ) return errHandler(res, "mining still in progress");
 
         res.status(200).json({
             status: "success",
@@ -47,7 +51,7 @@ const mineSc = async(req: Request, res: Response):Promise<void> => {
         const {error, value} = mineScSchema.validate({mine_sc});
         if(error) return errHandler(res, error.details[0].message.replace(/"/g, ""));
 
-        const minerInfo = await minerModel.findOne({user: userId}, {session});
+        const minerInfo = await minerModel.findOne({user: userId}).session(session);
         if(! minerInfo) return errHandler(res, "user not found");
         
         //check if mining endtime has passed a specific duration
@@ -59,8 +63,8 @@ const mineSc = async(req: Request, res: Response):Promise<void> => {
                 return errHandler(res, `mining session still active and it ends by ${format(endTime, "h:mm:ss a")} `);
         }
 
-        const miningRate = 10;
-        const miningDuration = 20 * 1000; //  minute(s) * second(s) * milisecond(s)
+        const miningRate = 450;
+        const miningDuration = 30 * 60 * 1000; //  minute(s) * second(s) * milisecond(s)
         const startTime = new Date();
         const endTime = new Date(new Date().getTime() + miningDuration);
 
@@ -72,12 +76,12 @@ const mineSc = async(req: Request, res: Response):Promise<void> => {
             await minerInfo.save({session});
 
             // create a history
-            await historyModel.create({
+            await historyModel.create([{
                 user: userId,
                 subject: `mine sc`,
                 detail: `started mining and it ends by ${format(endTime,  "EEEE, MMMM do yyyy, h:mm:ss a")}`,
                 time: new Date()
-            }, {session});
+            }], {session});
         }
 
         // check if the miner has an upline (inviter)
@@ -100,12 +104,12 @@ const mineSc = async(req: Request, res: Response):Promise<void> => {
                 const last_name = (minerInfo.user as any).last_name;
 
                 // create a history
-                await historyModel.create({
+                await historyModel.create([{
                     user: uplineInfo.user,
                     subject: `referral bonus`,
                     detail: `you earned ${miningBonusToUpline} referral mining bonus from ${first_name} ${last_name}`,
                     time: new Date()
-                }, {session});
+                }], {session});
             }
         }
 
@@ -114,7 +118,9 @@ const mineSc = async(req: Request, res: Response):Promise<void> => {
         res.status(200).json({
             status: "success",
             message: `mining activated and will end by ${format(endTime,  "EEEE, MMMM do yyyy, h:mm:ss a")}`,
-            data: minerInfo
+            data: minerInfo,
+            mining_rate: miningRate,
+            mining_duration: miningDuration 
         });
     } catch(err){
         await session.abortTransaction();

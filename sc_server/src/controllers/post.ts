@@ -79,15 +79,15 @@ const createPost = async(req: Request, res: Response):Promise<void> => {
         const {error, value} = postSchema.validate({content});
         if(error) return errHandler(res, error.details[0].message.replace(/"/g, ""));
 
-        const postCreated  = await postModel.create({user: userId, content}, {session});
+        const [postCreated]  = await postModel.create([{user: userId, content}], {session});
 
         // create a history
-        await historyModel.create({
+        await historyModel.create([{
             user: userId,
             subject: `post`,
             detail: `created a new post`,
             time: new Date()
-        }, {session});
+        }], {session});
 
         await session.commitTransaction();
 
@@ -96,6 +96,7 @@ const createPost = async(req: Request, res: Response):Promise<void> => {
             message: "post created successfully",
             data: postCreated
         });
+        
     } catch(err){
         await session.abortTransaction();
 
@@ -140,12 +141,12 @@ const deletePost = async(req: Request, res: Response):Promise<void> => {
         await postModel.deleteOne({_id: (userExist as any).user}, {session});
 
         // create a history
-        await historyModel.create({
+        await historyModel.create([{
             user: userId,
             subject: `post`,
             detail: `deleted a post`,
             time: new Date()
-        }, {session});
+        }], {session});
 
         await session.commitTransaction();
 
@@ -210,12 +211,12 @@ const updatePost = async(req: Request, res: Response):Promise<void> => {
         await postExist.updateOne({content}, {session});
 
         // create a history
-        await historyModel.create({
+        await historyModel.create([{
             user: userId,
             subject: `post`,
             detail: `updated a post`,
             time: new Date()
-        }, {session});
+        }], {session});
 
         await session.commitTransaction();
 

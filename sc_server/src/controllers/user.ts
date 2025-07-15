@@ -56,27 +56,27 @@ const registerUser = async (req: Request, res: Response):Promise<void> => {
         // hash password
         const hashedPassword = await PasswordHash(password);
 
-        const userRegistered = await userModel.create(
-            {first_name, last_name, email, password: hashedPassword}, 
+        const [ userRegistered ] = await userModel.create(
+            [{first_name, last_name, email, password: hashedPassword}], 
             {session}
         );
 
         // create a history
-        await historyModel.create({
+        await historyModel.create([{
             user: userRegistered._id,
             subject: `account creation`,
             detail: `account created successfully`,
             time: new Date()
-        }, {session});
+        }], {session});
 
         await session.commitTransaction();
 
         res.status(200).json({
             status: `success`,
             message: `Your account has been registered succesfully.`,          
-            first_name: (userRegistered as any).first_name,
-            email: (userRegistered as any).email,
-            id: (userRegistered as any)._id
+            first_name: userRegistered.first_name,
+            email: userRegistered.email,
+            id: userRegistered._id
         });
 
     } catch(err){
@@ -166,12 +166,12 @@ const verifyUser = async (req: Request, res: Response):Promise<void> => {
             await existingUser.save({session});
 
             // create a history
-            await historyModel.create({
+            await historyModel.create([{
                 user: existingUser._id,
                 subject: `account verification`,
                 detail: `verification code sent to ${existingUser.email}`,
                 time: new Date()
-            }, {session});
+            }], {session});
 
             await session.commitTransaction();
 
@@ -248,14 +248,14 @@ const confirmUser = async (req: Request, res: Response):Promise<void> => {
 
             // create user's wallet db
             const walletId =  generateCode(20).toString();
-            await walletModel.create({user: existingUser._id, wallet_id: walletId}, {session});
+            await walletModel.create([{user: existingUser._id, wallet_id: walletId}], {session});
 
             // create user's mining db
-            await minerModel.create({user: existingUser._id}, {session});
+            await minerModel.create([{user: existingUser._id}], {session});
 
             // create user's ref db
             const refLink = generateCode(12).toString();
-            const referredUser = await referralModel.create({user: existingUser._id, ref_link: refLink}, {session});
+            const [referredUser] = await referralModel.create([{user: existingUser._id, ref_link: refLink}], {session});
     
             const uplineExist = await referralModel.findOne({ref_link: req.cookies.upline_link}).session(session);
 
@@ -267,32 +267,32 @@ const confirmUser = async (req: Request, res: Response):Promise<void> => {
                 uplineExist.total_bonus += referralBonusToUpline;
                 
                 // create a history
-                await historyModel.create({
+                await historyModel.create([{
                     user: uplineExist.user,
                     subject: `referral bonus`,
                     detail: `earned ${referralBonusToUpline} SC referral bonus from your ${existingUser.first_name} ${existingUser.last_name}`,
                     time: new Date()
-                }, {session});
+                }], {session});
                 
                 await uplineExist.save({session});
             }
 
-            if(referredUser){
-                (referredUser as any).upline_link = req.cookies.upline_link;
-                (referredUser as any).upline_gain = 30
+            if(referredUser && req.cookies.upline_link){
+                referredUser.upline_link = req.cookies.upline_link;
+                referredUser.upline_gain = 30;
                 
-                await (referredUser as any).save({session});
+                await referredUser.save({session});
                 res.clearCookie('upline_link');
             }
 
             // create a history
-            await historyModel.create({
+            await historyModel.create([{
                 user: existingUser._id,
                 subject: `account verification`,
                 detail: ! uplineExist ? `acoount verified successfully `
                                     : `account verified successfully and your upline was rewarded ${referralBonusToUpline} SC for inviting you`, 
                 time: new Date()
-            }, {session});
+            }], {session});
 
             await session.commitTransaction();
             
@@ -352,12 +352,12 @@ const loginUser = async (req: Request, res: Response):Promise<void> => {
         if(! signedToken) throw new Error("Error signing user token");
 
         // create a history
-        await historyModel.create({
+        await historyModel.create([{
             user: userExist._id,
             subject: `account login`,
             detail: `account logged in successfully`,
             time: new Date()
-        });
+        }]);
 
         res.cookie('Authorization', 'Bearer ' + signedToken, {
             expires: new Date(Date.now() + 10 * 24 * 60 * 60 * 1000), // stores token in the browser for 10days
@@ -380,7 +380,29 @@ const loginUser = async (req: Request, res: Response):Promise<void> => {
         });
     }
 }
+//detail user
+const detailUser = async (req: Request, res: Response):Promise<void> => {
+    try{
+        // get user id stored in the req
+        const userId = (req as any).user_id;
+        if(! userId) return errHandler(res, "user not identified");
+
+        const userDetail = await userModel.findById({_id: userId});
+
+        res.status(200).json({
+            status: 'success',
+            data: userDetail
+        })
+
+    } catch(err){
+        res.status(500).json({
+            status: 'failed',
+            error: `Error occured: ${err as Error}`
+        })
+    }
+}
 
 export {
-    registerUser, verifyUser, confirmUser, loginUser
+    registerUser, verifyUser, confirmUser, loginUser,
+    detailUser 
 };

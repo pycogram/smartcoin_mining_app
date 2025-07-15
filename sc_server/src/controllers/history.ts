@@ -15,9 +15,13 @@ const historySc = async(req: Request, res: Response):Promise<void> => {
         if(!historyUser || historyUser.length === 0) 
             return errHandler(res, "no history found for this user");
 
+        // count histories
+        const noOfHistory = historyUser.length;
+
         res.status(200).json({
             status: "success",
             message: "history fetched successfully",
+            number: noOfHistory,
             data: historyUser
         });
 
