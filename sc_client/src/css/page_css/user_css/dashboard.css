@@ -29,7 +29,7 @@
     transition ease-in-out delay-150
 }
 .img-pdp p{
-    @apply text-lg lg:text-2xl
+    @apply text-lg lg:text-2xl capitalize
 }
 .dashboard .logo-amt-eye{
     @apply flex place-content-center place-items-center gap-x-4 rounded-lg
@@ -37,7 +37,7 @@
     w-fit h-fit mb-5 sm:mt-[3rem] md:mt-0 md:mb-0
 }
 .logo-amt-eye img{
-    @apply w-8 h-8 lg:w-15 lg:h-15
+    @apply w-7 h-7 lg:w-12 lg:h-12
 }
 .logo-amt-eye .mined-amt{
     @apply flex gap-x-1 place-items-center 
@@ -52,7 +52,7 @@
     @apply w-7 text-red-400;
 }
 .logo-amt-eye .iconx i{
-    @apply flex place-items-center place-content-center h-8 w-9 text-gray-700
+    @apply flex place-items-center place-content-center h-6 w-7 md:h-9 md:w-10 lg:h-12 lg:w-13 text-gray-700
     rounded-2xl border-2 border-gray-200 bg-white hover:bg-gray-200 hover:border-white ;
 }
 .dashboard .lock-coin{
