@@ -2,9 +2,8 @@ import { Request, Response} from "express";
 import { errHandler } from "../utils/error-handler";
 import postModel from "../models/post";
 import { postSchema } from "../utils/validator";
-import mongoose, { startSession } from "mongoose";
+import mongoose from "mongoose";
 import userModel from "../models/user";
-import historyModel from "../models/history";
 
 // get post by user by one's id
 const viewPost = async(req: Request, res: Response):Promise<void> => {
@@ -61,10 +60,7 @@ const viewAllPost = async(req: Request, res: Response):Promise<void> => {
 }
 // create post
 const createPost = async(req: Request, res: Response):Promise<void> => {
-    const session = await mongoose.startSession();
     try{
-        session.startTransaction();
-
         // destructure req body
         const {content} = req.body;
 
@@ -79,17 +75,7 @@ const createPost = async(req: Request, res: Response):Promise<void> => {
         const {error, value} = postSchema.validate({content});
         if(error) return errHandler(res, error.details[0].message.replace(/"/g, ""));
 
-        const [postCreated]  = await postModel.create([{user: userId, content}], {session});
-
-        // create a history
-        await historyModel.create([{
-            user: userId,
-            subject: `post`,
-            detail: `created a new post`,
-            time: new Date()
-        }], {session});
-
-        await session.commitTransaction();
+        const postCreated  = await postModel.create({user: userId, content});
 
         res.status(200).json({
             status: "success",
@@ -98,23 +84,17 @@ const createPost = async(req: Request, res: Response):Promise<void> => {
         });
         
     } catch(err){
-        await session.abortTransaction();
 
         res.status(500).json({
             status: "failed",
             error: `Error occured: ${err as Error}`
         })
-    } finally {
-        session.endSession();
-    }
+    } 
 
 }
 // delete post
 const deletePost = async(req: Request, res: Response):Promise<void> => {
-    const session = await mongoose.startSession();
     try{
-        session.startTransaction();
-        
         // destructure req parameters
         const {post_id: postId} = req.params;
 
@@ -134,44 +114,27 @@ const deletePost = async(req: Request, res: Response):Promise<void> => {
         if(! postExist) return errHandler(res, "post not found");
 
         // check if the user actually owns the post
-        const userExist = await userModel.findById(userId).select("_id").session(session);
+        const userExist = await userModel.findById(userId).select("_id");
         const postOwner = postExist.user.equals(userExist?._id);
         if(! postOwner) return errHandler(res, "unauthorized to delete post");
 
-        await postModel.deleteOne({_id: (userExist as any).user}, {session});
-
-        // create a history
-        await historyModel.create([{
-            user: userId,
-            subject: `post`,
-            detail: `deleted a post`,
-            time: new Date()
-        }], {session});
-
-        await session.commitTransaction();
+        await postExist.deleteOne({_id: (userExist as any).user});
 
         res.status(200).json({
             status: "success",
             message: "post deleted!"
         });
     } catch(err){
-        await session.abortTransaction();
 
         res.status(500).json({
             status: "failed",
             error: `Error occured: ${err as Error}`
         })
-
-    } finally{
-        session.endSession();
     }
 }
 // update post
 const updatePost = async(req: Request, res: Response):Promise<void> => {
-    const session = await mongoose.startSession();
     try{
-        session.startTransaction();
-
         // destructure req parameters to get post id in the url
         const {post_id: postId} = req.params;
 
@@ -197,7 +160,7 @@ const updatePost = async(req: Request, res: Response):Promise<void> => {
         if(error) return errHandler(res, error.details[0].message.replace(/"/g, ""));
 
         // check if the post id exist in the db
-        const postExist = await postModel.findById({_id: postId}).session(session);
+        const postExist = await postModel.findById({_id: postId});
         if(! postExist) return errHandler(res, "post not found");
 
         // check if changes were made before updating the post
@@ -208,33 +171,19 @@ const updatePost = async(req: Request, res: Response):Promise<void> => {
         const postOwner = postExist.user.equals(userExist?._id);
         if(! postOwner) return errHandler(res, "unauthorized to update post");
 
-        await postExist.updateOne({content}, {session});
-
-        // create a history
-        await historyModel.create([{
-            user: userId,
-            subject: `post`,
-            detail: `updated a post`,
-            time: new Date()
-        }], {session});
-
-        await session.commitTransaction();
+        await postExist.updateOne({content});
 
         res.status(200).json({
             status: "success",
             message: 'post updated'
         });
     } catch(err){
-        await session.abortTransaction();
         
         res.status(500).json({
             status: "failed",
             error: `Error occured: ${err as Error}`
         })
-    } finally {
-
-        session.endSession();
-    }
+    } 
 }
 
 export {

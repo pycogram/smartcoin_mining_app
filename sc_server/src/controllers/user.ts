@@ -1,7 +1,7 @@
 import { Request, Response} from "express"; 
 import { errHandler } from "../utils/error-handler";
 import userModel from "../models/user";
-import { confirmUserSchema, loginUserSchema, registerUserSchema, verifyUserSchema } from "../utils/validator";
+import { confirmUserSchema, loginUserSchema, registerUserSchema, updateUserSchema, verifyUserSchema } from "../utils/validator";
 import HmacProcess from "../utils/hmac-process";
 import { PasswordHash, PasswordVerify } from "../utils/password-handler";
 import Transport from "../utils/send-mail";
@@ -9,9 +9,10 @@ import mongoose from "mongoose";
 import { signUserToken, verifyUserToken } from "../token/tokenized-user";
 import minerModel from "../models/miner";
 import referralModel from "../models/referral";
-import { generateCode } from "../token/generate-code";
+import { generateCode, generateUsername } from "../token/generate-code";
 import walletModel from "../models/wallet";
 import historyModel from "../models/history";
+import postModel from "../models/post";
 
 // register user
 const registerUser = async (req: Request, res: Response):Promise<void> => {
@@ -20,13 +21,13 @@ const registerUser = async (req: Request, res: Response):Promise<void> => {
         session.startTransaction();
 
         //destructure user inputs
-        const {first_name, last_name, email, password, confirmed_password} = req.body;
+        const {first_name, email, password, confirmed_password, upline_link2} = req.body;
 
         //check if all input are empty
-        if(! first_name || ! last_name || ! email || ! password || ! confirmed_password) return errHandler(res, "all fields are required");
+        if(! first_name || ! email || ! password || ! confirmed_password) return errHandler(res, "all fields are required");
 
         // validate and sanitize user inputs
-        const {error, value} = registerUserSchema.validate({first_name, last_name, email, password});
+        const {error} = registerUserSchema.validate({first_name, email, password});
         if(error) return errHandler(res, error.details[0].message.replace(/"/g, ""));
 
         // check if password and confirm password are the same
@@ -37,7 +38,7 @@ const registerUser = async (req: Request, res: Response):Promise<void> => {
         if(emailExist) return errHandler(res, "email registered already, please login!");
 
         // get query string from the reg link and check if it exist in the db
-        const uplineLink = req.query.ref as string;
+        const uplineLink = upline_link2 as string || req.query.ref as string;
 
         if(uplineLink){
             const defaultRegLink  = `${req.protocol}://${req.get('host')}${req.originalUrl.slice(0, req.originalUrl.indexOf("?"))}`;
@@ -53,11 +54,14 @@ const registerUser = async (req: Request, res: Response):Promise<void> => {
             })
         }
 
+        // generate username for user
+        const user_name = generateUsername(first_name, 4);
+
         // hash password
         const hashedPassword = await PasswordHash(password);
 
         const [ userRegistered ] = await userModel.create(
-            [{first_name, last_name, email, password: hashedPassword}], 
+            [{first_name, user_name, email, password: hashedPassword}], 
             {session}
         );
 
@@ -93,10 +97,7 @@ const registerUser = async (req: Request, res: Response):Promise<void> => {
 }
 // verify user email by sensding verification code
 const verifyUser = async (req: Request, res: Response):Promise<void> => {
-    const session  = await mongoose.startSession();
     try {
-        session.startTransaction();
-
         const {email} = req.body;
 
         //check if email input is empty
@@ -163,23 +164,7 @@ const verifyUser = async (req: Request, res: Response):Promise<void> => {
 
             existingUser.verified_time = Date.now();
 
-            await existingUser.save({session});
-
-            // create a history
-            await historyModel.create([{
-                user: existingUser._id,
-                subject: `account verification`,
-                detail: `verification code sent to ${existingUser.email}`,
-                time: new Date()
-            }], {session});
-
-            await session.commitTransaction();
-
-            res.status(200).json({
-                status: "success",
-                email: existingUser.email,
-                message: "A verification code has been sent to your email address. Please check either your email inbox or spam-box."
-            });
+            await existingUser.save();
 
         } else {
             res.status(500).json({
@@ -189,15 +174,11 @@ const verifyUser = async (req: Request, res: Response):Promise<void> => {
         }
 
     } catch(err){
-        await session.abortTransaction();
-
         res.status(500).json({
             status: `failed`,
             error: `Error occured: ${err as Error}`
         });
-    } finally{
-        session.endSession();
-    }
+    } 
 }
 // confirm user provided code then verify user
 const confirmUser = async (req: Request, res: Response):Promise<void> => {
@@ -284,15 +265,6 @@ const confirmUser = async (req: Request, res: Response):Promise<void> => {
                 await referredUser.save({session});
                 res.clearCookie('upline_link');
             }
-
-            // create a history
-            await historyModel.create([{
-                user: existingUser._id,
-                subject: `account verification`,
-                detail: ! uplineExist ? `acoount verified successfully `
-                                    : `account verified successfully and your upline was rewarded ${referralBonusToUpline} SC for inviting you`, 
-                time: new Date()
-            }], {session});
 
             await session.commitTransaction();
             
@@ -401,8 +373,89 @@ const detailUser = async (req: Request, res: Response):Promise<void> => {
         })
     }
 }
+//update user
+const updateUser = async (req: Request, res: Response): Promise<void> => {
+  try {
+    const userId = (req as any).user_id;
+    if (!userId) return errHandler(res, "User not identified");
+
+    const { first_name, last_name, user_name } = req.body;
+
+    // all fields are required
+    if (!first_name || !last_name || !user_name)
+      return errHandler(res, "All fields are required");
+
+    // validate input
+    const {error, value} = updateUserSchema.validate({ first_name, last_name, user_name });
+    if (error)
+      return errHandler(res, error.details[0].message.replace(/"/g, ""));
+
+    const userDetail = await userModel.findById(userId).select("first_name last_name user_name");
+    if (!userDetail) return errHandler(res, "user info not available at the moment");
+
+    // Prepare update object
+    const updateData: any = {};
+    if (userDetail.first_name !== first_name) updateData.first_name = first_name;
+    if (userDetail.last_name !== last_name) updateData.last_name = last_name;
+    if (userDetail.user_name !== user_name) updateData.user_name = user_name;
+
+    if (Object.keys(updateData).length === 0)
+      return errHandler(res, "No changes made yet");
+
+    // Check if username is being changed and if it's taken
+    const userNameExist = await userModel.findOne({ user_name });
+    if (userNameExist && ! userNameExist._id.equals(userId)) 
+        return errHandler(res, "username is taken already. Choose another");
+    
+
+    await userDetail.updateOne(updateData);
+
+    res.status(200).json({
+      status: "success",
+      message: "User data updated successfully",
+    });
+  } catch (err) {
+    res.status(500).json({
+      status: "failed",
+      error: `Error occurred: ${(err as Error).message}`,
+    });
+  }
+};
+//delete account 
+const deleteUser = async (req: Request, res: Response):Promise<void> => {
+    try{
+        // get user id stored in the req
+        const userId = (req as any).user_id;
+        if(! userId) return errHandler(res, "user not identified");
+        
+        // Check if userId is present and valid
+        if (!userId || !mongoose.Types.ObjectId.isValid(userId)) 
+        return errHandler(res, "user not identified or invalid ID");
+    
+        // Delete all user-related data
+        await Promise.all([
+            historyModel.deleteMany({ user_id: userId }),
+            minerModel.deleteOne({ user_id: userId }),
+            postModel.deleteMany({ user_id: userId }),
+            referralModel.deleteMany({ user_id: userId }),
+            walletModel.deleteOne({ user_id: userId })
+        ]);
+
+        await userModel.findByIdAndDelete(userId);
+        res.status(200).json({
+            status: 'success',
+            message: 'user and all related data deleted successfully'
+        });
+
+    } catch(err){
+        res.status(500).json({
+            status: 'failed',
+            error: `Failed to delete user data..`
+        })
+    }
+}
 
 export {
     registerUser, verifyUser, confirmUser, loginUser,
-    detailUser 
+    detailUser, updateUser, deleteUser
 };

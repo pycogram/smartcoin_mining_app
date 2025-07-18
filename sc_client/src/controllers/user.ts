@@ -76,5 +76,27 @@ const loginUser = async (formData: object) => {
 
     return data;
 }
+// update user
+const updateUser = async (formData: object) => {
 
-export { registerUser , verifyUser, confirmUser, loginUser};  
+    const res = await fetch('/api/user/update', {
+        method: 'PATCH', 
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({...formData})
+    });
+
+    const data = await res.json();
+
+    if(! res.ok){
+        throw new Error(`${data.message}`);
+    }
+
+    return data;
+}
+
+export { 
+    registerUser , verifyUser, confirmUser, loginUser,
+    updateUser
+};  

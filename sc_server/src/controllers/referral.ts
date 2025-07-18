@@ -16,13 +16,13 @@ const referralDetail = async(req: Request, res: Response):Promise<void> => {
         // check if user still in the db atm
         const userExist = await userModel.findById(userId).select("_id");
         if(! userExist) return errHandler(res, "user not found");
-    
+ 
         const referralInfo = await referralModel.findOne({user: userExist?._id}).select('-upline_link');
         if(referralInfo){
             let referralList;
             referralList = await referralModel.find({upline_link: referralInfo.ref_link})
                                                     .select('_id, upline_gain')
-                                                    .populate('user', 'first_name last_name -_id');
+                                                    .populate('user', 'first_name user_name last_name -_id');
             if(!referralList || referralList.length === 0) {
                 referralList = undefined; 
             }
@@ -31,7 +31,7 @@ const referralDetail = async(req: Request, res: Response):Promise<void> => {
                 status: "success",  
                 message: "referral info fetched successfully",
                 ref_info: referralInfo,
-                ref_list: referralList 
+                ref_list: referralList
             })
         }
     } catch(err){
