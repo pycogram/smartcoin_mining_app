@@ -9,14 +9,14 @@ const userScheme = new mongoose.Schema({
     },
     last_name: {
         type: String,
-        required: [true, "last name is required"],
         trim: true,
         lowercase: true
     },
     user_name: {
         type: String,
         trim: true,
-        lowercase: true
+        lowercase: true,
+        unique: true
     },
     email: {
         type: String,

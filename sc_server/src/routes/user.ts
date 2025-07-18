@@ -1,5 +1,5 @@
 import express from 'express';
-import { confirmUser, detailUser, loginUser, registerUser, verifyUser } from '../controllers/user';
+import { confirmUser, deleteUser, detailUser, loginUser, registerUser, updateUser, verifyUser } from '../controllers/user';
 import { authUser } from '../middlewares/auth-user';
 
 const router = express.Router();
@@ -10,6 +10,8 @@ router.post('/verify', verifyUser);
 router.post('/confirm', confirmUser);
 router.post('/login', loginUser);
 router.get('', authUser, detailUser);
+router.patch('/update', authUser, updateUser);
+router.delete('/delete', authUser, deleteUser);
 
 
 export { router as userRoutes };
