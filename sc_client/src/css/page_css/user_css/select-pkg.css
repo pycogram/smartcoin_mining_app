@@ -8,7 +8,7 @@
     /* @apply w-[90%] h-[100%]  */
     @apply w-[90%] place-content-start place-items-center
     md:place-content-center md:my-0 md:h-[100%]
-    sm:w-[70%] md:w-130 text-gray-700 relative 
+    sm:w-[70%] md:w-130 text-gray-700 relative lg:w-150
 }
 .select-pkg .ref-span-go-back{
     @apply rounded-full bg-gray-100 border border-gray-200 
@@ -18,25 +18,33 @@
     @apply size-7 md:hidden
 }
 .select-pkg h3{
-    @apply capitalize text-[16px] font-bold md:text-[18px] lg:text-[22px] mb-0.5 lg:mb-2
+    @apply capitalize text-[16px] font-bold md:text-[18px] lg:text-[22px] mb-0.5 lg:mb-2 
 }
 .select-pkg .active-lock{
     @apply bg-gray-50 border border-gray-300 py-2 px-1.5 block mb-[1rem] w-full
-    hover:bg-gray-100 hover:border-gray-400 cursor-pointer lg:mb-[2rem] lg:py-3 lg:px-2
+    lg:mb-[2rem] lg:py-3 lg:px-2 relative
 }
 .active-lock p{
     @apply text-[14px] capitalize md:text-[16px] lg:text-[18px]
 }
+.active-lock h5{
+    @apply bg-gray-400 text-white w-fit place-self-end px-1.5 lg:px-2.5 text-[14px] lg:text-[18px] font-bold
+    leading-4 py-0.5 lg:py-1 rounded-md border-2 border-white hover:bg-gray-500 active:bg-gray-500 
+    hover:border-white active:border-white capitalize transition ease-in-out delay-150 cursor-pointer
+}
 .select-pkg .select-lock-pkg{
     @apply block w-full h-full space-y-1 md:grid md:grid-cols-2 md:gap-x-1.5 md:place-content-center 
-    transition ease-in-out delay-200 lg:gap-x-2.5 lg:space-y-2.5 
+    transition ease-in-out delay-200 lg:gap-x-5 lg:space-y-4 lg:place-items-center 
 }
 .select-lock-pkg .each-pkg{
-    @apply bg-white border-4 rounded-sm border-gray-200 flex place-items-center place-content-center py-2
-    space-x-4 hover:scale-95 hover:border-blue-300 active:border-blue-300 transition ease-in-out delay-200 lg:h-35 cursor-pointer
+    @apply bg-white px-3 w-fit lg:w-full border-2 lg:border-4 rounded-sm border-gray-100 flex place-items-center place-content-center py-2
+    space-x-4 hover:border-blue-200 active:border-blue-200 transition ease-in-out delay-200 lg:h-35 cursor-pointer
 }
+.select-pkg .a-pkg-h3, .select-pkg .s-pkg-h3{
+    @apply place-self-start font-bold 
+} 
 .select-lock-pkg .each-pkg:active{
-    @apply border-blue-300 scale-95
+    @apply border-blue-300 
 }
 .each-pkg span:nth-child(1){
     @apply bg-gray-200 place-items-center place-content-center h-25 w-30 rounded-sm
@@ -45,7 +53,7 @@
     @apply text-[14px] capitalize font-bold lg:text-[16px]
 }
 .each-pkg span:nth-child(1) img{
-    @apply w-18 h-16 rounded-sm border border-white
+    @apply w-18 h-16 rounded-sm border border-white bg-white
 }
 .each-pkg span:nth-child(2){
     @apply block place-items-center place-content-center space-y-1.5 capitalize
@@ -75,7 +83,7 @@
     @apply text-[25px] lg:text-[30px]
 }
 .lock-pkg .each-pkg span:nth-child(2) h3{
-    @apply text-[20px] lg:text-[25px]
+    @apply text-[14px] lg:text-[17px] font-normal italic
 }
 
 .lock-pkg .w-addy span{
