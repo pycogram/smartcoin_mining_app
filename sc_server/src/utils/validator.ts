@@ -2,6 +2,7 @@ import Joi from "joi";
 
 const nameField = Joi.string()
     .required()
+    .trim()
     .min(2)
     .max(30)
     .messages({
@@ -13,6 +14,7 @@ const nameField = Joi.string()
 });
 const emailField = Joi.string()
     .required()
+    .trim()
     .min(3)
     .max(60)
     .email({tlds: {allow: ['com', 'net']}})
@@ -26,6 +28,7 @@ const emailField = Joi.string()
 });
 const passwordField = Joi.string()
     .required()
+    .trim()
     .min(5)
     .max(30)
     .pattern(new RegExp('^[a-zA-Z0-9@#$!]{5,30}$'))
@@ -39,6 +42,7 @@ const passwordField = Joi.string()
     });
 const codeField = Joi.string()
     .required()
+    .trim()
     .pattern(new RegExp('^[a-zA-Z0-9]{6}$'))
     .messages({
         'string.base': '{{#label}} must be a string',
@@ -48,6 +52,7 @@ const codeField = Joi.string()
     });
 const contentField = Joi.string()
     .required()
+    .trim()
     .messages({
         'string.base': '{{#label}} must be a string',
         'string.empty': '{{#label}} is required',
@@ -71,6 +76,7 @@ const lockScField = Joi.number()
 });
 const sendScField = Joi.string()
     .required()
+    .trim()
     .pattern(new RegExp('^[a-zA-Z0-9]{6}$'))
     .messages({
         'string.base': '{{#label}} must be a string',
@@ -82,7 +88,6 @@ const sendScField = Joi.string()
 
 const registerUserSchema = Joi.object({
     first_name: nameField.label("First name"),
-    last_name: nameField.label("Last name"),
     email: emailField.label("Email"),              
     password: passwordField.label("Password")
 });
@@ -95,6 +100,11 @@ const confirmUserSchema = Joi.object({
 const loginUserSchema = Joi.object({       
     email: emailField.label("Email"),
     password: passwordField.label("Password")
+});
+const updateUserSchema = Joi.object({
+    first_name: nameField.label("First name"),
+    last_name: nameField.label("Last name"),
+    user_name: nameField.label("User name"),
 });
 const postSchema = Joi.object({
     content: contentField.label("Content"),
@@ -117,9 +127,9 @@ const sendScSchema = Joi.object({
     amount_sc: lockScField.label("Amount Sc"),
 });
 
-
 export {
     registerUserSchema, verifyUserSchema, confirmUserSchema, loginUserSchema, 
+    updateUserSchema,
     postSchema, 
     mineScSchema,
     lockScSchema, unLockScSchema,

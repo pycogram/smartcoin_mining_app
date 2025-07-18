@@ -2,16 +2,16 @@ import { PieChart, Pie, Tooltip, Cell } from 'recharts';
 import {useMediaQuery} from 'react-responsive';
 
 type Piechart_type = {
-    basedmine: number,
-    gifted: number,
+    mined_sc: number,
+    locked_sc: number,
     boast: number
 }
 
-const Piechart = ({basedmine, gifted, boast} : Piechart_type) => {
+const Piechart = ({mined_sc, locked_sc, boast} : Piechart_type) => {
 
     const data = [
-        { name: 'based mine', students: basedmine },
-        { name: 'gifts', students: gifted },
+        { name: 'mined', students: mined_sc },
+        { name: 'locked', students: locked_sc },
         { name: 'boasts', students: boast },
     ];
 
@@ -24,8 +24,8 @@ const Piechart = ({basedmine, gifted, boast} : Piechart_type) => {
     const customTooltip = ({active, payload} : any) => {
         if(! active || !payload || !payload.length) return null;
         return (
-            <div style={{width: "auto" , fontSize: "15px", textAlign: "center", height: "auto", background: "#fff", padding: "1rem 0.2rem", border: '2px solid #ccc'}}>
-                <p>{payload[0]?.name.toUpperCase()}: $SC {payload[0]?.value}</p>
+            <div style={{width: "auto", maxHeight: "auto", fontSize: "12px", textAlign: "center", height: "auto", background: "#fff", padding: "0.2rem 0.2rem", border: '2px solid #ccc'}}>
+                <p>{payload[0]?.name.toUpperCase()}: SC {payload[0]?.value}</p>
             </div>
         )
     }
