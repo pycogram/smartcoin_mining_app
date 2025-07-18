@@ -6,19 +6,19 @@ import { registerUser } from "../../controllers/user";
 import Fail from "../../components/alert/fail";
 
 const RegisterPage = () => {
-
+    //error state
+    const [error, setError] = useState<string>("");
+    
+    const refLink  = new URLSearchParams(window.location.search).get('ref');
+    
     // input state
     const [formData, setFormData] = useState({
         first_name: "",
-        last_name: "",
         email: "",
-        invited_by: "",
         password: "",
-        confirmed_password: ""
+        confirmed_password: "",
+        upline_link2: refLink
     });
-
-    //error state
-    const [error, setError] = useState<string>("");
 
     // use navigate model
     const navigate = useNavigate();
@@ -52,7 +52,8 @@ const RegisterPage = () => {
 
         } catch(err){
             setError(`${(err as Error).message}`)
-        }
+
+        } 
     }
     return ( 
         <div className="register-page">
@@ -65,16 +66,8 @@ const RegisterPage = () => {
                         <input value={formData.first_name} onChange={(e) => setFormData({...formData, first_name: e.target.value})} type="text" placeholder="John"/>
                     </div>
                     <div>
-                        <label>Last name</label>
-                        <input value={formData.last_name} onChange={(e) => setFormData({...formData, last_name: e.target.value})} type="text" placeholder="Doe"/>
-                    </div>
-                    <div>
                         <label>Email:</label>
                         <input value={formData.email} onChange={(e) => setFormData({...formData, email: e.target.value})} type="text" placeholder="johndoe@gmail.com"/>
-                    </div>
-                    <div>
-                        <label>Invited by:</label>
-                        <input value={formData.invited_by} onChange={(e) => setFormData({...formData, invited_by: e.target.value})} type="text" placeholder="mosaic"/>
                     </div>
                     <div>
                         <label>Password:</label>

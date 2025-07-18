@@ -1,8 +1,7 @@
 import "../../css/page_css/user_css/dashboard.css";
-import smartcoin_logo from "../../images/logos/sc_logo.png";
 import mine from "../../images/pics/mine.png";
-import boast from "../../images/pics/Boost.png";
-import gift from "../../images/pics/gift.png";
+import lock from "../../images/pics/Boost.png";
+import update_prof from "../../images/pics/gift.png";
 import { Link} from "react-router-dom";
 import pdp from "../../images/pics/pdp.png";
 import Piechart from "../../components/chart/piechart";
@@ -15,37 +14,43 @@ import Fail from "../../components/alert/fail";
 const Dashboard = () => {
     const message_user = localStorage.getItem("message_user") ?? "";
 
-    const [perfect, setPerfect] = useState<string>(message_user);
     const {user} = useContext(UserContext)!;
+
+    const [perfect, setPerfect] = useState<string>(message_user);
     const [hideBal, setHideBal] = useState<boolean>(false);
     const [minedSc, setMinedSc] = useState<number>(0);
+    const [lockedSc, setLockedSc] = useState<number>(0);
     const [minedScStatus, setMinedScStatus] = useState<boolean>(false);
-    const [monitorMine, setMonitorMine] = useState<boolean>(false);
-    const [endTime, setEndTime] = useState<number>(0);
+    const [endTime, setEndTime] = useState<number | null>(null);
     const [totalSc, setTotalSc] = useState<number>(0);
+    const [isReady, setIsReady] = useState<boolean>(true);
+
+    const mineRate = 30;
+    const mineDuration = 2400;
     
     useEffect(() => {
+        if(endTime === null) return ;
         const interval = setInterval(() => {
             const currentTime = Date.now(); 
             if (endTime && currentTime <= endTime) {
                 setMinedSc((prev) => {
-                    if(prev >= totalSc){
+                    const next = prev + (mineRate / mineDuration);
+                    if (next >= totalSc) {
+                        setEndTime(null);
                         clearInterval(interval);
-                        return prev;
-                    }
-                    return prev + 1;
+                        return totalSc;
+                    } 
+                    return next;
                 });
             } else {
+                setEndTime(null);
                 clearInterval(interval);
             }
-        }, 4000);
+        }, 1000);
 
         return () => clearInterval(interval);
-    }, [monitorMine]);
+    }, [endTime]);
 
-    window.addEventListener("beforeunload", () => {
-        setMinedSc(0);
-    })
 
     useEffect(()=> {
 
@@ -60,9 +65,10 @@ const Dashboard = () => {
 
                 const endTime = new Date(data.end_time).getTime();
                 const total_mined = data.total_mined;
+                const total_locked = data.total_locked;
                 const nowTime = Date.now();
                 const diffTime =  Math.floor((nowTime - endTime) / 1000);
-                const scPerTime = Math.abs((450 / 1800000) * diffTime);
+                const scPerTime = Math.abs((mineRate / mineDuration) * diffTime);
                 const actualSc = Math.floor((data.total_mined - scPerTime));
 
                 if(nowTime < endTime){
@@ -72,10 +78,11 @@ const Dashboard = () => {
                 }
                 
                 setTotalSc(total_mined);
+                setLockedSc(total_locked);
                 setEndTime(endTime);
-                setMonitorMine(! monitorMine);
-                setMinedScStatus(! minedScStatus);
-                    
+                setMinedScStatus(true);
+                setIsReady(false);
+                                    
             } catch(err){
                 let message =  (err as Error).message;
                 setError(message);
@@ -112,11 +119,13 @@ const Dashboard = () => {
             const {data, message} = await mineSc(true);
 
             const endTime = new Date(data.end_time).getTime(); 
+            const total_mined = data.total_mined;
                       
             setEndTime(endTime);
-            setMinedSc(minedSc && minedSc + 1);
-            setMonitorMine(! monitorMine);
+            setTotalSc(total_mined);
+            setMinedSc(Math.max(total_mined - mineRate, 0) + 1);
             setPerfect(message);
+            setIsReady(false);
 
         } catch(err){
             let message = (err as Error).message;
@@ -130,11 +139,12 @@ const Dashboard = () => {
         }
     }
 
-    // if(! minedSc ) return (
-    //     <div>
-    //         <i className="fa-solid fa-spinner lazy-page-load-icon"></i>
-    //     </div>
-    // )
+
+    if(isReady) return (
+        <div>
+            <i className="fa-solid fa-spinner lazy-page-load-icon"></i>
+        </div>
+    )
     return ( 
         <div className="dashboard">
             <nav className="db-navbar">
@@ -162,27 +172,28 @@ const Dashboard = () => {
             <div className="logo-amt-eye">
                 {perfect && <Success success={`${perfect}`} loggedinStatus={true} />}
                 {error && <Fail error={error} loggedinStatus={true} />}
-                { !hideBalStatus ? <img src={smartcoin_logo} alt="smartlogo" /> : ""}
+                
                    <span className="mined-amt">
                          { 
                            !minedScStatus ? <h3>loading...</h3> :
                                 <h2>
                                     {
-                                        !hideBalStatus  ? minedSc && minedSc < 100 
-                                                        ? minedSc + ".000" 
-                                                        : minedSc 
+                                        !hideBalStatus  ? minedSc.toFixed(2)                                                      
                                                         : "*****"
                                     } 
                                 </h2>
                         }
-                        {  !minedScStatus ? "" : <h3>SC</h3> } 
+                        <h3>SC</h3>
                     </span>
                 <span className="iconx">
                     <i onClick={hideRevealBalance} className={!hideBalStatus ? "fa-solid fa-eye" : "fa-solid fa-eye-slash" }></i>
                 </span>
             </div>
-            <div className="lock-coin">
-                <p>Locked: {0} SC</p>
+            <div className="lock-coin"> 
+                <p>Level: {minedSc != 0 ? (1 + Math.floor((minedSc + lockedSc) / 100)) : 0}</p>
+                <Link to={'/select-pkg'}>
+                    <p>Locked: {!hideBalStatus  ? lockedSc : "***"} SC</p>
+                </Link>
             </div>
             <div className="db-button">
                 <span>
@@ -194,23 +205,25 @@ const Dashboard = () => {
                     <p>Receive</p>
                 </span>
                 <span>
-                    <i className="fa-solid fa-share-nodes"></i>
-                    <p>Referral</p>
+                    <Link to={'/referral'}>
+                        <i className="fa-solid fa-share-nodes"></i>
+                        <p>Referral</p>
+                    </Link>
                 </span>
             </div>
             <div className="pie-sidebutton">
                 <div className="piechart-sec">
                     <span className="piechart_css">
                         {/* <img src={piechart} alt="piechart analysis" /> */}
-                        <Piechart basedmine={8_000} gifted={2_000} boast={1_000} />
+                        <Piechart mined_sc={Number(minedSc.toFixed(2))} locked_sc={lockedSc} boast={1_000} />
                     </span>
                     
                     <ul>
                         <li>
-                            Based mine: 8,000
+                            total mine: {!hideBalStatus  ? minedSc.toFixed(2) : "*****"}
                         </li>
                         <li>
-                            Gifted: 2,000
+                            locked sc: {!hideBalStatus  ? lockedSc.toFixed(2) : "*****"}
                         </li>
                         <li>
                             Boast: 1,000
@@ -219,13 +232,17 @@ const Dashboard = () => {
                 </div>
                 <div className="db-sidebutton">
                     <span onClick={mineSCFn}>
-                        <img src={mine} alt="mining logo" />
+                        <img className={endTime === null ? "" : "spin-img1"} src={mine} alt="mining logo" />
                     </span>
                     <span>
-                        <img src={boast} alt="boast logo" />
+                        <Link to={'/select-pkg'}>
+                            <img className={"lock-active1"} src={lock} alt="lock logo" />
+                        </Link>
                     </span>
                     <span>
-                        <img src={gift} alt="gift logo" />
+                        <Link to={'/update-profile'}>
+                            <img src={update_prof} alt="update logo" />
+                        </Link>
                     </span>
                 </div>
             </div>
