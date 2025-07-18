@@ -8,10 +8,10 @@
     md:hidden bg-white bg-[radial-gradient(#e5e7eb_1px,transparent_1px)] [background-size:16px_16px]
 }
 .nav-link .img-pdp{
-    @apply flex place-items-center place-content-center gap-x-1 
+    @apply flex place-items-center place-content-center gap-x-1.5 
 }
 .img-pdp img{
-    @apply w-8 h-8 rounded-4xl border-2 border-gray-300 shadow-2xl
+    @apply w-6 h-6 rounded-4xl border-2 border-gray-300 shadow-2xl
 }
 .img-pdp p{
     @apply block text-gray-600 font-semibold

@@ -52,10 +52,10 @@ const Layout = () => {
                         </svg>
                     </div>
                 </div>
-                <Link to={""}>
+                <Link to={"/update-profile"}>
                     <div className="img-pdp">
                         <img src={pdp} alt="profile pic" />
-                        <p className="">{user?.first_name} .{user?.last_name.charAt(0)}</p>
+                        <p className="">{user?.first_name} {user.last_name && '.' + user.last_name.charAt(0)}</p>
                     </div>
                 </Link>
             </nav>
