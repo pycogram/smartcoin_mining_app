@@ -8,8 +8,11 @@ import Piechart from "../../components/chart/piechart";
 import { useContext, useEffect, useState } from "react";
 import Success from "../../components/alert/success";
 import { UserContext } from "../../contexts/user";
-import { mineDetail, mineSc } from "../../controllers/dashboard";
+import { mineDetail, mineSc} from "../../controllers/miner";
+import { walletId } from "../../controllers/wallet";
 import Fail from "../../components/alert/fail";
+import "../../css/page_css/user_css/referral.css";
+
 
 const Dashboard = () => {
     const message_user = localStorage.getItem("message_user") ?? "";
@@ -24,6 +27,10 @@ const Dashboard = () => {
     const [endTime, setEndTime] = useState<number | null>(null);
     const [totalSc, setTotalSc] = useState<number>(0);
     const [isReady, setIsReady] = useState<boolean>(true);
+    const [totalReceived, setTotalReceived] = useState<number>(0);
+    const [totalSent, setTotalSent] = useState<number>(0);
+
+    const [walletAddy, setWalletAddy] = useState<string | null>(null);
 
     const mineRate = 30;
     const mineDuration = 2400;
@@ -62,7 +69,7 @@ const Dashboard = () => {
         setTimeout(async ()=> {
             try{
                 const {data} = await mineDetail();
-
+            
                 const endTime = new Date(data.end_time).getTime();
                 const total_mined = data.total_mined;
                 const total_locked = data.total_locked;
@@ -81,6 +88,14 @@ const Dashboard = () => {
                 setLockedSc(total_locked);
                 setEndTime(endTime);
                 setMinedScStatus(true);
+
+                // get wallet ID and info
+                const {wallet_info} = await walletId();
+
+                setTotalReceived(wallet_info.total_received);
+                setTotalSent(wallet_info.total_sent)
+                setWalletAddy(wallet_info.wallet_id);
+
                 setIsReady(false);
                                     
             } catch(err){
@@ -139,6 +154,34 @@ const Dashboard = () => {
         }
     }
 
+    const [viewW, setViewW] = useState<boolean | null>(null);
+
+    const viewWalletId = () => {
+        setPerfect("");
+        setError("");
+        
+        try{
+            setViewW(true);
+            setTimeout(async() => {
+                if(walletAddy){
+                    await navigator.clipboard.writeText(walletAddy);
+                    setPerfect(`wallet address automatically copied`);
+                }
+            });
+            
+        } catch(err){
+            let message = (err as Error).message;
+            setError(message);
+
+        } finally{
+            setTimeout(() => {
+                setViewW(prev => !prev);
+                setError("");
+                setPerfect("");
+
+            }, 5 * 1000);
+        }
+    }
 
     if(isReady) return (
         <div>
@@ -149,7 +192,7 @@ const Dashboard = () => {
         <div className="dashboard">
             <nav className="db-navbar">
                 <div className="menu-notify">
-                    <Link to={""}>
+                    <Link to={"/history"}>
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="nav-option">
                             <path strokeLinecap="round" strokeLinejoin="round" d="M14.857 17.082a23.848 23.848 0 0 0 5.454-1.31A8.967 8.967 0 0 1 18 9.75V9A6 6 0 0 0 6 9v.75a8.967 8.967 0 0 1-2.312 6.022c1.733.64 3.56 1.085 5.455 1.31m5.714 0a24.255 24.255 0 0 1-5.714 0m5.714 0a3 3 0 1 1-5.714 0" />
                         </svg>
@@ -173,18 +216,18 @@ const Dashboard = () => {
                 {perfect && <Success success={`${perfect}`} loggedinStatus={true} />}
                 {error && <Fail error={error} loggedinStatus={true} />}
                 
-                   <span className="mined-amt">
-                         { 
-                           !minedScStatus ? <h3>loading...</h3> :
-                                <h2>
-                                    {
-                                        !hideBalStatus  ? minedSc.toFixed(2)                                                      
-                                                        : "*****"
-                                    } 
-                                </h2>
-                        }
-                        <h3>SC</h3>
-                    </span>
+                <span className="mined-amt">
+                        { 
+                        !minedScStatus ? <h3>loading...</h3> :
+                            <h2>
+                                {
+                                    !hideBalStatus  ? minedSc.toFixed(2)                                                      
+                                                    : "*****"
+                                } 
+                            </h2>
+                    }
+                    <h3>SC</h3>
+                </span>
                 <span className="iconx">
                     <i onClick={hideRevealBalance} className={!hideBalStatus ? "fa-solid fa-eye" : "fa-solid fa-eye-slash" }></i>
                 </span>
@@ -195,38 +238,59 @@ const Dashboard = () => {
                     <p>Locked: {!hideBalStatus  ? lockedSc : "***"} SC</p>
                 </Link>
             </div>
-            <div className="db-button">
-                <span>
-                    <i className="fa-solid fa-paper-plane"></i>
-                    <p>Send</p>
-                </span>
-                <span>
-                    <i className="fa-solid fa-repeat"></i>
-                    <p>Receive</p>
-                </span>
-                <span>
-                    <Link to={'/referral'}>
-                        <i className="fa-solid fa-share-nodes"></i>
-                        <p>Referral</p>
-                    </Link>
-                </span>
-            </div>
+            {   ! viewW ?
+                <div className="db-button">
+                    <span>
+                        <Link to={'/send-sc'}>
+                            <i className="fa-solid fa-paper-plane"></i>
+                            <p>Send</p>
+                        </Link>
+                    </span>
+                    <span onClick={viewWalletId}>
+                        <i className="fa-solid fa-repeat"></i>
+                        <p>Receive</p>
+                    </span>
+                    <span>
+                        <Link to={'/referral'}>
+                            <i className="fa-solid fa-share-nodes"></i>
+                            <p>Referral</p>
+                        </Link>
+                    </span>
+                </div> :
+                <div className="ref-wallet-ady">
+                    {/* <h3>wallet Address</h3> */}
+                    <div>
+                        <span>
+                            <h4 className="ref-w-a-h4" >{walletAddy ?? "loading.."}</h4>
+                            <i className="fa-solid fa-copy"></i>
+                        </span>
+                    </div>
+                </div> 
+            }
             <div className="pie-sidebutton">
                 <div className="piechart-sec">
                     <span className="piechart_css">
                         {/* <img src={piechart} alt="piechart analysis" /> */}
-                        <Piechart mined_sc={Number(minedSc.toFixed(2))} locked_sc={lockedSc} boast={1_000} />
+                        <Piechart 
+                            mined_sc={Number(minedSc.toFixed(2))} 
+                            locked_sc={lockedSc} 
+                            total_received={totalReceived}
+                            total_sent={totalSent} 
+                        />
                     </span>
                     
                     <ul>
                         <li>
-                            total mine: {!hideBalStatus  ? minedSc.toFixed(2) : "*****"}
+                            Total mined: {!hideBalStatus  ? minedSc.toFixed(2) + " SC" : "*****"}
                         </li>
                         <li>
-                            locked sc: {!hideBalStatus  ? lockedSc.toFixed(2) : "*****"}
+                            Locked: {!hideBalStatus  ? lockedSc.toFixed(2) + " SC"  : "*****"}
                         </li>
                         <li>
-                            Boast: 1,000
+                            Total received: {!hideBalStatus ? totalReceived.toFixed(2) + " SC"  : "*****"}
+                        </li> 
+                        <li>
+                            Total sent: {!hideBalStatus ? totalSent.toFixed(2) + " SC"  : "*****"}
                         </li>                        
                     </ul>
                 </div>
