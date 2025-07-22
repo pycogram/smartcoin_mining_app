@@ -407,13 +407,18 @@ const updateUser = async (req: Request, res: Response): Promise<void> => {
     if (userNameExist && ! userNameExist._id.equals(userId)) 
         return errHandler(res, "username is taken already. Choose another");
     
-
     await userDetail.updateOne(updateData);
+
+    const updatedInfo = { 
+        first_name, last_name, user_name
+    }
 
     res.status(200).json({
       status: "success",
       message: "User data updated successfully",
+      data: updatedInfo
     });
+
   } catch (err) {
     res.status(500).json({
       status: "failed",

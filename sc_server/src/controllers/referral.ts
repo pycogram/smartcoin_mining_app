@@ -61,7 +61,7 @@ const refBonusClaim = async(req: Request, res: Response):Promise<void> => {
         if(error) return errHandler(res, error.details[0].message.replace(/"/g, ""));
 
         const refInfo = await referralModel.findOne({user: userId}).select('claim_bonus').session(session);
-        if(refInfo && refInfo.claim_bonus == 0) return errHandler(res, "there's nothing to claim");
+        if(refInfo && refInfo.claim_bonus == 0) return errHandler(res, "nothing to claim");
 
         if(refInfo){
             const minerInfo = await minerModel.findOne({user: userId}).select('total_mined').session(session); 
@@ -75,18 +75,18 @@ const refBonusClaim = async(req: Request, res: Response):Promise<void> => {
                 await refInfo.save({session});
 
                 // create a history
-                await historyModel.create({
+                await historyModel.create([{
                     user: userId,
                     subject: `referral bonus`,
                     detail: `claimed ${bonusToClaim} SC bonus from referral program`,
                     time: new Date()
-                }, {session});
+                }], {session});
 
                 await session.commitTransaction();
 
                 res.status(200).json({
                     status: "success",
-                    message: `bonus of ${bonusToClaim} SC claimed successfully`
+                    message: `bonus of ${bonusToClaim} SC claimed successfully`,
                 });
             } 
         }
