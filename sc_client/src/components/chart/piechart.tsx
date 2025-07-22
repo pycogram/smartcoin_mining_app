@@ -4,18 +4,20 @@ import {useMediaQuery} from 'react-responsive';
 type Piechart_type = {
     mined_sc: number,
     locked_sc: number,
-    boast: number
+    total_received: number,
+    total_sent: number
 }
 
-const Piechart = ({mined_sc, locked_sc, boast} : Piechart_type) => {
+const Piechart = ({mined_sc, locked_sc, total_received, total_sent} : Piechart_type) => {
 
     const data = [
         { name: 'mined', students: mined_sc },
         { name: 'locked', students: locked_sc },
-        { name: 'boasts', students: boast },
+        { name: 'received', students: total_received},
+        { name: 'sent', students: total_sent }
     ];
 
-    const COLORS = ['#0088FE', '#00C49F', '#FFBB28'];
+    const COLORS = ['#0088FE', '#00C49F', '#FFBB28', '#008000'];
 
     const isMobile = useMediaQuery({ query: '(min-width: 768px)' });
     const pieChartWidthHeight =  isMobile ? 350 : 200;
