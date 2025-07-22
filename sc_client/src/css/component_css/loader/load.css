@@ -1,0 +1,13 @@
+@import "tailwindcss";
+
+.load-box{
+    @apply w-full my-[2rem] relative 
+}
+.load-box span{
+    @apply w-fit place-self-center bg-transparent border-0 
+}
+.load-box .lazy-content-load-icon2{
+  @apply animate-spin text-sm md:text-lg lg:text-xl text-center 
+   text-blue-900 
+}
+/* absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 */

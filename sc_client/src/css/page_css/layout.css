@@ -11,7 +11,7 @@
     @apply flex place-items-center place-content-center gap-x-1.5 
 }
 .img-pdp img{
-    @apply w-6 h-6 rounded-4xl border-2 border-gray-300 shadow-2xl
+    @apply w-7 h-7 rounded-4xl border-2 border-gray-300 shadow-2xl p-0.5
 }
 .img-pdp p{
     @apply block text-gray-600 font-semibold

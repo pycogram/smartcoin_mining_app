@@ -1,7 +1,7 @@
 @import "tailwindcss";
 
 .page-box{
-    @apply bg-white w-full min-h-screen max-h-full pt-[1rem] pb-[3rem] z-20 
+    @apply bg-white w-full min-h-screen max-h-full pt-[4rem] pb-[4rem]  
     place-content-center place-items-center md:pt-[1rem] 
 }
 .select-pkg{
@@ -12,10 +12,10 @@
 }
 .select-pkg .ref-span-go-back{
     @apply rounded-full bg-gray-100 border border-gray-200 
-    hover:bg-gray-200 hover:border-gray-300 w-fit place-self-start mb-[1rem] md:hidden
+    hover:bg-gray-200 hover:border-gray-300 w-fit place-self-start mb-[1rem] 
 }
 .select-pkg .ref-span-go-back svg{
-    @apply size-7 md:hidden
+    @apply size-7 
 }
 .select-pkg h3{
     @apply capitalize text-[16px] font-bold md:text-[18px] lg:text-[22px] mb-0.5 lg:mb-2 

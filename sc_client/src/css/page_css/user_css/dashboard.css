@@ -4,8 +4,8 @@
     @apply w-[100%] grid bg-orange-400 gap-y-2 md:gap-y-4 md:pt-[1rem] md:pb-[2rem] place-self-center
 } */
  .dashboard{
-    @apply w-[100%] h-fit grid gap-y-2 md:gap-y-4 sm:pt-[2rem] sm:pb-[5rem] 
-    md:py-0 lg:py-[2rem] place-self-center
+    @apply w-[100%] h-full grid gap-y-2 md:gap-y-4 sm:pt-[4rem] sm:pb-[5rem] 
+    md:py-0 lg:pt-[1rem] lg:pb-[2rem] place-self-center
  }
 .dashboard .db-navbar{
     @apply hidden md:flex relative place-content-between place-items-center mb-2 px-[4rem]
@@ -33,8 +33,8 @@
 }
 .dashboard .logo-amt-eye{
     @apply flex place-content-center place-items-center gap-x-4 rounded-lg
-    text-shadow-sm place-self-center
-    w-fit h-fit mb-5 sm:mt-[3rem] md:mt-0 md:mb-0 
+    text-shadow-sm place-self-center 
+    w-fit h-fit mb-3 sm:mt-[0rem] md:mt-0 md:mb-0 
 }
 .logo-amt-eye img{
     @apply w-7 h-7 lg:w-12 lg:h-12
@@ -53,8 +53,15 @@
     @apply w-7 text-red-400;
 }
 .logo-amt-eye .iconx i{
-    @apply flex place-items-center place-content-center h-6 w-7 md:h-9 md:w-10 lg:h-12 lg:w-13 text-gray-700
-    rounded-2xl border-2 border-gray-200 bg-white hover:bg-gray-200 hover:border-white ;
+    @apply flex text-xl lg:text-2xl place-items-center place-content-center h-fit w-fit lg:ml-10 
+    px-1.5 py-0 text-gray-700 rounded-2xl border-2 border-gray-200 bg-white hover:bg-gray-200 
+    hover:border-white 
+}
+.dashboard .ref-wallet-ady{
+    @apply w-75 sm:w-96 place-self-center lg:w-120 
+}
+.ref-wallet-ady .ref-w-a-h4{
+    @apply text-gray-700
 }
 .dashboard .lock-coin{
     @apply w-70 place-self-center sm:w-100 lg:mt-0 lg:w-120 cursor-pointer flex place-content-between
@@ -80,7 +87,7 @@
 .dashboard .pie-sidebutton{
     @apply flex place-items-start place-content-evenly sm:place-content-around 
     lg:place-content-between w-80 place-self-center
-    sm:w-100 md:w-140
+    sm:w-100 md:w-160
 }
 .pie-sidebutton .piechart-sec{
     @apply w-fit ml-0 block relative md:flex md:gap-x-5 md:place-items-end 
@@ -92,7 +99,8 @@
     @apply mt-4
 }
 .piechart-sec ul li{
-    @apply text-xs font-semibold w-fit flex place-items-center md:text-sm lg:text-lg;
+    @apply text-xs font-semibold w-fit flex place-items-center 
+    md:text-sm lg:text-lg first-letter:capitalize text-gray-800
 }
 .piechart-sec ul li::before{
     @apply w-2.5 h-2.5 mr-1.5 relative rounded-xs md:w-4 md:h-4
@@ -106,6 +114,9 @@
 }
 .piechart-sec ul li:nth-child(3)::before{
     @apply bg-[#FFBB28]
+}
+.piechart-sec ul li:nth-child(4)::before{
+    @apply bg-[#008000]
 }
 .pie-sidebutton .db-sidebutton{
     @apply w-fit 
