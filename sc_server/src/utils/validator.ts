@@ -69,19 +69,21 @@ const mineScField = Joi.boolean()
         'any.required': '{{#label}} is required'
 });
 const lockScField = Joi.number()
+    .min(1)
     .required()
     .messages({
         'number.base': '{{#label}} must be a number',
+        'number.min': '{{#label}} must be greater than 0',
         'any.required': '{{#label}} is required'
 });
 const sendScField = Joi.string()
     .required()
     .trim()
-    .pattern(new RegExp('^[a-zA-Z0-9]{6}$'))
+    .pattern(new RegExp('^[a-zA-Z0-9]{20}$'))
     .messages({
         'string.base': '{{#label}} must be a string',
         'string.empty': '{{#label}} is required',
-        'string.pattern.base': '{{#label}} must be 6 alphanumeric characters',
+        'string.pattern.base': '{{#label}} must be 20 alphanumeric characters',
         'any.required': '{{#label}} is required'
 }); 
 
