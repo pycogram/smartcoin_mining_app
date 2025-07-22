@@ -8,7 +8,7 @@ import silverImg from "../../images/pics/silver.jpeg";
 import diamondImg from "../../images/pics/diamond.jpeg";
 import goldImg from "../../images/pics/gold.png";
 import { useEffect, useState } from "react";
-import { mineDetail } from "../../controllers/dashboard";
+import { mineDetail } from "../../controllers/miner";
 import { lockSc } from "../../controllers/lock";
 import Fail from "../../components/alert/fail";
 import { Link, useNavigate } from "react-router-dom";
@@ -58,6 +58,12 @@ const LockPkg = () => {
     let lockTime = Number(localStorage.getItem("lock-time"));
     let lockImg =  undefined;
     let lockName = undefined;
+
+    if(!lockTime){
+        setTimeout(()=> {
+            navigate('/select-pkg');
+        }, 1 * 1000);
+    }
 
     switch (lockTime) {
         case 1:

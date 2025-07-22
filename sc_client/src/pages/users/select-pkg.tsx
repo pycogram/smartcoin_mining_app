@@ -5,11 +5,11 @@ import bronzeImg from "../../images/pics/bronze.jpeg";
 import silverImg from "../../images/pics/silver.jpeg";
 import diamondImg from "../../images/pics/diamond.jpeg";
 import goldImg from "../../images/pics/gold.png";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import Success from "../../components/alert/success";
 import Fail from "../../components/alert/fail";
-import { mineDetail } from "../../controllers/dashboard";
+import { mineDetail } from "../../controllers/miner";
 import { format } from 'date-fns';
 import { unLockSc } from "../../controllers/lock";
 
@@ -95,13 +95,6 @@ const SelectPkg = () => {
             {error && <Fail error={error} loggedinStatus={true} />}
 
             <div className="select-pkg">
-                <span className="ref-span-go-back">
-                    <Link to={'/dashboard'}>
-                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor">
-                        <path strokeLinecap="round" strokeLinejoin="round" d="m11.25 9-3 3m0 0 3 3m-3-3h7.5M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
-                        </svg>
-                    </Link>
-                </span>
                 <h3 className="a-pkg-h3">{isLocked && isLocked > 0  ? `active lock` : `no active lock`}</h3>
                 <div className="active-lock">
                     <p>total locked: SC {isLocked && isLocked.toFixed(2)}</p>

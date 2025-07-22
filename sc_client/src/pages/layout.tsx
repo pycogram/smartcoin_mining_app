@@ -41,7 +41,7 @@ const Layout = () => {
                             </svg> 
                         }
                     </div>
-                    <Link to={""}>
+                    <Link to={"/history"}>
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="nav-option">
                             <path strokeLinecap="round" strokeLinejoin="round" d="M14.857 17.082a23.848 23.848 0 0 0 5.454-1.31A8.967 8.967 0 0 1 18 9.75V9A6 6 0 0 0 6 9v.75a8.967 8.967 0 0 1-2.312 6.022c1.733.64 3.56 1.085 5.455 1.31m5.714 0a24.255 24.255 0 0 1-5.714 0m5.714 0a3 3 0 1 1-5.714 0" />
                         </svg>
@@ -55,7 +55,7 @@ const Layout = () => {
                 <Link to={"/update-profile"}>
                     <div className="img-pdp">
                         <img src={pdp} alt="profile pic" />
-                        <p className="">{user?.first_name} {user.last_name && '.' + user.last_name.charAt(0)}</p>
+                        <p className="">{user.first_name} {user.last_name && '.' + user.last_name.charAt(0)}</p>
                     </div>
                 </Link>
             </nav>
@@ -82,7 +82,7 @@ const Layout = () => {
                         <p>dashboard</p>
                     </div>
                 </Link>
-                <Link to={"/lock"}>
+                <Link to={"/select-pkg"}>
                     <div className="nd-option">
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor">
                         <path strokeLinecap="round" strokeLinejoin="round" d="M16.5 10.5V6.75a4.5 4.5 0 1 0-9 0v3.75m-.75 11.25h10.5a2.25 2.25 0 0 0 2.25-2.25v-6.75a2.25 2.25 0 0 0-2.25-2.25H6.75a2.25 2.25 0 0 0-2.25 2.25v6.75a2.25 2.25 0 0 0 2.25 2.25Z" />
