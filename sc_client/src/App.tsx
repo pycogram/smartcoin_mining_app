@@ -12,7 +12,6 @@ const Dashboard = React.lazy(() => import('./pages/users/dashboard'));
 const UpdateProfile = React.lazy(() => import('./pages/users/update-profile'));
 const Setting = React.lazy(() => import('./pages/users/setting'));
 const Referral = React.lazy(() => import('./pages/users/referral'));
-const ReceiveCoin = React.lazy(() => import('./pages/users/receive-sc'));
 const SendCoin = React.lazy(() => import('./pages/users/send-sc'));
 const ApproveTx = React.lazy(() => import('./pages/users/approve-tx'));
 const NotificationPg = React.lazy(() => import('./pages/users/notification'));
@@ -31,10 +30,9 @@ function App() {
                 <Route path='update-profile' element={<UpdateProfile />} />
                 <Route path='setting' element={<Setting />} />
                 <Route path='referral' element={<Referral />} />
-                <Route path='receive-sc' element={<ReceiveCoin />} />
                 <Route path='send-sc' element={<SendCoin />} /> 
                 <Route path='approve-tx' element={<ApproveTx />} />
-                <Route path='notification' element={<NotificationPg />} />
+                <Route path='history' element={<NotificationPg />} />
                 <Route path='select-pkg' element={<SelectPkg />} />
                 <Route path='lock-pkg' element={<LockPkg />} />
                 <Route path='feed' element={<FeedPg />} />
