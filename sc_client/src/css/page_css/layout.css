@@ -38,7 +38,7 @@
     ml-0 md:ml-25 lg:ml-80 
 }
 .nav-down{
-    @apply bottom-0 fixed flex gap-x-2 justify-around items-center py-0.5 px-4 
+    @apply fixed bottom-0 flex gap-x-2 justify-around items-center py-0.5 px-4 
     w-full shadow-lg border-0 border-t-1 border-t-gray-100 z-10
     md:hidden bg-white bg-[radial-gradient(#e5e7eb_1px,transparent_1px)] [background-size:16px_16px] 
 }

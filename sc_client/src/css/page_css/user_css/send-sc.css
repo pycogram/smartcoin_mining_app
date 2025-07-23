@@ -1,8 +1,8 @@
 @import "tailwindcss";
 
 .send-sc{
-    @apply w-[100%] h-screen z-20 bg-white lg:h-110 relative block 
-    py-[2rem] lg:py-[1rem] text-gray-700
+    @apply w-[100%] h-screen z-20 lg:h-130 relative block 
+    py-[2rem] lg:py-[1rem] text-gray-700 
 }
 .send-sc form{
     @apply w-[85%] h-full block gap-y-1.5 place-self-center sm:w-[400px] lg:w-[50%] lg:gap-y-5
@@ -30,7 +30,7 @@ form .w-addy h3{
 .w-addy span input{
     @apply text-lg outline outline-gray-500 px-2.5 rounded-sm 
     h-[45px] focus:outline-blue-200 focus:outline-2 md:h-[45px] lg:h-[55px] w-full 
-    pr-[4.5rem] lg:pr-[5.5rem]
+    pr-[4.5rem] lg:pr-[5.5rem] bg-white
 }
 .w-addy span i{
     @apply absolute right-2 bottom-1.5 text-sm place-items-center place-content-center
@@ -65,7 +65,7 @@ form .w-info h3{
     @apply capitalize
 }
 form .w-button{
-    @apply  w-[100%] place-self-center absolute -bottom-[0rem] lg:w-full
+    @apply  w-[100%] place-self-center absolute bottom-[2rem] lg:w-full
 }
 .lock-pkg .w-addy{
     @apply mt-[1rem] 
@@ -74,9 +74,9 @@ form .w-button{
     @apply bottom-0 md:-bottom-[1.5rem] lg:-bottom-[3rem] 
 }
 .lock-pkg-sc{
-    @apply min-h-screen max-h-full z-20 pt-[2rem] pb-[1.5rem] 
+    @apply min-h-screen max-h-full pt-[2rem] pb-[1.5rem] 
     md:pt-[3rem] md:pb-[3rem] md:h-screen lg:h-140  lg:pt-[1.5rem] lg:pb-[3rem]  
 }
 .lock-pkg-sc .w-button{
-    @apply block
+    @apply block bottom-[2rem]
 }

@@ -2,19 +2,19 @@
 
 .feed-pg{
     @apply w-[100%] min-h-120 max-h-full block relative pt-[4rem] pb-[5rem] place-content-start place-items-center
-    text-gray-700 space-y-0.5 md:space-y-2 lg:space-y-3.5 bg-white md:py-[1rem]
+    text-gray-700 space-y-0.5 md:space-y-2 lg:space-y-3.5 md:py-[1rem]
 }
 .feed-pg .feed-each-item{
     @apply w-[98%] flex relative h-fit place-items-end place-content-center 
     gap-x-0.5 sm:gap-x-1.5 lg:gap-x-3 sm:w-[90%] md:w-120 
-    lg:w-140 lg:border lg:border-transparent lg:pb-4  lg:border-b-gray-200
+    lg:w-140 lg:border lg:border-transparent lg:pb-4 lg:border-b-gray-200
 }
 .feed-each-item .feed-img{
     @apply place-items-center place-content-center block pb-8 md:pb-10 px-0.5 py-0 w-fit 
-    sm:w-15 h-fit relative 
+    sm:w-15 h-fit relative bg-white
 }
 .feed-img span{
-    @apply w-10 h-10 sm:w-14 sm:h-14 place-content-center place-items-center border lg:border-2
+    @apply w-10 h-10 p-1 sm:w-14 sm:h-14 place-content-center place-items-center border lg:border-2
     border-gray-200 hover:border-gray-300 rounded-full overflow-hidden cursor-pointer
 }
 .feed-img span:hover img{
@@ -24,7 +24,7 @@
     @apply w-full h-full rounded-full 
 }
 .feed-each-item .feed-body{
-    @apply block gap-y-4 w-[80%] 
+    @apply block gap-y-4 w-[80%] bg-white
 }
 .feed-body .feed-name-cont-time{
     @apply block relative px-3.5 pt-1.5 pb-1.5 md:pb-2.5 border

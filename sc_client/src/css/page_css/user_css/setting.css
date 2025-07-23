@@ -1,7 +1,7 @@
 @import "tailwindcss";
 
 .setting{
-    @apply w-[90%] h-screen mt-[4rem] block 
+    @apply w-[90%] h-screen mt-[4rem] mb-[2rem] block 
     sm:w-[80%] md:w-120 lg:w-[60%] xl:w-180 md:h-[100%] md:my-[4rem]
     lg:grid lg:grid-cols-2 lg:h-fit lg:gap-x-4 lg:gap-y-4
 }

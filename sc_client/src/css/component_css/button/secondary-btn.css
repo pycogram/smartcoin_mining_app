@@ -19,7 +19,7 @@
     color: rgb(90, 82, 82);
 }
 .secondary-btn .s-btn2{
-    @apply bg-gray-500 w-fit lg:w-[140px] text-white px-2
+    @apply bg-gray-500 w-fit lg:w-[140px] text-white px-4
     border-2 rounded-md hover:bg-gray-500 hover:border-red-200 gap-x-1.5 lg:gap-x-2
 }
 .s-btn2 .icon-btn{

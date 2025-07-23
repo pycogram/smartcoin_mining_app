@@ -21,7 +21,7 @@ form .form-input-box{
 }
 .form-input-box div input{
     @apply text-lg outline outline-gray-600 px-2.5 rounded-sm pt-1 bg-white
-    h-[43px] focus:outline-blue-200 focus:outline-2 md:h-[45px] lg:h-[55px] 
+    h-[45px] focus:outline-blue-200 focus:outline-2 md:h-[46px] lg:h-[55px] 
     pr-[1.5rem] lg:pr-[2.5rem]
 }
 .form-input-box div label ~ input:focus{

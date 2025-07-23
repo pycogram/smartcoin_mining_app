@@ -31,6 +31,9 @@ const VerifyPage = () => {
 
     const handleVerify = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
+        if(localStorage.getItem("message_user2")){
+            navigate('/confirm');
+        }
 
         setError("");
 
@@ -40,7 +43,9 @@ const VerifyPage = () => {
 
             const {message} = data;
             localStorage.setItem("message_user2", message);
-            navigate('/confirm');
+            setTimeout(() => {
+                navigate('/confirm');
+            }, 5 * 1000);
 
         } catch(err){
             setError(`${(err as Error).message}`);
