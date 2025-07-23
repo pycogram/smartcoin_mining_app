@@ -1,9 +1,9 @@
 import e, { Request, Response} from "express"; 
-import minerModel from "../models/miner";
-import { errHandler } from "../utils/error-handler";
-import { lockScSchema, unLockScSchema } from "../utils/validator";
+import minerModel from "../models/miner.js";
+import { errHandler } from "../utils/error-handler.js";
+import { lockScSchema, unLockScSchema } from "../utils/validator.js";
 import { format } from 'date-fns';
-import historyModel from "../models/history";
+import historyModel from "../models/history.js";
 import mongoose from "mongoose";
 
 const lockSc = async(req: Request, res: Response):Promise<void> => {

@@ -1,6 +1,6 @@
 import express from 'express';
-import { authUser } from '../middlewares/auth-user';
-import { lockSc, unLockSc } from '../controllers/lock';
+import { authUser } from '../middlewares/auth-user.js';
+import { lockSc, unLockSc } from '../controllers/lock.js';
 
 const router = express.Router();
 

@@ -1,9 +1,9 @@
 import { Request, Response} from "express"; 
-import { errHandler } from "../utils/error-handler";
-import walletModel from "../models/wallet";
-import minerModel from "../models/miner";
-import historyModel from "../models/history";
-import { sendScSchema } from "../utils/validator";
+import { errHandler } from "../utils/error-handler.js";
+import walletModel from "../models/wallet.js";
+import minerModel from "../models/miner.js";
+import historyModel from "../models/history.js";
+import { sendScSchema } from "../utils/validator.js";
 import mongoose from "mongoose";
 
 type UserWalletDetailType = {

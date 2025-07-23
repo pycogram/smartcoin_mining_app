@@ -1,10 +1,10 @@
 import { Request, Response } from "express"
-import { errHandler } from "../utils/error-handler";
-import userModel from "../models/user";
-import referralModel from "../models/referral";
-import { claimBonusScSchema } from "../utils/validator";
-import minerModel from "../models/miner";
-import historyModel from "../models/history";
+import { errHandler } from "../utils/error-handler.js";
+import userModel from "../models/user.js";
+import referralModel from "../models/referral.js";
+import { claimBonusScSchema } from "../utils/validator.js";
+import minerModel from "../models/miner.js";
+import historyModel from "../models/history.js";
 import mongoose from "mongoose";
 
 const referralDetail = async(req: Request, res: Response):Promise<void> => {

@@ -1,18 +1,18 @@
 import { Request, Response} from "express"; 
-import { errHandler } from "../utils/error-handler";
-import userModel from "../models/user";
-import { confirmUserSchema, loginUserSchema, registerUserSchema, updateUserSchema, verifyUserSchema } from "../utils/validator";
-import HmacProcess from "../utils/hmac-process";
-import { PasswordHash, PasswordVerify } from "../utils/password-handler";
-import Transport from "../utils/send-mail";
+import { errHandler } from "../utils/error-handler.js";
+import userModel from "../models/user.js";
+import { confirmUserSchema, loginUserSchema, registerUserSchema, updateUserSchema, verifyUserSchema } from "../utils/validator.js";
+import HmacProcess from "../utils/hmac-process.js";
+import { PasswordHash, PasswordVerify } from "../utils/password-handler.js";
 import mongoose from "mongoose";
-import { signUserToken, verifyUserToken } from "../token/tokenized-user";
-import minerModel from "../models/miner";
-import referralModel from "../models/referral";
-import { generateCode, generateUsername } from "../token/generate-code";
-import walletModel from "../models/wallet";
-import historyModel from "../models/history";
-import postModel from "../models/post";
+import { signUserToken, verifyUserToken } from "../token/tokenized-user.js";
+import minerModel from "../models/miner.js";
+import referralModel from "../models/referral.js";
+import { generateCode, generateUsername } from "../token/generate-code.js";
+import walletModel from "../models/wallet.js";
+import historyModel from "../models/history.js";
+import postModel from "../models/post.js";
+import nodemailer from 'nodemailer';
 
 // register user
 const registerUser = async (req: Request, res: Response):Promise<void> => {
@@ -130,8 +130,15 @@ const verifyUser = async (req: Request, res: Response):Promise<void> => {
         }    
 
         const codeValue = generateCode(6); 
-        
-        const info = await Transport.sendMail({
+                
+        const info = await nodemailer.createTransport(
+        {
+            service: 'gmail',
+            auth: {
+                user: process.env.EMAIL_ADDRESS, 
+                pass: process.env.EMAIL_PASSWORD
+            }
+        }).sendMail({
             from: process.env.EMAIL_ADDRESS,
             to: existingUser.email!,
             subject: "Verification code",

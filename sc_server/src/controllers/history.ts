@@ -1,6 +1,6 @@
 import { Request, Response} from "express"; 
-import { errHandler } from "../utils/error-handler";
-import historyModel from "../models/history";
+import { errHandler } from "../utils/error-handler.js";
+import historyModel from "../models/history.js";
 
 const historySc = async(req: Request, res: Response):Promise<void> => {
     try{

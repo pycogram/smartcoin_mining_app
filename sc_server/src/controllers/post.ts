@@ -1,9 +1,9 @@
 import { Request, Response} from "express"; 
-import { errHandler } from "../utils/error-handler";
-import postModel from "../models/post";
-import { postSchema } from "../utils/validator";
+import { errHandler } from "../utils/error-handler.js";
+import postModel from "../models/post.js";
+import { postSchema } from "../utils/validator.js";
 import mongoose from "mongoose";
-import userModel from "../models/user";
+import userModel from "../models/user.js";
 
 // get post by user by one's id
 const viewPost = async(req: Request, res: Response):Promise<void> => {

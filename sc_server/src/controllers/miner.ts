@@ -1,10 +1,10 @@
 import { Request, Response} from "express"; 
-import { errHandler } from "../utils/error-handler";
-import { mineScSchema } from "../utils/validator";
-import minerModel from "../models/miner";
+import { errHandler } from "../utils/error-handler.js";
+import { mineScSchema } from "../utils/validator.js";
+import minerModel from "../models/miner.js";
 import { format } from 'date-fns';
-import referralModel from "../models/referral";
-import historyModel from "../models/history";
+import referralModel from "../models/referral.js";
+import historyModel from "../models/history.js";
 import mongoose from "mongoose";
 
 const dashboard = async(req: Request, res: Response):Promise<void> => {
