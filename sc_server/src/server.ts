@@ -1,20 +1,26 @@
 import dotenv from 'dotenv';
 import path from 'path';
-dotenv.config({ path: path.resolve(__dirname, '../../.env') }); 
+import { fileURLToPath } from 'url';
+import { dirname, resolve } from 'path';
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
+
+dotenv.config({ path: resolve(__dirname, '../../.env') });
 
 import express from 'express';
 import mongoose from 'mongoose';
-import { userRoutes } from './routes/user';
 import cors from 'cors';
 import cookieParser from 'cookie-parser';
 import helmet from 'helmet';
 
-import { postRoutes } from './routes/post';
-import { minerRoutes } from './routes/miner';
-import { lockRoutes } from './routes/lock';
-import { ReferralRoutes } from './routes/referral';
-import { walletRoutes } from './routes/wallet';
-import { historyRoutes } from './routes/history';
+import { postRoutes } from './routes/post.js';
+import { minerRoutes } from './routes/miner.js';
+import { lockRoutes } from './routes/lock.js';
+import { ReferralRoutes } from './routes/referral.js';
+import { walletRoutes } from './routes/wallet.js';
+import { historyRoutes } from './routes/history.js';
+import { userRoutes } from './routes/user.js';
 
 //instanciate an express obj to server with it
 const app = express(); 
@@ -25,6 +31,7 @@ app.use(cookieParser());
 // security middleware to set various HTTP headers
 app.use(helmet()); 
 
+// cors that allows access to the server from a specified domain
 if(process.env.NODE_ENV !== 'production') {
     app.use(
         cors({
@@ -50,9 +57,14 @@ app.use('/api/referral', ReferralRoutes);
 app.use('/api/wallet', walletRoutes);
 app.use('/api/history', historyRoutes);
 
-app.get('/', (req, res) => {
-    res.send('welcome to smartcoin');               
-});
+if(process.env.NODE_ENV === 'production'){
+    const clientBuildPath = path.join(__dirname, '../../sc_client/dist');
+    app.use(express.static(clientBuildPath));
+
+    app.get('*', (req, res) => {
+        res.sendFile(path.join(clientBuildPath, 'index.html'));
+    })
+}
 
 const {DB_URL, PORT} = process.env;
 

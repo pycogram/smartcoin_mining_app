@@ -11,7 +11,7 @@ const __dirname = path.dirname(__filename);
 export default defineConfig(({ mode }) => ({
   plugins: [react(), tailwindcss()],
   build: {
-    outDir: '../sc_server/client',
+    outDir: 'dist',
     emptyOutDir: true,
   },
   resolve: {

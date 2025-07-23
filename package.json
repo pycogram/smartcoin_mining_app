@@ -2,15 +2,18 @@
   "name": "smartcoin",
   "version": "1.0.0",
   "scripts": {
+    "dev:client": "npm run dev --prefix sc_client",
+    "dev:server": "npm run dev --prefix sc_server",
     "dev": "concurrently \"npm run dev --prefix sc_server\" \"npm run dev --prefix sc_client\"",
     "build": "npm install --prefix sc_server && npm install --prefix sc_client && npm run build --prefix sc_client && npm run build --prefix sc_server",
-    "start": "NODE_ENV=production npm run start --prefix sc_server"
+    "start": "cross-env NODE_ENV=production npm run start --prefix sc_server"
   },
   "keywords": [],
-  "author": "",
+  "author": "Ifesinachi Daniel",
   "license": "ISC",
   "description": "**Smartcoin** is my first full-stack application built with:\r - React + TypeScript + Vite,\r - Express, \r - MongoDB,\r - NodeJs,\r - Tailwindcss (CSS),\r - Figma ( Designs )",
   "devDependencies": {
-    "concurrently": "^9.2.0"
+    "concurrently": "^9.2.0",
+    "cross-env": "^7.0.3"
   }
 }
