@@ -91,7 +91,7 @@
 }
 .pie-sidebutton .piechart-sec{
     @apply w-fit ml-0 block relative md:flex md:gap-x-5 md:place-items-end 
-    mt-[4rem] lg:mt-0 
+    mt-[1.5rem] lg:mt-0 
 }
 .piechart-sec span .piechart_css{
     @apply w-45 h-45 p-[0.5rem] md:p-0 rounded-[100%] border-4 border-gray-300 sm:w-55 sm:h-55 lg:w-60 lg:h-60
