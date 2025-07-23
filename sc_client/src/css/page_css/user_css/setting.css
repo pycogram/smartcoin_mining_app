@@ -1,0 +1,33 @@
+@import "tailwindcss";
+
+.setting{
+    @apply w-[90%] h-screen mt-[4rem] block 
+    sm:w-[80%] md:w-120 lg:w-[60%] xl:w-180 md:h-[100%] md:my-[4rem]
+    lg:grid lg:grid-cols-2 lg:h-fit lg:gap-x-4 lg:gap-y-4
+}
+.setting .setting-item{
+    @apply my-2 
+}
+.setting-item label{
+    @apply block uppercase text-[16px] font-bold md:text-[20px] lg:text-[30px]
+    mb-1 lg:mb-4
+}
+.setting-item .setting-option {
+    @apply bg-gray-200 grid gap-y-2 py-2 px-2 
+}
+.setting-option span{
+    @apply flex place-content-between bg-white place-items-center relative 
+    rounded-lg px-2.5 py-1.5 lg:my-1 lg:h-15 border border-transparent hover:bg-gray-50 hover:border-gray-400
+    hover:scale-95 transition ease-in-out delay-200
+}
+.setting-option span p{
+    @apply text-sm capitalize md:text-lg
+}
+.setting-option span i{
+    @apply bg-gray-200 rounded-full px-2 py-1.5 text-[16px] md:text-[20px]
+}
+.setting :nth-child(4n) label, 
+.setting :nth-child(4n) p,
+.setting :nth-child(4n) i {
+    @apply text-red-500
+}

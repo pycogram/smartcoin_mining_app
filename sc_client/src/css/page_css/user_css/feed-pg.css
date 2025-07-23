@@ -1,0 +1,95 @@
+@import "tailwindcss";
+
+.feed-pg{
+    @apply w-[100%] min-h-120 max-h-full block relative pt-[4rem] pb-[5rem] place-content-start place-items-center
+    text-gray-700 space-y-0.5 md:space-y-2 lg:space-y-3.5 bg-white md:py-[1rem]
+}
+.feed-pg .feed-each-item{
+    @apply w-[98%] flex relative h-fit place-items-end place-content-center 
+    gap-x-0.5 sm:gap-x-1.5 lg:gap-x-3 sm:w-[90%] md:w-120 
+    lg:w-140 lg:border lg:border-transparent lg:pb-4  lg:border-b-gray-200
+}
+.feed-each-item .feed-img{
+    @apply place-items-center place-content-center block pb-8 md:pb-10 px-0.5 py-0 w-fit 
+    sm:w-15 h-fit relative 
+}
+.feed-img span{
+    @apply w-10 h-10 sm:w-14 sm:h-14 place-content-center place-items-center border lg:border-2
+    border-gray-200 hover:border-gray-300 rounded-full overflow-hidden cursor-pointer
+}
+.feed-img span:hover img{
+    @apply scale-105
+}
+.feed-img span img{
+    @apply w-full h-full rounded-full 
+}
+.feed-each-item .feed-body{
+    @apply block gap-y-4 w-[80%] 
+}
+.feed-body .feed-name-cont-time{
+    @apply block relative px-3.5 pt-1.5 pb-1.5 md:pb-2.5 border
+    border-gray-200 rounded-[20px] rounded-bl-[0] overflow-hidden 
+}
+.feed-name-cont-time span:nth-child(1){
+    @apply flex place-items-center place-content-between pb-1.5 md:pb-2.5
+}
+.feed-name-cont-time span:nth-child(1) h4{
+    @apply text-[16px] font-bold text-gray-600 leading-4 capitalize first-letter:lowercase
+    md:text-[22px]
+}
+.feed-name-cont-time span:nth-child(1) span{
+    @apply flex place-content-center place-items-center gap-x-2 md:gap-x-3
+}
+.feed-name-cont-time span:nth-child(1) p{
+    @apply text-[14px] font-bold text-blue-700 leading-4 capitalize
+    md:text-[20px]
+}
+.feed-name-cont-time span:nth-child(1) svg{
+    @apply size-5 
+}
+.feed-name-cont-time h5{
+    @apply text-[16px] font-normal leading-5 min-h-5 max-h-20 md:min-h-7 md:max-h-30 overflow-hidden 
+    md:text-[22px] text-gray-600 
+}
+.feed-name-cont-time span:nth-child(3){
+    @apply flex gap-x-2 w-fit place-items-center place-self-end bg-white px-2 pl-3 py-1 
+    absolute right-0 bottom-0
+}
+.feed-name-cont-time span:nth-child(3) p{
+    @apply text-[13px] md:text-[18px] leading-3 font-medium text-gray-500
+}
+.feed-name-cont-time span:nth-child(3) p:nth-child(1){
+    @apply text-blue-700
+}
+.feed-body .feed-impression{
+    @apply flex place-items-center place-content-between h-8 md:h-10  
+}
+.feed-impression span{
+    @apply flex place-content-center place-items-center gap-x-0.5
+}
+.feed-impression span svg{
+    @apply size-4 font-normal md:size-5
+}
+.feed-impression span:nth-child(1) svg{
+    @apply size-5 md:size-6
+}
+.feed-impression span:nth-child(5) svg{
+    @apply font-extrabold text-gray-900
+}
+.feed-impression span p{
+    @apply text-[13px] md:text-[17px] leading-2.5 mt-0.5
+}
+.feed-pg .feed-post-icon{
+    @apply fixed bg-gray-100 rounded-full place-items-center place-content-center shadow-gray-500 shadow-lg box-content
+    transition ease-in-out delay-200
+    right-[1.5rem] lg:right-[3rem] bottom-[5rem] p-1 border-2 border-gray-200 hover:bg-white hover:border-gray-300
+    md:p-2 lg:border-4
+}
+.feed-post-icon svg{
+    @apply size-6 font-extrabold text-gray-800 md:size-7 lg:size-8 transition ease-in-out delay-200
+}
+.feed-post-icon:hover svg, 
+.feed-post-icon:active svg{
+    @apply text-orange-500 rotate-180 delay-400
+}
+

@@ -1,0 +1,113 @@
+@import "tailwindcss";
+
+.page-box{
+    @apply bg-white w-[100%] min-h-screen max-h-full pt-[1rem] pb-[0rem] z-20 
+    place-content-start place-items-center md:pt-[1rem] 
+}
+.user-feed{
+    @apply w-[95%] h-fit mb-[4rem] block space-y-4 
+    sm:w-[90%] md:w-120 lg:w-140 relative pt-[0rem] pb-[1rem] md:py-[0rem]  
+    lg:mb-[5rem]
+}
+.user-feed .ref-span-go-back{
+    @apply rounded-full bg-gray-100 border border-gray-200 
+    hover:bg-gray-200 hover:border-gray-300 w-fit place-self-start mb-[1rem]
+}
+.user-feed .ref-span-go-back svg{
+    @apply size-7 md:hidden
+}
+.user-feed .feed-container{
+    @apply w-fit h-fit
+}
+.feed-container .feed-img-uname-timr-lv{
+    @apply flex w-full place-content-between place-items-start mb-2 mt-1
+}
+.feed-img-uname-timr-lv .img-uname-time{
+    @apply flex place-content-between place-items-start gap-x-1.5
+}
+
+.img-uname-time .span-img{
+    @apply w-14 h-14 sm:w-17 sm:h-17 place-content-center place-items-center border lg:border-2
+    border-gray-200 hover:border-gray-300 rounded-full overflow-hidden cursor-pointer
+}
+.img-uname-time .span-img:hover img{
+    @apply scale-105
+}
+.img-uname-time .span-img img{
+    @apply w-full h-full rounded-full 
+}
+
+.img-uname-time .span-hp{
+    @apply block text-wrap place-items-start space-y-1 mt-1
+}
+.span-hp h4{
+    @apply text-[20px] font-bold text-gray-600 leading-4 capitalize 
+    md:text-[22px]
+}
+.span-hp p{
+    @apply text-[18px] font-bold text-gray-600 leading-4 capitalize 
+    md:text-[20px]
+}
+.feed-img-uname-timr-lv .lv{
+    @apply h-fit w-fit mt-1
+}
+.lv p{
+    @apply text-[16px] font-bold text-blue-700 leading-4 capitalize
+    md:text-[22px]
+}
+
+.feed-hpp h5{
+    @apply text-[18px] font-normal leading-5 h-fit overflow-hidden 
+    md:text-[22px] text-gray-600
+}
+.feed-hpp p{
+    @apply w-fit place-self-end text-[17px] md:text-[20px] leading-4 font-medium text-gray-500
+}
+
+.user-feed .feed-impression{
+    @apply w-full flex place-items-center place-content-between h-10 md:h-10 border border-transparent
+    border-t-gray-200 border-b-gray-200 px-4 
+}
+.feed-impression span{
+    @apply flex place-content-center place-items-center gap-x-0.5
+}
+.feed-impression span svg{
+    @apply size-4 font-normal md:size-5
+}
+.feed-impression span:nth-child(1) svg{
+    @apply size-5 md:size-6
+}
+.feed-impression span:nth-child(5) svg{
+    @apply font-extrabold text-gray-900
+}
+.feed-impression span p{
+    @apply text-[13px] md:text-[17px] leading-2.5 mt-0.5
+}
+
+.feed-replies{
+    @apply w-[100%] 
+}
+.feed-replies h4{
+    @apply text-[18px] capitalize text-blue-950 lg:text-[22px] 
+}
+.feed-replies .feed-each-item{
+    @apply place-content-start my-2
+}
+.user-feed .feed-form{
+    @apply w-[95%] min-h-16 flex place-items-center place-content-center
+    fixed bottom-0 gap-x-2 sm:w-[90%] md:w-120 lg:w-140 overflow-hidden
+    max-h-30 lg:mb-[0rem] py-1 lg:py-[0.5rem] bg-white
+}
+.feed-form textarea{
+    @apply  w-[100%] min-h-16 max-h-25 left-0 ring-0 border border-gray-400 rounded-lg py-3 px-3 
+    focus:outline-none focus:border-gray-600
+    resize-none text-gray-700 text-[16px] leading-5 font-normal
+}
+.feed-form button{
+    @apply  right-0 bg-orange-400 rounded-lg border border-transparent 
+    py-1.5 px-2 w-10 hover:bg-orange-300 hover:border-orange-500
+    transition-all duration-300 ease-in-out
+}
+.feed-form button i{
+    @apply text-white
+}

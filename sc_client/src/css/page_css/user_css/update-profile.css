@@ -1,0 +1,42 @@
+@import "tailwindcss";
+
+.update-profile-container{
+    @apply h-screen w-[100%] z-20 py-[3rem] lg:place-content-start 
+    lg:place-items-center bg-white lg:pt-0
+}
+.update-profile{
+    @apply h-full w-fit z-10 relative lg:h-auto text-gray-700 
+}
+.update-profile-container span{
+    @apply rounded-full bg-gray-100 border border-gray-200 
+    hover:bg-gray-200 hover:border-gray-300 w-fit place-self-start mb-[1rem] 
+}
+.update-profile-container span svg{
+    @apply size-7 md:hidden
+}
+.update-profile .img-update{
+    @apply place-self-center mb-[2rem] lg:mb-[1rem] relative cursor-pointer 
+}
+
+.img-update span{
+    @apply size-18 sm:size-25 lg:size-35 border-4 border-gray-200 rounded-full overflow-hidden 
+}
+.update-profile .update-img{
+    @apply w-25 h-25 place-content-center place-self-center relative overflow-hidden lg:w-30 lg:h-30
+    p-2
+}
+.update-img img{
+    @apply w-full h-full rounded-full hover:scale-105 active:scale-105 
+    relative 
+}
+.update-img .update-i{
+    @apply absolute bottom-0 right-0 lg:bottom-[1rem] lg:right-[0.5rem] h-6 w-6 p-0
+}
+.img-update i{
+    @apply py-0 px-1 text-sm lg:text-xl bg-white border-2 lg:border-3 border-gray-200 rounded-full 
+    absolute right-0 bottom-[0.1rem] sm:bottom-[0.5rem] lg:bottom-[1rem] hover:bg-gray-100 
+}
+.update-profile .form-btn{
+    @apply absolute bottom-0 w-full lg:relative lg:mt-[4rem] lg:pb-[2rem]
+}
+

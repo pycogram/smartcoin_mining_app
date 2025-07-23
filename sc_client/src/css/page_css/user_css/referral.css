@@ -1,0 +1,115 @@
+@import "tailwindcss";
+
+.referral{
+    @apply w-[100%] sm:px-[3rem] lg:px-0 block relative place-items-start pt-[2rem] pb-[3rem] min-h-screen max-h-full 
+    md:w-100 text-gray-700 bg-white px-[1.5rem] md:px-[0] z-20
+}
+.referral .ref-span-go-back{
+    @apply rounded-full bg-gray-100 border border-gray-200 
+    hover:bg-gray-200 hover:border-gray-300 w-fit place-self-start mb-[1rem] 
+}
+.referral .ref-span-go-back svg{
+    @apply size-7 
+}
+.referral .ref-wallet-ady{
+    @apply mb-4 w-full
+}
+.ref-wallet-ady h3{
+    @apply font-semibold text-[16px] capitalize mb-1 text-gray-700 md:text-[18px] lg:text-[20px]
+}
+.ref-wallet-ady div{
+    @apply bg-gray-100 h-20 px-2 rounded-lg block place-content-center place-items-center
+}
+.ref-wallet-ady div span{
+    @apply bg-white flex place-items-center rounded-lg place-content-between 
+    border border-gray-400 px-2 py-2 w-full relative
+}
+.ref-wallet-ady div span h4{
+    @apply bg-gray-100 text-center w-fit overflow-hidden py-1 px-1.5 text-[18px] lg:text-[20px] rounded-lg
+}
+.ref-wallet-ady div span i{
+    @apply absolute right-2 bottom-2.5 lg:bottom-2.5 text-sm place-items-center place-content-center
+    bg-gray-100 border border-gray-200 rounded-sm text-center h-7 w-7 hover:bg-gray-200 hover:border-gray-400
+    transition ease-in-out delay-250 font-semibold
+}
+
+
+.referral .ref-link{
+    @apply block mb-4 w-full
+}
+.ref-link h3{
+    @apply font-semibold text-[16px] capitalize mb-1 text-gray-700 md:text-[18px] lg:text-[20px]
+}
+.ref-link div{
+    @apply bg-gray-100 h-20 px-2 rounded-lg block place-content-center place-items-center
+}
+.ref-link div span{
+    @apply bg-gray-50 flex place-items-center rounded-lg place-content-between 
+    border border-gray-400 px-2 py-2 w-full
+}
+.ref-link div span h4{
+    @apply text-center w-full 
+    text-nowrap overflow-hidden py-1 px-1.5 rounded-lg 
+}
+.ref-link div span .unclaimed-figure{
+    @apply font-bold text-2xl
+}
+.ref-link div span .unclaimed-figure2{
+    @apply w-fit h-fit  text-[17px]
+}
+.ref-link div span i, .ref-link div span p{
+    @apply px-2.5 py-2 bg-gray-100 rounded-full font-bold text-blue-950 hover:bg-gray-200
+    hover:scale-95 border border-gray-300 hover:border-gray-400
+}
+
+.referral .total-claim-sc {
+    @apply flex w-full gap-x-4
+}
+.total-claim-sc .ref-link div span{
+    @apply block space-y-1.5 h-18 place-content-center place-items-center
+    md:flex md:space-y-0 md:h-15 
+}
+.total-claim-sc .ref-link:nth-child(2) div span{
+    @apply md:flex py-0.5 md:place-items-center md:place-content-center md:gap-x-3
+}
+.total-claim-sc .ref-link:nth-child(1) div span h4{
+    @apply py-1.5 md:py-0.5
+}
+.total-claim-sc .ref-link div span h4{
+    @apply px-3 py-0.5 
+}
+.total-claim-sc .ref-link div span p{
+    @apply rounded-sm py-0 text-[15px] border border-gray-400 hover:border-gray-400
+}
+.referral .ref-invite{
+    @apply w-full mb-[3rem]
+}
+.ref-invite h3{
+    @apply font-semibold text-[16px] text-gray-700 capitalize mb-1
+}
+.ref-invite ul{
+    @apply list-none grid gap-y-1 
+}
+.ref-invite ul li{
+    @apply flex place-content-between place-items-center border border-gray-200 px-3 py-1.5
+    bg-gray-100 hover:bg-gray-300 hover:scale-95
+}
+.ref-invite ul li p:nth-child(1), .ref-invite ul li i{
+    @apply text-center text-[16px] uppercase font-bold not-italic
+}
+.ref-invite ul li p:nth-child(1){
+    @apply text-[12px] py-0 px-1
+}
+.ref-invite ul li h4{
+    @apply capitalize text-center text-[16px] font-bold
+}
+.referral .for-secondary-btn{
+    @apply  w-[85%] place-self-center absolute bottom-[0rem] pb-[1.5rem]
+    md:flex md:w-full 
+}
+.referral img{
+    @apply w-[80%] h-full my-5 lg:my-1 place-self-center 
+}
+.referral .form-btn{
+    @apply w-[80%] absolute bottom-4 place-self-center lg:w-full lg:block  lg:pb-3
+}
