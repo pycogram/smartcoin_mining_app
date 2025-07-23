@@ -4,8 +4,8 @@
     @apply w-[100%] grid bg-orange-400 gap-y-2 md:gap-y-4 md:pt-[1rem] md:pb-[2rem] place-self-center
 } */
  .dashboard{
-    @apply w-[100%] h-full grid gap-y-2 md:gap-y-4 sm:pt-[4rem] sm:pb-[5rem] 
-    md:py-0 lg:pt-[1rem] lg:pb-[2rem] place-self-center
+    @apply w-[100%] h-full grid gap-y-2 md:gap-y-4 py-[5rem] sm:pb-[5rem] 
+    md:py-0 lg:pt-[1rem] lg:pb-[2rem] place-self-start md:place-self-center
  }
 .dashboard .db-navbar{
     @apply hidden md:flex relative place-content-between place-items-center mb-2 px-[4rem]
@@ -91,6 +91,7 @@
 }
 .pie-sidebutton .piechart-sec{
     @apply w-fit ml-0 block relative md:flex md:gap-x-5 md:place-items-end 
+    mt-[4rem] lg:mt-0 
 }
 .piechart-sec span .piechart_css{
     @apply w-45 h-45 p-[0.5rem] md:p-0 rounded-[100%] border-4 border-gray-300 sm:w-55 sm:h-55 lg:w-60 lg:h-60
