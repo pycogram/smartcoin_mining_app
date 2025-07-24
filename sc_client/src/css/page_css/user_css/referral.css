@@ -2,7 +2,7 @@
 
 .referral{
     @apply w-[100%] sm:px-[3rem] lg:px-0 block relative place-items-start 
-    pt-[2rem] pb-[3rem] min-h-screen max-h-full 
+    pt-[2rem] pb-[3rem] h-screen 
     md:w-100 text-gray-700 bg-white px-[1.5rem] md:px-[0] z-20
 }
 .referral .ref-span-go-back{
@@ -112,5 +112,5 @@
     @apply w-[80%] h-full my-5 lg:my-1 place-self-center 
 }
 .referral .form-btn{
-    @apply w-[80%] absolute bottom-[1.5rem] place-self-center lg:w-full lg:block  lg:pb-3
+    @apply w-[80%] absolute bottom-[3.5rem] place-self-center lg:w-full lg:block  lg:pb-3
 }
