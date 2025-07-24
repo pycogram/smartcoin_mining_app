@@ -4,7 +4,7 @@
     @apply w-[100%] grid bg-orange-400 gap-y-2 md:gap-y-4 md:pt-[1rem] md:pb-[2rem] place-self-center
 } */
  .dashboard{
-    @apply w-[100%] h-full grid gap-y-2 md:gap-y-4 mt-[5rem] mb-[4rem]
+    @apply w-[100%] h-full grid gap-y-2 md:gap-y-4 mt-[6rem] mb-[0]
     md:py-[1.5rem] lg:pt-[1rem] lg:pb-[2rem] place-self-start md:place-self-center
  }
 .dashboard .db-navbar{
