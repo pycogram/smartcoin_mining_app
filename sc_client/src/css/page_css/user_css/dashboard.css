@@ -4,8 +4,9 @@
     @apply w-[100%] grid bg-orange-400 gap-y-2 md:gap-y-4 md:pt-[1rem] md:pb-[2rem] place-self-center
 } */
  .dashboard{
-    @apply w-[100%] h-full grid gap-y-2 md:gap-y-4 py-[5rem] sm:pb-[5rem] 
-    md:py-[1.5rem] lg:pt-[1rem] lg:pb-[2rem] place-self-start md:place-self-center
+    @apply w-[100%] h-fit grid gap-y-2 md:gap-y-4 my-[5rem]
+    md:my-[1rem]
+    /* md:py-[1.5rem] lg:pt-[1rem] lg:pb-[2rem] place-self-start md:place-self-center */
  }
 .dashboard .db-navbar{
     @apply hidden md:flex relative place-content-between place-items-center mb-2 px-[4rem]
