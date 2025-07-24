@@ -138,7 +138,6 @@ const Referral = () => {
                                 <p>{index + 1}</p>
                                 <h4>{item.user.first_name} {item.user.last_name ||  "( " + item.user.user_name + " )"}</h4>
                                 <i>{item.upline_gain} SC</i>
-
                             </li> 
                         )    
                     }
