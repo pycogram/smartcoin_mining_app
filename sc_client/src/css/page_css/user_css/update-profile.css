@@ -2,10 +2,10 @@
 
 .update-profile-container{
     @apply h-screen w-[100%] z-20 py-[3rem] lg:place-content-start 
-    lg:place-items-center bg-white lg:pt-0 lg:h-[100%]
+    lg:place-items-center bg-white lg:pt-0 
 }
 .update-profile{
-    @apply h-full w-fit z-10 relative lg:h-auto text-gray-700 
+    @apply h-140 w-fit z-10 relative lg:h-auto text-gray-700 
 }
 .update-profile-container span{
     @apply rounded-full bg-gray-100 border border-gray-200 

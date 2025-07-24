@@ -70,6 +70,9 @@ form .w-button{
 .lock-pkg .w-addy{
     @apply mt-[1rem] 
 }
+.w-addy p{
+    @apply text-blue-950
+}
 .lock-pkg .w-button{
     @apply bottom-0 md:-bottom-[1.5rem] lg:-bottom-[3rem] 
 }

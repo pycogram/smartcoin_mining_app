@@ -37,7 +37,7 @@
     transition ease-in-out delay-200 lg:gap-x-5 lg:space-y-4 lg:place-items-center 
 }
 .select-lock-pkg .each-pkg{
-    @apply bg-white px-3 w-fit lg:w-full border-2 lg:border-4 rounded-sm border-gray-100 flex place-items-center place-content-center py-2
+    @apply bg-white w-[65%] px-3 lg:w-full border-2 lg:border-4 rounded-sm border-gray-100 flex place-items-center place-content-center py-2
     space-x-4 hover:border-blue-200 active:border-blue-200 transition ease-in-out delay-200 lg:h-35 cursor-pointer
 }
 .select-pkg .a-pkg-h3, .select-pkg .s-pkg-h3{
