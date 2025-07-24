@@ -2,7 +2,7 @@
 
 .update-profile-container{
     @apply h-screen w-[100%] z-20 py-[3rem] lg:place-content-start 
-    lg:place-items-center bg-white lg:pt-0
+    lg:place-items-center bg-white lg:pt-0 lg:h-[100%]
 }
 .update-profile{
     @apply h-full w-fit z-10 relative lg:h-auto text-gray-700 
@@ -37,6 +37,6 @@
     absolute right-0 bottom-[0.1rem] sm:bottom-[0.5rem] lg:bottom-[1rem] hover:bg-gray-100 
 }
 .update-profile .form-btn{
-    @apply absolute bottom-0 w-full lg:relative lg:mt-[4rem] lg:pb-[2rem]
+    @apply absolute bottom-[5rem] lg:bottom-0 w-full lg:relative lg:mt-[8rem] lg:pb-[2rem]
 }
 
