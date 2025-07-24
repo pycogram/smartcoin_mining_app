@@ -14,7 +14,7 @@
     sm:w-15 h-fit relative bg-white
 }
 .feed-img span{
-    @apply w-10 h-10 p-1 sm:w-14 sm:h-14 place-content-center place-items-center border lg:border-2
+    @apply w-8 h-8 p-1 sm:w-12 sm:h-12 place-content-center place-items-center border lg:border-2
     border-gray-200 hover:border-gray-300 rounded-full overflow-hidden cursor-pointer
 }
 .feed-img span:hover img{
