@@ -2,7 +2,7 @@
 
 .send-sc{
     @apply w-[100%] h-screen z-20 lg:h-130 relative block 
-    py-[2rem] lg:py-[1rem] text-gray-700 
+    py-[2rem] lg:py-[1rem] text-gray-700 bg-white
 }
 .send-sc form{
     @apply w-[85%] h-full block gap-y-1.5 place-self-center sm:w-[400px] lg:w-[50%] lg:gap-y-5
@@ -74,7 +74,7 @@ form .w-button{
     @apply bottom-0 md:-bottom-[1.5rem] lg:-bottom-[3rem] 
 }
 .lock-pkg-sc{
-    @apply min-h-screen max-h-full pt-[2rem] pb-[1.5rem] 
+    @apply min-h-screen max-h-full pt-[2rem] pb-[1.5rem] bg-white
     md:pt-[3rem] md:pb-[3rem] md:h-screen lg:h-140  lg:pt-[1.5rem] lg:pb-[3rem]  
 }
 .lock-pkg-sc .w-button{

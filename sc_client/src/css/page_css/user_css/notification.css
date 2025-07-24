@@ -4,7 +4,7 @@
     place-content-start place-items-center md:pt-[1rem] 
 }
 .notify-pg{
-    @apply w-[95%]  place-content-start place-items-center 
+    @apply w-[93%]  place-content-start place-items-center 
     block space-y-4 sm:w-[70%] md:w-140 lg:w-[60%]  md:h-screen  text-gray-700 
 }
 .notify-pg .ref-span-go-back{

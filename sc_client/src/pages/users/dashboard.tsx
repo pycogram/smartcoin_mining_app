@@ -12,6 +12,7 @@ import { mineDetail, mineSc} from "../../controllers/miner";
 import { walletId } from "../../controllers/wallet";
 import Fail from "../../components/alert/fail";
 import "../../css/page_css/user_css/referral.css";
+import { referralDetail } from "../../controllers/referral";
 
 
 const Dashboard = () => {
@@ -29,6 +30,7 @@ const Dashboard = () => {
     const [isReady, setIsReady] = useState<boolean>(true);
     const [totalReceived, setTotalReceived] = useState<number>(0);
     const [totalSent, setTotalSent] = useState<number>(0);
+    const [totalBonus, setTotalBonus] = useState<number>(0);
 
     const [walletAddy, setWalletAddy] = useState<string | null>(null);
 
@@ -88,6 +90,9 @@ const Dashboard = () => {
                 setLockedSc(total_locked);
                 setEndTime(endTime);
                 setMinedScStatus(true);
+
+                const {ref_info} = await referralDetail();
+                setTotalBonus(ref_info.total_bonus);
 
                 // get wallet ID and info
                 const {wallet_info} = await walletId();
@@ -276,22 +281,26 @@ const Dashboard = () => {
                             locked_sc={lockedSc} 
                             total_received={totalReceived}
                             total_sent={totalSent} 
+                            total_bonus={totalBonus}
                         />
                     </span>
                     
                     <ul>
                         <li>
-                            Total mined: {!hideBalStatus  ? minedSc.toFixed(2) + " SC" : "*****"}
+                            Mined: {!hideBalStatus  ? minedSc.toFixed(2) + " SC" : "*****"}
                         </li>
                         <li>
                             Locked: {!hideBalStatus  ? lockedSc.toFixed(2) + " SC"  : "*****"}
                         </li>
                         <li>
-                            Total received: {!hideBalStatus ? totalReceived.toFixed(2) + " SC"  : "*****"}
+                            Received: {!hideBalStatus ? totalReceived.toFixed(2) + " SC"  : "*****"}
                         </li> 
                         <li>
-                            Total sent: {!hideBalStatus ? totalSent.toFixed(2) + " SC"  : "*****"}
-                        </li>                        
+                            Sent: {!hideBalStatus ? totalSent.toFixed(2) + " SC"  : "*****"}
+                        </li>      
+                        <li>
+                            Bonus: {!hideBalStatus ? totalBonus.toFixed(2) + " SC"  : "*****"}
+                        </li>                    
                     </ul>
                 </div>
                 <div className="db-sidebutton">

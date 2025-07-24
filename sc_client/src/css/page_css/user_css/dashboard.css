@@ -5,7 +5,7 @@
 } */
  .dashboard{
     @apply w-[100%] h-full grid gap-y-2 md:gap-y-4 py-[5rem] sm:pb-[5rem] 
-    md:py-0 lg:pt-[1rem] lg:pb-[2rem] place-self-start md:place-self-center
+    md:py-[1.5rem] lg:pt-[1rem] lg:pb-[2rem] place-self-start md:place-self-center
  }
 .dashboard .db-navbar{
     @apply hidden md:flex relative place-content-between place-items-center mb-2 px-[4rem]
@@ -54,8 +54,8 @@
 }
 .logo-amt-eye .iconx i{
     @apply flex text-xl lg:text-2xl place-items-center place-content-center h-fit w-fit lg:ml-10 
-    px-1.5 py-0 text-gray-700 rounded-2xl border-2 border-gray-200 bg-white hover:bg-gray-200 
-    hover:border-white 
+    px-1.5 py-0 text-gray-700 rounded-2xl border-2 border-gray-200 bg-white active:bg-gray-200 
+    active:border-white 
 }
 .dashboard .ref-wallet-ady{
     @apply w-75 sm:w-96 place-self-center lg:w-120 
@@ -74,15 +74,15 @@
     rounded-lg border-2 border-gray-300 place-self-center my-2 sm:w-100 lg:w-120 lg:h-30 lg:my-5 
 }
 .db-button span{
-    @apply place-items-center
+    @apply place-items-center w-fit 
 }
 .db-button span i{
     @apply flex place-items-center place-content-center h-9 w-9 text-gray-700
     rounded-4xl border-2 bg-gray-100 border-gray-300 hover:bg-orange-400 hover:text-white
-    lg:h-12 lg:w-12 lg:text-2xl hover:scale-95
+    lg:h-12 lg:w-12 lg:text-2xl hover:scale-95 place-self-center
 }
 .db-button span p{
-    @apply text-[14px] mt-1 text-blue-950 font-semibold lg:text-[18px]
+    @apply text-[14px] mt-1 text-blue-950 font-semibold lg:text-[18px] text-center
 }
 .dashboard .pie-sidebutton{
     @apply flex place-items-start place-content-evenly sm:place-content-around 
@@ -118,6 +118,9 @@
 }
 .piechart-sec ul li:nth-child(4)::before{
     @apply bg-[#008000]
+}
+.piechart-sec ul li:nth-child(5)::before{
+    @apply bg-[#FFC0CB]
 }
 .pie-sidebutton .db-sidebutton{
     @apply w-fit 

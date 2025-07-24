@@ -5,19 +5,21 @@ type Piechart_type = {
     mined_sc: number,
     locked_sc: number,
     total_received: number,
-    total_sent: number
+    total_sent: number,
+    total_bonus: number
 }
 
-const Piechart = ({mined_sc, locked_sc, total_received, total_sent} : Piechart_type) => {
+const Piechart = ({mined_sc, locked_sc, total_received, total_sent, total_bonus} : Piechart_type) => {
 
     const data = [
         { name: 'mined', students: mined_sc },
         { name: 'locked', students: locked_sc },
         { name: 'received', students: total_received},
-        { name: 'sent', students: total_sent }
+        { name: 'sent', students: total_sent },
+        { name: 'bonus', students: total_bonus }
     ];
 
-    const COLORS = ['#0088FE', '#00C49F', '#FFBB28', '#008000'];
+    const COLORS = ['#0088FE', '#00C49F', '#FFBB28', '#008000', '#FFC0CB'];
 
     const isMobile = useMediaQuery({ query: '(min-width: 768px)' });
     const pieChartWidthHeight =  isMobile ? 350 : 200;
