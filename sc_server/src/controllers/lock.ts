@@ -2,7 +2,7 @@ import e, { Request, Response} from "express";
 import minerModel from "../models/miner.js";
 import { errHandler } from "../utils/error-handler.js";
 import { lockScSchema, unLockScSchema } from "../utils/validator.js";
-import { format } from 'date-fns';
+import { formatDistanceToNow } from 'date-fns';
 import historyModel from "../models/history.js";
 import mongoose from "mongoose";
 
@@ -77,8 +77,8 @@ const lockSc = async(req: Request, res: Response):Promise<void> => {
 
             res.status(200).json({
                 status: "success",
-                message: setNewLock ? `${addReward.toFixed(2)} SC bonus gets added to ${lock_sc.toFixed(2)} SC (lock amount) . And total of ${minerInfo.total_locked.toFixed(2)} SC gets unlocked by ${format(minerInfo?.unlock_time!, "h:mm:ss a")}`
-                                    : `${addReward.toFixed(2)} SC bonus gets added to ${lock_sc.toFixed(2)} SC (lock amount). And total of ${minerInfo.total_locked.toFixed(2)} SC gets unlocked with the new unlock time: ${format(minerInfo?.unlock_time!, "h:mm:ss a")}`,
+                message: setNewLock ? `${addReward.toFixed(2)} SC bonus gets added to ${lock_sc.toFixed(2)} SC (lock amount) . And total of ${minerInfo.total_locked.toFixed(2)} SC gets unlocked after ${formatDistanceToNow(new Date(minerInfo?.unlock_time!), {addSuffix: false})}`
+                                    : `${addReward.toFixed(2)} SC bonus gets added to ${lock_sc.toFixed(2)} SC (lock amount). And total of ${minerInfo.total_locked.toFixed(2)} SC gets unlocked with the new unlock time: ${formatDistanceToNow(new Date(minerInfo?.unlock_time!), {addSuffix: false})}`,
                 data: minerSc
             });
         }
@@ -123,7 +123,7 @@ const unLockSc = async(req: Request, res: Response):Promise<void> => {
         const unlockTime = new Date(minerInfo.unlock_time).getTime();
 
         if(now <= unlockTime) 
-            return errHandler(res, `lock session still active. unlock time: ${format(unlockTime, "do, h:mm:ss a")} `);
+            return errHandler(res, `lock session still active`);
     }
 
     try{

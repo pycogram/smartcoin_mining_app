@@ -4,6 +4,8 @@ import postModel from "../models/post.js";
 import { postSchema } from "../utils/validator.js";
 import mongoose from "mongoose";
 import userModel from "../models/user.js";
+import commentModel from "../models/comment.js";
+import likeModel from "../models/like.js";
 
 // get post by user by one's id
 const viewPost = async(req: Request, res: Response):Promise<void> => {
@@ -17,15 +19,36 @@ const viewPost = async(req: Request, res: Response):Promise<void> => {
         if(! userExist) return errHandler(res, "user not found");
         
         const viewPost = await postModel.find({user: userExist?._id})
-                                        .select("-user_id")
-                                        .sort({createdAt: "descending"});
+                                        .select('content createdAt _id user post')
+                                        .sort({createdAt: "desc"})
+                                        .populate('user', 'first_name last_name user_name email _id');
+
+        if (!viewPost.length) return errHandler(res, "no posts found!");
+        const postIds = viewPost.map(post => post._id);
+
+        const allComments = await commentModel.find({ post: { $in: postIds } });
+        if (!allComments.length) return errHandler(res, "no comment found!");
+
+        const commentsByPostId: Record<string, any[]> = {};
+        allComments.forEach(comment => {
+            if (!comment.post) return;
+            const key = comment.post.toString();
+            if(!commentsByPostId[key]) commentsByPostId[key] = [];
+            commentsByPostId[key].push(comment);
+        });
+
+        const postsWithComments = viewPost.map(post => {
+            const postId = post._id.toString();
+            return {...post.toObject(), comments: commentsByPostId[postId] || []}
+        })
         
         res.status(200).json({
             status: "success",
             user_id: userExist?._id,
             message: "post fetched successfully",
-            data: viewPost
+            data: postsWithComments
         });
+
     } catch(err){
         res.status(500).json({
             status: "failed",
@@ -37,20 +60,109 @@ const viewPost = async(req: Request, res: Response):Promise<void> => {
 // get all users' posts
 const viewAllPost = async(req: Request, res: Response):Promise<void> => {
     try{
-    // get user id stored in the req
-    const userId = (req as any).user_id;
-    if(! userId) return errHandler(res, "user not identified");
+        // get user id stored in the req
+        const userId = (req as any).user_id;
+        if(! userId) return errHandler(res, "user not identified");
 
-    const viewPosts = await postModel.find()
-                                        .select('content -_id')
-                                        .sort({createdAt: "desc"})
-                                        .populate('user', 'first_name last_name email -_id');
+        const viewPosts = await postModel.find()
+                                            .select('content createdAt _id')
+                                            .sort({createdAt: "desc"})
+                                            .populate('user', 'first_name last_name user_name email _id');
 
-    res.status(200).json({
-        status: "success",
-        message: "all posts fetched successfully",
-        data: viewPosts
-    });
+        if (!viewPosts.length) return errHandler(res, "no posts found!");
+
+        const postIds = viewPosts.map(post => post._id);
+
+        const allComments = await commentModel.find({ post: { $in: postIds } })
+                                                .select('content createdAt _id user post')
+                                                .sort({createdAt: "desc"})
+                                                .populate('user', 'first_name last_name user_name email _id');
+
+        const commentsByPostId: Record<string, any[]> = {};
+        allComments.forEach(comment => {
+            if (!comment.post) return;
+            const key = comment.post.toString();
+            if(!commentsByPostId[key]) commentsByPostId[key] = [];
+            commentsByPostId[key].push(comment);
+        });
+
+        const allLikes = await likeModel.find({ post: { $in: postIds } })
+                                        .select('_id user post')
+                                        .populate('user', 'first_name last_name user_name email _id');
+
+        const likesByPostId: Record<string, any[]> = {};
+        allLikes.forEach(like => {
+            if (!like.post) return;
+            const key = like.post.toString();
+            if (!likesByPostId[key]) likesByPostId[key] = [];
+            likesByPostId[key].push(like);
+        });
+
+        const postsWithCommentsLikes = viewPosts.map(post => {
+            const postId = post._id.toString();
+            const comments = commentsByPostId[postId] || [];
+            const likes = likesByPostId[postId] || [];
+            const liked = likes.some(like => like.user._id.toString() === userId.toString());
+            return {
+                ...post.toObject(), 
+                commentCount: comments ? comments.length : 0,
+                likeCount: likes ? likes.length : 0,
+                likedByUser: liked 
+            }
+        });
+        res.status(200).json({
+            status: "success",
+            message: "all posts fetched successfully",
+            data: postsWithCommentsLikes
+        });
+    } catch(err){
+        res.status(500).json({
+            status: "failed",
+            error: `Error occured: ${err as Error}`
+        })
+    }
+}
+// get post with all engagements
+const viewPostDetail = async(req: Request, res: Response):Promise<void> => {
+    try{
+        // get user id stored in the req
+        const userId = (req as any).user_id;
+        if(! userId) return errHandler(res, "user not identified");
+
+        const {post_id} = req.body;
+
+        const viewPost = await postModel.findById(new mongoose.Types.ObjectId(post_id))
+            .select('content createdAt _id')
+            .populate('user', 'first_name last_name user_name email _id');
+
+        if (!viewPost) return errHandler(res, "no posts found!");
+
+        const allComments = await commentModel.find({ post: viewPost._id })
+            .select('content createdAt _id user post')
+            .sort({ createdAt: "asc" })
+            .populate('user', 'first_name last_name user_name email _id');
+
+        const allLikes = await likeModel.find({ post: viewPost._id })
+            .select('_id user post')
+            .populate('user', 'first_name last_name user_name email _id');
+
+        const liked = allLikes.some(like => like.user._id.toString() === userId.toString());
+
+        // attach comment and like counts to the post
+        const postWithCommentsLikes = {
+            ...viewPost.toObject(),
+            comments: allComments,
+            likes: allLikes,
+            commentCount: allComments.length,
+            likeCount: allLikes.length,
+            likedByUser: liked 
+        };
+
+        res.status(200).json({
+            status: "success",
+            message: "post with engagements fetched successfully",
+            data: postWithCommentsLikes
+        });
     } catch(err){
         res.status(500).json({
             status: "failed",
@@ -187,5 +299,6 @@ const updatePost = async(req: Request, res: Response):Promise<void> => {
 }
 
 export {
-    createPost, deletePost, updatePost, viewPost, viewAllPost
+    createPost, deletePost, updatePost, 
+    viewPost, viewAllPost, viewPostDetail
 }

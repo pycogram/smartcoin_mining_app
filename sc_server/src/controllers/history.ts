@@ -8,15 +8,15 @@ const historySc = async(req: Request, res: Response):Promise<void> => {
         const userId = (req as any).user_id;
         if(! userId) return errHandler(res, "user not identified");
 
-        const page = parseInt(req.query.page as string) || 1;
-        const limit = Math.min(parseInt(req.query.limit as string) || 10, 50);
+        // const page = parseInt(req.query.page as string) || 1;
+        // const limit = Math.min(parseInt(req.query.limit as string) || 10, 50);
 
         // get the history of the user
         const historyUser = await historyModel.find({user: userId})
                                               .sort({time: -1})
                                               .select('-__v -user')
-                                              .skip((page - 1) * limit)  
-                                              .limit(limit); 
+                                            //   .skip((page - 1) * limit)  
+                                            //   .limit(limit); 
         
         // check if the user has any history
         if(!historyUser || historyUser.length === 0) 

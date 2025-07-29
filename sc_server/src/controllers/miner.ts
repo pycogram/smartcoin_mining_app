@@ -2,7 +2,7 @@ import { Request, Response} from "express";
 import { errHandler } from "../utils/error-handler.js";
 import { mineScSchema } from "../utils/validator.js";
 import minerModel from "../models/miner.js";
-import { format } from 'date-fns';
+import { formatDistanceToNow } from 'date-fns';
 import referralModel from "../models/referral.js";
 import historyModel from "../models/history.js";
 import mongoose from "mongoose";
@@ -60,7 +60,7 @@ const mineSc = async(req: Request, res: Response):Promise<void> => {
             const endTime = new Date(minerInfo.end_time).getTime();
 
             if(now <= endTime) 
-                return errHandler(res, `mining session still active and it ends by ${format(endTime, "mm:ss a")} `);
+                return errHandler(res, `mining session still active and it ends after ${formatDistanceToNow(new Date(endTime), {addSuffix: false})} `);
         }
 
         const miningRate = 30;
@@ -79,7 +79,7 @@ const mineSc = async(req: Request, res: Response):Promise<void> => {
             await historyModel.create([{
                 user: userId,
                 subject: `mine sc`,
-                detail: `started mining and it ends by ${format(endTime,  "EEEE, MMMM do yyyy, h:mm:ss a")}`,
+                detail: `started mining and it ends after ${formatDistanceToNow(new Date(endTime), {addSuffix: false})}`,
                 time: new Date()
             }], {session});
         }
@@ -117,7 +117,7 @@ const mineSc = async(req: Request, res: Response):Promise<void> => {
 
         res.status(200).json({
             status: "success",
-            message: `mining activated and will end by ${format(endTime,  "EEEE, MMMM do yyyy, h:mm:ss a")}`,
+            message: `mining activated and will end after ${formatDistanceToNow(new Date(endTime), {addSuffix: false})}`,
             data: minerInfo
         });
     } catch(err){
