@@ -1,7 +1,7 @@
 @import "tailwindcss";
 
 .update-profile-container{
-    @apply h-screen place-content-center w-[100%] z-20 py-[3rem] lg:place-content-start 
+    @apply h-screen place-content-center w-[100%] z-20 pt-[4.5rem] pb-[3rem] lg:place-content-start 
     lg:place-items-center lg:h-[100%] bg-white
 }
 .update-profile{
