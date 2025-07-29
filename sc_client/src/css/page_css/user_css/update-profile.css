@@ -5,7 +5,7 @@
     lg:place-items-center lg:h-[100%] bg-white
 }
 .update-profile{
-    @apply h-[100%] w-fit z-10 relative text-gray-700 lg:h-[50%]
+    @apply h-[80%] w-fit z-10 relative text-gray-700 lg:h-[50%]
 }
 .update-profile-container .ref-span-go-back{
     @apply rounded-full bg-gray-100 border border-gray-200 
