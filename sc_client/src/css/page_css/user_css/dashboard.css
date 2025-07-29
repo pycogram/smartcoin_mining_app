@@ -5,7 +5,11 @@
 } */
  .dashboard{
     @apply w-[100%] h-full grid gap-y-2 md:gap-y-4 pt-[5rem] pb-[4.5rem]
+<<<<<<< HEAD
     md:py-[2rem] lg:pt-[1rem] lg:pb-[2rem] place-self-start md:place-self-center
+=======
+    md:py-[1.5rem] lg:pt-[1rem] lg:pb-[2rem] place-self-start md:place-self-center
+>>>>>>> 4ee69771a57ac9333f6ab57328aedbbc2b1cbe6e
  }
 .dashboard .db-navbar{
     @apply hidden md:flex relative place-content-between place-items-center mb-2 px-[4rem]
