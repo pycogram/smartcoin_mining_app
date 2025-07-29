@@ -1,23 +1,33 @@
 import "../../css/page_css/user_css/post.css";
 import { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import PrimaryBtn from "../../components/button/primary-btn";
-import { createPost } from "../../controllers/post";
+import { createPost, updatePost } from "../../controllers/post";
 import Fail from "../../components/alert/fail";
 
 
 const CreatePost = () => {
-    const [content, setContent] = useState<string>("");
+    const location = useLocation();
+    const {postId, postContent} = location.state ?? "";
+
+    const [content, setContent] = useState<string>(postContent);
     const [error, setError] = useState<string>("");
     const navigate = useNavigate();
+
 
     const handlePost = async (e: React.FormEvent<HTMLFormElement>) => {
         try{
             // to prevent page from reloading
             e.preventDefault();
             setError("");
-            
-            const {message} = await createPost(content);
+
+            let message = "";
+            if(postContent){
+                ({message} = await updatePost(postId, content));
+            } else {
+                ({message} = await createPost(content));
+            }
+
             localStorage.setItem("message_user", message);
             navigate('/all-post');
 

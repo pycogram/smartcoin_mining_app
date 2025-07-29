@@ -18,7 +18,6 @@ const sendSc = async(req: Request, res: Response):Promise<void> => {
         session.startTransaction();
 
         const { wallet_id, amount_sc } = req.body;
-        console.log(1, typeof amount_sc, amount_sc);
 
         // get user id stored in the req
         const userId = (req as any).user_id;

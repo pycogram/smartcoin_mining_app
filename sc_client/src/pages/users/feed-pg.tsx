@@ -1,7 +1,7 @@
 import { useEffect, useState, useRef } from "react";
 import "../../css/page_css/user_css/feed-pg.css";
 import user_pic from "../../images/pics/pdp.png";
-import { postViewAll } from "../../controllers/post";
+import { deletePost, postViewAll } from "../../controllers/post";
 import { formatDistanceToNow } from "date-fns"
 import { useNavigate } from "react-router-dom";
 import Fail from "../../components/alert/fail";
@@ -79,6 +79,7 @@ const FeedPage = () => {
         localStorage.setItem('post_id', post_id);
         navigate('/post-view');
     }
+
     const handleCreatePost = () => {
         navigate('/create-post');
     }
@@ -110,6 +111,30 @@ const FeedPage = () => {
     const sidePostOption = (postId: string) => {
         setClickOption(prev => (prev === postId ? null : postId));
     };
+
+    const handleEdit = (postId: string, postContent: string) => {
+        navigate('/create-post', {state: {postId, postContent}})
+    }
+
+    const handleDelete = async (postId: string) => {
+        try{
+            console.log(232, postId);
+            const {message} = await deletePost(postId);
+            setPerfect(message);
+            fetchPost();
+
+        } catch(err){
+            let message = (err as Error).message;
+            setError(message);
+
+        }finally{
+            setTimeout(() => {
+                setPerfect("");
+                setError("");
+                setClickOption(null);
+            }, 8 * 1000);
+        }
+    }
     
     if(isReady) return (
         <div>
@@ -189,7 +214,7 @@ const FeedPage = () => {
                                     <div className="sidePostEDR">
                                         <ul>
                                             <li onClick={() => handleEdit(post._id, post.content)}>edit post</li>
-                                            <li>delete post</li>
+                                            <li onClick={() => handleDelete(post._id)}>delete post</li>
                                         </ul>
                                     </div> 
                                 }

@@ -110,6 +110,7 @@ const viewAllPost = async(req: Request, res: Response):Promise<void> => {
                 likedByUser: liked 
             }
         });
+
         res.status(200).json({
             status: "success",
             message: "all posts fetched successfully",
@@ -208,7 +209,7 @@ const createPost = async(req: Request, res: Response):Promise<void> => {
 const deletePost = async(req: Request, res: Response):Promise<void> => {
     try{
         // destructure req parameters
-        const {post_id: postId} = req.params;
+        const {postId} = req.body;
 
         // get user id stored in the req
         const userId = (req as any).user_id;
@@ -247,11 +248,8 @@ const deletePost = async(req: Request, res: Response):Promise<void> => {
 // update post
 const updatePost = async(req: Request, res: Response):Promise<void> => {
     try{
-        // destructure req parameters to get post id in the url
-        const {post_id: postId} = req.params;
-
         // destructure req body
-        const {content} = req.body;
+        const {postId, content} = req.body;
 
         // get user id stored in the req
         const userId = (req as any).user_id;

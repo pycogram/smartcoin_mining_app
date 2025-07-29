@@ -7,8 +7,8 @@ const router = express.Router();
 // create post routes
 
 router.post('/create-post', authUser, createPost);
-router.delete('/delete/:post_id', authUser, deletePost);
-router.put('/update/:post_id', authUser, updatePost);
+router.delete('/delete-post', authUser, deletePost);
+router.put('/update-post', authUser, updatePost);
 router.get('/view', authUser, viewPost);
 router.get('/view-all', authUser, viewAllPost);
 router.post('/view-detail', authUser,  viewPostDetail)

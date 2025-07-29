@@ -38,3 +38,33 @@ export const createPost = async (content: string) => {
     }
     return data;
 }
+
+export const updatePost = async (postId: string, content: string) => {
+    const res = await fetch('/api/post/update-post', {
+        method: 'PUT',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({postId, content})
+    });
+    const data = await res.json();
+    if(! res.ok){
+        throw new Error(`${data.message}`);
+    }
+    return data;
+}
+
+export const deletePost = async (postId: string) => {
+    const res = await fetch('/api/post/delete-post', {
+        method: 'DELETE',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({postId})
+    });
+    const data = await res.json();
+    if(! res.ok){
+        throw new Error(`${data.message}`);
+    }
+    return data;
+}
