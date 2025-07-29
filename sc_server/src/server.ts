@@ -21,6 +21,8 @@ import { ReferralRoutes } from './routes/referral.js';
 import { walletRoutes } from './routes/wallet.js';
 import { historyRoutes } from './routes/history.js';
 import { userRoutes } from './routes/user.js';
+import { commentRoutes } from './routes/comment.js';
+import { likeRoutes } from './routes/like.js';
 
 //instanciate an express obj to server with it
 const app = express(); 
@@ -56,6 +58,8 @@ app.use('/api/package', lockRoutes);
 app.use('/api/referral', ReferralRoutes);
 app.use('/api/wallet', walletRoutes);
 app.use('/api/history', historyRoutes);
+app.use('/api/comment', commentRoutes);
+app.use('/api/like', likeRoutes);
 
 if(process.env.NODE_ENV === 'production'){
     const clientBuildPath = path.join(__dirname, '../../sc_client/dist');

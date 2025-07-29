@@ -11,7 +11,7 @@ const VerifyPage = () => {
 
     // get items stored in localstorage
     const userString = localStorage.getItem("user");
-    const message_user = localStorage.getItem("message_user") ?? "";
+    const message_user = localStorage.getItem("message_user2") ?? "";
 
     useEffect(() => {
         if(!userString){
@@ -29,26 +29,29 @@ const VerifyPage = () => {
     //error state
     const [error, setError] = useState<string>("");    
 
-    const handleVerify = async (e: React.FormEvent<HTMLFormElement>) => {
+    const handleVerify = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
-        if(localStorage.getItem("message_user2")){
-            navigate('/confirm');
-        }
-
         setError("");
 
         // register user
         try{ 
-            const data = await verifyUser(email);
-
-            const {message} = data;
-            localStorage.setItem("message_user2", message);
-            setTimeout(() => {
-                navigate('/confirm');
+            setTimeout(async () => {
+                const data = await verifyUser(email);
+                const {message} = data;
+                localStorage.setItem("message_user2", message);
             }, 5 * 1000);
+            navigate('/confirm');
 
         } catch(err){
-            setError(`${(err as Error).message}`);
+            const message = (err as Error).message;
+            if (message.includes("before requesting for another code")) {
+                setError(`${message}. ...You will be redirected shortly`);
+                setTimeout(() => {
+                    navigate('/confirm');
+                }, 8 * 1000);
+                return;
+            }
+            setError(message);
         }
     }
     if(!userString){return}

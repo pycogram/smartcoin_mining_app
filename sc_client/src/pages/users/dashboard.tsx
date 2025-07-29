@@ -60,7 +60,6 @@ const Dashboard = () => {
         return () => clearInterval(interval);
     }, [endTime]);
 
-
     useEffect(()=> {
 
         setTimeout(()=> {

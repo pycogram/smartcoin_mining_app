@@ -16,30 +16,14 @@ const NotificationPg = () => {
     const [history, setHistory] = useState<HistoryType[]>([]);
     const [isReady, setIsReady] = useState<boolean>(true);
     const [error, setError] =  useState<string>("");
-    const [page, setPage] = useState<number>(1);
-    const limit = 1;
-    const [loading, setLoading] = useState<boolean>(false);
-    const [hasMore, setHasMore] = useState<boolean>(true);
-    const loader = useRef(null);
 
     const fetchHistory = async () => {
-        if (!hasMore || loading) return;
-        setLoading(true);
 
         try{
-            const {data} = await historyUser(page, limit);
-            setHistory((prev) => [...prev, ...data]);
+            const {data} = await historyUser();
+            setHistory(data);
             // check if there's more data to load
-
-            setHistory((prev) => {
-                const existingIds = new Set(prev.map(item => item._id));
-                const filteredData = data.filter((item : any) => !existingIds.has(item._id));
-                return [...prev, ...filteredData];
-            });
             
-            if (data.length < limit) {
-                setHasMore(false);
-            }
             setIsReady(false);
 
         } catch(err){
@@ -47,9 +31,6 @@ const NotificationPg = () => {
             setError(message);
 
         } finally{
-            setTimeout(() => {
-                setLoading(false);
-            }, 3 * 1000);
             
             setTimeout(() => {
                 setError("");
@@ -58,33 +39,8 @@ const NotificationPg = () => {
     }
     useEffect(() => {
         fetchHistory();
-    }, [page]);
+    }, []);
 
-    useEffect(() => {
-        const observer = new IntersectionObserver((entries) => {
-            const target = entries[0];
-
-            // prevent fetching if no more data
-            if (target.isIntersecting && !loading && hasMore) {
-                setPage((prevPage) => {
-                    // prevent re-triggering same page
-                    if (prevPage === page) return prevPage;
-                    return prevPage + 1;
-                });
-            }
-            
-        },
-        {
-            root: null,
-            rootMargin: '20px',
-            threshold: 1.0
-        }
-    );
-    if(loader.current) observer.observe(loader.current);
-    return () => {
-        if(loader.current) observer.unobserve(loader.current);
-    }
-    }, [loading, hasMore]);
 
     if(isReady) return (
         <div>
@@ -113,9 +69,7 @@ const NotificationPg = () => {
                            </div>
                             <p>{format(value.time, "EEEE, MMMM do yyyy, h:mm:ss a")} </p>
                         </span>  
-                    )}  
-                    { loading && <LoadContent />} 
-                    <div ref={loader}></div>
+                    )}   
                 </div>
             </div>
         </div> 

@@ -90,7 +90,7 @@ const SelectPkg = () => {
     )    
 
     return ( 
-        <div className="page-box">
+        <div className="page-boxx">
             {perfect && <Success success={`${perfect}`} loggedinStatus={true} />}
             {error && <Fail error={error} loggedinStatus={true} />}
 

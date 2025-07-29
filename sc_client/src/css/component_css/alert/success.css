@@ -6,7 +6,7 @@
     w-[100%] lg:w-[550px] place-self-center lg:py-3 text-wrap lg:pr-4 z-20 shadow-gray-200 shadow-md
 }
 .sa-in{
-    @apply w-[80%] sm:w-100 lg:w-120 absolute top-[4rem] lg:top-[1rem]
+    @apply w-[80%] sm:w-100 lg:w-120 fixed top-[4rem] lg:top-[1rem]
 }
 .success-alert svg{
     @apply size-5 h-full md:size-6 

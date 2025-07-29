@@ -128,6 +128,9 @@ const sendScSchema = Joi.object({
     wallet_id: sendScField.label("Wallet Id"),
     amount_sc: lockScField.label("Amount Sc"),
 });
+const commentSchema = Joi.object({
+    comment: contentField.label("Comment"),
+});
 
 export {
     registerUserSchema, verifyUserSchema, confirmUserSchema, loginUserSchema, 
@@ -136,5 +139,6 @@ export {
     mineScSchema,
     lockScSchema, unLockScSchema,
     claimBonusScSchema,
-    sendScSchema
+    sendScSchema,
+    commentSchema
 };

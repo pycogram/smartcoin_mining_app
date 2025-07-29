@@ -42,9 +42,9 @@
 .menu-option .dmo-i-p{
     @apply flex place-items-center gap-x-5 text-gray-800 text-lg
     rounded-full px-4 py-1.5 ring-0 transition ease-in-out delay-150
-    hover:bg-gray-100 hover:ring-1 hover:ring-gray-300 
+    hover:ring-1 hover:ring-gray-300 hover:bg-gray-50
     md:my-4 md:block md:px-4 md:space-y-1 lg:space-y-0
-    lg:px-7 lg:flex lg:my-2.5 
+    lg:px-7 lg:flex lg:my-2.5 cursor-pointer
 }
 .dmo-i-p i{
     @apply text-[18px] opacity-80 md:text-[24px] lg:text-[24px]
@@ -56,8 +56,16 @@
     @apply text-[20px] capitalize md:text-[14px] text-wrap text-center md:leading-2.5
     md:w-12 lg:w-fit lg:text-[26px] lg:leading-normal 
 }
-.dmo-i-p:hover i, .dmo-i-p:hover svg, .dmo-i-p:hover p,
-.dmo-i-p:active i, .dmo-i-p:active svg, .dmo-i-p:active p{
+/* .dmo-i-p-active,
+.dmo-i-p-active:hover i, .dmo-i-p-active:hover svg, .dmo-i-p-active:hover p,
+.dmo-i-p-active:active i, .dmo-i-p-active:active svg, .dmo-i-p-active:active p{
+    @apply bg-gray-100 transition ease-in-out delay-150 opacity-100 text-orange-500 
+} */
+
+.dmo-i-p-active{
+    @apply ring-1 ring-gray-300 bg-gray-100 border border-gray-300 cursor-pointer
+}
+.dmo-i-p-active i, .dmo-i-p-active svg, .dmo-i-p-active p{
     @apply transition ease-in-out delay-150 opacity-100 text-orange-500 
 }
 
