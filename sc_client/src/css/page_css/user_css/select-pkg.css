@@ -1,6 +1,6 @@
 @import "tailwindcss";
 
-.page-box{
+.page-boxx{
     @apply w-full min-h-screen max-h-full pt-[4rem] pb-[4rem]  
     place-content-center place-items-center md:pt-[1rem] 
 }
@@ -15,7 +15,7 @@
     hover:bg-gray-200 hover:border-gray-300 w-fit place-self-start mb-[1rem] 
 }
 .select-pkg .ref-span-go-back svg{
-    @apply size-7 
+    @apply size-5
 }
 .select-pkg h3{
     @apply capitalize text-[16px] font-bold md:text-[18px] lg:text-[22px] mb-0.5 lg:mb-2 

@@ -12,7 +12,7 @@
     hover:bg-gray-200 hover:border-gray-300 w-fit place-self-start mb-[1rem] 
 }
 .notify-pg .ref-span-go-back svg{
-    @apply size-7 
+    @apply size-5
 }
 .notify-pg h3{
     @apply capitalize text-lg font-bold lg:text-2xl text-start place-self-start

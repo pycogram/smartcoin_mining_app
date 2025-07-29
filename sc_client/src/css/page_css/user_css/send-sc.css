@@ -13,7 +13,7 @@ form .ref-span-go-back{
     hover:bg-gray-200 hover:border-gray-300 w-fit place-self-start mb-[1rem] lg:hidden
 }
 form .ref-span-go-back svg{
-    @apply size-7 
+    @apply size-5
 }
 form .w-addy{
     @apply h-fit 

@@ -14,7 +14,7 @@
     @apply w-7 h-7 rounded-4xl border-2 border-gray-300 shadow-2xl p-0.5
 }
 .img-pdp p{
-    @apply block text-gray-600 font-semibold
+    @apply block text-gray-600 font-semibold first-letter:capitalize
 }
 .nav-link .menu-notify{
     @apply flex place-content-between w-[30%] place-items-center
@@ -46,8 +46,8 @@
     @apply h-full block space-y-1 place-items-center place-content-center px-1 py-1
     transition ease-in-out delay-200 border-2 border-transparent 
 }
-.nav-down .nd-option:hover,
-.nav-down .nd-option:active{
+.nav-down .option-active,
+.nav-down .option-active{
     @apply border-b-gray-400 bg-gray-100 rounded-md shadow-2xl 
 }
 .nd-option i{

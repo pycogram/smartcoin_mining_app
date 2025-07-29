@@ -10,7 +10,7 @@
     hover:bg-gray-200 hover:border-gray-300 w-fit place-self-start mb-[1rem] 
 }
 .referral .ref-span-go-back svg{
-    @apply size-7 
+    @apply size-5
 }
 .referral .ref-wallet-ady{
     @apply mb-4 w-full

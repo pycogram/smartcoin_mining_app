@@ -5,7 +5,7 @@
     place-content-start place-items-center md:pt-[1rem] 
 }
 .user-feed{
-    @apply w-[95%] h-fit mb-[4rem] block space-y-4 
+    @apply w-[90%] h-fit mb-[4rem] block space-y-4 
     sm:w-[90%] md:w-120 lg:w-140 relative pt-[0rem] pb-[1rem] md:py-[0rem]  
     lg:mb-[5rem]
 }
@@ -14,10 +14,10 @@
     hover:bg-gray-200 hover:border-gray-300 w-fit place-self-start mb-[1rem]
 }
 .user-feed .ref-span-go-back svg{
-    @apply size-7 md:hidden
+    @apply size-5 md:hidden
 }
 .user-feed .feed-container{
-    @apply w-fit h-fit
+    @apply w-full h-full 
 }
 .feed-container .feed-img-uname-timr-lv{
     @apply flex w-full place-content-between place-items-start mb-2 mt-1
@@ -27,7 +27,7 @@
 }
 
 .img-uname-time .span-img{
-    @apply w-14 h-14 sm:w-17 sm:h-17 place-content-center place-items-center border lg:border-2
+    @apply w-10 h-10 p-0.5 sm:w-17 sm:h-17 place-content-center place-items-center border lg:border-2
     border-gray-200 hover:border-gray-300 rounded-full overflow-hidden cursor-pointer
 }
 .img-uname-time .span-img:hover img{
@@ -41,27 +41,27 @@
     @apply block text-wrap place-items-start space-y-1 mt-1
 }
 .span-hp h4{
-    @apply text-[20px] font-bold text-gray-600 leading-4 capitalize 
-    md:text-[22px]
+    @apply text-[16px] font-bold text-gray-600 leading-4 capitalize 
+    md:text-[18px]
 }
 .span-hp p{
-    @apply text-[18px] font-bold text-gray-600 leading-4 capitalize 
-    md:text-[20px]
+    @apply text-[14px] font-bold text-gray-600 leading-4 capitalize 
+    md:text-[16px]
 }
 .feed-img-uname-timr-lv .lv{
     @apply h-fit w-fit mt-1
 }
 .lv p{
-    @apply text-[16px] font-bold text-blue-700 leading-4 capitalize
-    md:text-[22px]
+    @apply text-[14px] font-bold text-blue-700 leading-4 capitalize
+    md:text-[18px]
 }
 
 .feed-hpp h5{
     @apply text-[18px] font-normal leading-5 h-fit overflow-hidden 
-    md:text-[22px] text-gray-600
+    md:text-[22px] text-gray-600 py-1.5
 }
 .feed-hpp p{
-    @apply w-fit place-self-end text-[17px] md:text-[20px] leading-4 font-medium text-gray-500
+    @apply w-fit place-self-end text-[13px] md:text-[15px] leading-4 font-medium text-gray-500
 }
 
 .user-feed .feed-impression{
@@ -75,7 +75,7 @@
     @apply size-4 font-normal md:size-5
 }
 .feed-impression span:nth-child(1) svg{
-    @apply size-5 md:size-6
+    @apply size-4 md:size-5
 }
 .feed-impression span:nth-child(5) svg{
     @apply font-extrabold text-gray-900
@@ -85,14 +85,21 @@
 }
 
 .feed-replies{
-    @apply w-[100%] 
+    @apply w-[100%] py-1 space-y-2
 }
 .feed-replies h4{
-    @apply text-[18px] capitalize text-blue-950 lg:text-[22px] 
+    @apply text-[15px] first-letter:capitalize text-blue-950 lg:text-[18px] 
 }
 .feed-replies .feed-each-item{
-    @apply place-content-start my-2
+    @apply place-content-start place-items-center gap-x-1.5
 }
+.feed-replies .feed-each-item h5{
+    @apply w-full h-full text-wrap 
+}
+.feed-replies .feed-each-item :nth-child(3) {
+    @apply relative w-fit place-self-end
+}
+
 .user-feed .feed-form{
     @apply w-[95%] min-h-16 flex place-items-center place-content-center
     fixed bottom-0 gap-x-2 sm:w-[90%] md:w-120 lg:w-140 overflow-hidden
@@ -106,7 +113,7 @@
 .feed-form button{
     @apply  right-0 bg-orange-400 rounded-lg border border-transparent 
     py-1.5 px-2 w-10 hover:bg-orange-300 hover:border-orange-500
-    transition-all duration-300 ease-in-out
+    active:bg-orange-300 active:border-orange-500 transition-all duration-300 ease-in-out
 }
 .feed-form button i{
     @apply text-white

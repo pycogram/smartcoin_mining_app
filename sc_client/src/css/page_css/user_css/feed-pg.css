@@ -1,7 +1,8 @@
 @import "tailwindcss";
 
 .feed-pg{
-    @apply w-[100%] min-h-120 max-h-full block relative pt-[4rem] pb-[5rem] place-content-start place-items-center
+    @apply w-[100%] min-h-screen max-h-full block relative pt-[4.5rem] pb-[4rem] 
+    place-content-start place-items-center 
     text-gray-700 space-y-0.5 md:space-y-2 lg:space-y-3.5 md:py-[1rem]
 }
 .feed-pg .feed-each-item{
@@ -10,12 +11,12 @@
     lg:w-140 lg:border lg:border-transparent lg:pb-4 lg:border-b-gray-200
 }
 .feed-each-item .feed-img{
-    @apply place-items-center place-content-center block pb-8 md:pb-10 px-0.5 py-0 w-fit 
-    sm:w-15 h-fit relative bg-white
+    @apply place-items-center place-content-center block mb-8 md:mb-10 px-0.5 py-0 w-fit 
+    sm:w-15 h-fit relative 
 }
 .feed-img span{
     @apply w-8 h-8 p-1 sm:w-12 sm:h-12 place-content-center place-items-center border lg:border-2
-    border-gray-200 hover:border-gray-300 rounded-full overflow-hidden cursor-pointer
+    border-gray-200 hover:border-gray-300 rounded-full overflow-hidden cursor-pointer bg-white
 }
 .feed-img span:hover img{
     @apply scale-105
@@ -31,38 +32,42 @@
     border-gray-200 rounded-[20px] rounded-bl-[0] overflow-hidden 
 }
 .feed-name-cont-time span:nth-child(1){
-    @apply flex place-items-center place-content-between pb-1.5 md:pb-2.5
+    @apply flex place-items-center place-content-between
 }
 .feed-name-cont-time span:nth-child(1) h4{
-    @apply text-[16px] font-bold text-gray-600 leading-4 capitalize first-letter:lowercase
-    md:text-[22px]
+    @apply text-[14px] font-bold text-gray-600 leading-4 first-letter:capitalize
+    md:text-[20px] py-0.5  
 }
 .feed-name-cont-time span:nth-child(1) span{
     @apply flex place-content-center place-items-center gap-x-2 md:gap-x-3
 }
 .feed-name-cont-time span:nth-child(1) p{
-    @apply text-[14px] font-bold text-blue-700 leading-4 capitalize
-    md:text-[20px]
+    @apply text-[12px] font-bold text-blue-700 leading-4 capitalize
+    md:text-[18px]
 }
 .feed-name-cont-time span:nth-child(1) svg{
-    @apply size-5 
+    @apply size-4 
 }
 .feed-name-cont-time h5{
-    @apply text-[16px] font-normal leading-5 min-h-5 max-h-20 md:min-h-7 md:max-h-30 overflow-hidden 
-    md:text-[22px] text-gray-600 
+    @apply text-[16px] font-normal leading-4 pb-[1rem] 
+    
+    /* h-fit max-h-20 */
+    /* md:min-h-7 md:max-h-30 overflow-hidden  */
+    md:text-[20px] text-gray-600 
 }
 .feed-name-cont-time span:nth-child(3){
-    @apply flex gap-x-2 w-fit place-items-center place-self-end bg-white px-2 pl-3 py-1 
-    absolute right-0 bottom-0
+    @apply flex bg-white absolute gap-x-4 w-fit place-items-center place-content-end
+    pr-4 pl-1.5 py-1.5 right-0 bottom-0 md:py-2
 }
 .feed-name-cont-time span:nth-child(3) p{
-    @apply text-[13px] md:text-[18px] leading-3 font-medium text-gray-500
+    @apply text-[11px] md:text-[15px] leading-3 font-medium text-gray-500 
 }
-.feed-name-cont-time span:nth-child(3) p:nth-child(1){
-    @apply text-blue-700
+.feed-name-cont-time span:nth-child(3) .fnct-p1{
+    @apply text-blue-700 text-[16px]
 }
 .feed-body .feed-impression{
-    @apply flex place-items-center place-content-between h-8 md:h-10  
+    @apply flex place-items-center place-content-between 
+    w-30 place-self-end h-8 md:h-10  
 }
 .feed-impression span{
     @apply flex place-content-center place-items-center gap-x-0.5
@@ -71,17 +76,28 @@
     @apply size-4 font-normal md:size-5
 }
 .feed-impression span:nth-child(1) svg{
-    @apply size-5 md:size-6
+    @apply size-4 md:size-5
 }
-.feed-impression span:nth-child(5) svg{
+.feed-impression span:nth-child(3) svg{
     @apply font-extrabold text-gray-900
 }
 .feed-impression span p{
     @apply text-[13px] md:text-[17px] leading-2.5 mt-0.5
 }
+.feed-impression .sidePostEDR{
+    @apply bg-orange-200 z-10 w-20 px-1 py-0.5 absolute right-[1.5rem] 
+    top-[0.5rem] rounded-sm
+}
+.sidePostEDR ul {
+    @apply relative
+}
+.sidePostEDR ul li{
+    @apply text-[13px] hover:bg-gray-200 active:bg-gray-200 rounded-sm px-1 w-fit leading-5
+    text-blue-600
+}
 .feed-pg .feed-post-icon{
     @apply fixed bg-gray-100 rounded-full place-items-center place-content-center shadow-gray-500 shadow-lg box-content
-    transition ease-in-out delay-200
+    transition ease-in-out delay-200 z-20
     right-[1.5rem] lg:right-[3rem] bottom-[5rem] p-1 border-2 border-gray-200 hover:bg-white hover:border-gray-300
     md:p-2 lg:border-4
 }
