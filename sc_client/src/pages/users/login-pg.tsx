@@ -72,12 +72,13 @@ const LoginPage = () => {
         try{
             const data = await loginUser(formData);
 
-            const {message} = data;
+            const {message, user_id} = data;
 
             localStorage.removeItem("user");
             localStorage.removeItem("message_user2");
             localStorage.setItem("message_user", message);
-            localStorage.setItem("logged_in", "true")
+            localStorage.setItem("user_id", user_id);
+            localStorage.setItem("reload", "1");
             navigate('/dashboard');
 
         } catch(err){

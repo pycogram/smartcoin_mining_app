@@ -35,7 +35,7 @@
 }
 .menu-section .menu-option{
     @apply grid mt-0 place-content-center text-start gap-y-2 transition ease-in-out delay-100 
-    md:max-h-[85%] lg:max-h-[70%]  md:w-fit outline-0 border border-transparent md:border-b-gray-300 
+    md:max-h-[85%] lg:max-h-[70%] py-[1rem]  md:w-fit outline-0 border border-transparent md:border-b-gray-300 
     md:border-t-gray-300 md:px-1 md:block md:place-self-center overflow-y-scroll md:pt-0 md:pb-6 md:mt-5
     ;scrollbar-width: none;
 }

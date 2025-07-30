@@ -2,10 +2,10 @@
 
 .page-box{
     @apply bg-white w-full min-h-screen max-h-full pt-[4rem] pb-[0] z-20 
-    md:pt-[1rem] place-content-center place-items-start
+    md:pt-[1rem] place-content-start place-items-start md:place-content-center lg:place-content-start
 }
 .post-feed{
-    @apply w-full place-content-center
+    @apply w-full place-content-center relative
 }
 .post-feed .ref-span-go-back{
     @apply rounded-full bg-gray-100 border border-gray-200 
@@ -24,6 +24,5 @@
     resize-none text-gray-700 text-[16px] leading-6 font-normal
 }
 .post-form .post-btn{
-    @apply w-full md:w-[80%] relative md:place-self-center
-    mt-[2rem] 
+    @apply absolute left-0 right-0 bottom-[4rem] w-full md:w-[80%] place-self-center
 }

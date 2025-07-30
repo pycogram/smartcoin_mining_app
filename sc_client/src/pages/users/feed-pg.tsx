@@ -9,6 +9,7 @@ import Success from "../../components/alert/success";
 import { likePost, unlikePost } from "../../controllers/like";
 
 type userType = {
+    _id: string
     first_name: string,
     last_name: string,
     user_name: string,
@@ -31,15 +32,17 @@ const FeedPage = () => {
     const navigate = useNavigate();
     const [error, setError] = useState<string>("");
     const [perfect, setPerfect] = useState<string>("");
-    const message_user = localStorage.getItem("message_user") ?? "";
+    const messageUser = localStorage.getItem("message_user") ?? "";
+    const userId = localStorage.getItem("user_id");
 
     const fetchPost = async () => {
 
         try{
             const {data} = await postViewAll();
             setPostAll(data);
+            localStorage.removeItem("post_id");
             setIsReady(false);
-            setPerfect(message_user);
+            setPerfect(messageUser);
             
         } catch(err){
             let message = (err as Error).message;
@@ -210,12 +213,21 @@ const FeedPage = () => {
                                     </svg>
                                 }
                                 </span>
-                                {   clickOption === post._id &&
+                                {    
+                                    clickOption === post._id &&
                                     <div className="sidePostEDR">
                                         <ul>
-                                            <li onClick={() => handleEdit(post._id, post.content)}>edit post</li>
-                                            <li onClick={() => handleDelete(post._id)}>delete post</li>
-                                        </ul>
+                                            {
+                                                userId === post.user._id ?
+                                                <>
+                                                    <li onClick={() => handleEdit(post._id, post.content)}>edit post</li>
+                                                    <li onClick={() => handleDelete(post._id)}>delete post</li> 
+                                                </> :
+                                                <>
+                                                    <li onClick={() => handleEdit(post._id, post.content)}>report post</li> 
+                                                </>
+                                            }
+                                        </ul>  
                                     </div> 
                                 }
                             </div>

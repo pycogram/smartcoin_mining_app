@@ -53,8 +53,8 @@
     @apply w-7 text-red-400;
 }
 .logo-amt-eye .iconx i{
-    @apply flex text-xl lg:text-2xl place-items-center place-content-center h-fit w-fit lg:ml-10 
-    px-1.5 py-0 text-gray-700 rounded-2xl border-2 border-gray-200 bg-white active:bg-gray-200 
+    @apply flex text-[18px] lg:text-2xl place-items-center place-content-center h-fit w-fit lg:ml-10 
+    px-1.5 py-1 text-gray-700 rounded-2xl border-2 border-gray-200 bg-white active:bg-gray-200 
     active:border-white 
 }
 .dashboard .ref-wallet-ady{
@@ -87,14 +87,15 @@
 .dashboard .pie-sidebutton{
     @apply flex place-items-start place-content-evenly sm:place-content-around 
     lg:place-content-between w-80 place-self-center
-    sm:w-[95%] md:w-140 lg:w-150
+    sm:w-[95%] md:w-140 lg:w-150 
 }
 .pie-sidebutton .piechart-sec{
     @apply w-fit ml-0 block relative md:flex md:gap-x-5 md:place-items-end 
-    mt-[1.5rem] lg:mt-0 
+    mt-[1.5rem] lg:mt-0
 }
 .piechart-sec span .piechart_css{
-    @apply w-45 h-45 p-[0.5rem] md:p-0 rounded-[100%] border-4 border-gray-300 sm:w-55 sm:h-55 lg:w-60 lg:h-60
+    @apply w-45 h-45 p-[0.5rem] md:p-0 rounded-[100%] border-4 border-gray-300 
+    sm:w-55 sm:h-55 lg:w-60 lg:h-60
 }
 .piechart-sec ul{
     @apply mt-4

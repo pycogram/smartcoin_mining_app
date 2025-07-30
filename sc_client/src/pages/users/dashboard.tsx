@@ -62,12 +62,20 @@ const Dashboard = () => {
 
     useEffect(()=> {
 
+        const reload = Number(localStorage.getItem("reload"));
+        if(reload && reload == 1){
+            setTimeout(() => {
+                localStorage.removeItem("reload");
+                window.location.href = "/dashboard";
+            }, 100);
+        }
+
         setTimeout(()=> {
             setPerfect("");
             localStorage.removeItem("message_user");
         }, 5 * 1000);
 
-        setTimeout(async ()=> {
+        const fetchData = async () => {
             try{
                 const {data} = await mineDetail();
             
@@ -112,8 +120,10 @@ const Dashboard = () => {
                     setError("");
                 }, 10 * 1000);
             }
-        }, 0);
-      
+        }
+
+        fetchData();
+
     }, []);
 
     // hide and reveal balance

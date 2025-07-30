@@ -347,7 +347,7 @@ const loginUser = async (req: Request, res: Response):Promise<void> => {
         }).status(200).json({
             status: `success`,
             message: `Logged in successfully`,
-            id: userExist?._id,         
+            user_id: userExist?._id.toString(),         
             email: userExist.email,
             token: signedToken,
         });
