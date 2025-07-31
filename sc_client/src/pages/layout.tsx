@@ -1,18 +1,26 @@
-import { Link, Outlet, useNavigate } from "react-router-dom";
+import { Link, Outlet, useLocation, useNavigate } from "react-router-dom";
 import "../css/page_css/layout.css";
 import MenuPart from "../components/menu/menu";
-import { JSX, useContext, useState } from "react";
+import { JSX, useContext, useEffect, useState } from "react";
 import { MenuContext } from "../contexts/menu";
 import pdp from "../images/pics/pdp.png";
 import { UserContext } from "../contexts/user";
 import { PageContext } from "../contexts/active-page";
 
 const Layout = () => {
+    
     const {menuClick, setMenuClick} = useContext(MenuContext)!;
     const [menuFontIcon, setMenuFontIcon] = useState<JSX.Element | null>(null);
 
     const {user} = useContext(UserContext)!;
     const {activePage, setActivePage} = useContext(PageContext)!;
+
+    const location = useLocation();
+    useEffect(() => {
+        const path = location.pathname.split('/').filter(Boolean).pop();
+        setActivePage(path);
+    }, [location.pathname, setActivePage]);
+        
   
     const handleMenuClick = () => {
         setMenuClick((prev) => ! prev);
@@ -28,7 +36,6 @@ const Layout = () => {
 
     const navigate = useNavigate();
     const handlePage = (pageLink: string) => {
-        setActivePage(pageLink);
         navigate(`${pageLink}`);
     }
 

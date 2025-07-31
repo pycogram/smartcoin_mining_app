@@ -1,16 +1,17 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import Fail from "../../components/alert/fail";
 import Success from "../../components/alert/success";
-import { postViewDetail } from "../../controllers/post";
+import { deletePost, postViewDetail } from "../../controllers/post";
 import "../../css/page_css/user_css/feed-pg.css";
 import "../../css/page_css/user_css/user-feed.css";
 import user_pic from "../../images/pics/pdp.png";
 import { formatDistanceToNow } from "date-fns"
 import { useEffect, useState } from "react";
-import { createComment } from "../../controllers/comment";
+import { createComment, deleteComment, updateComment } from "../../controllers/comment";
 import { likePost, unlikePost } from "../../controllers/like";
 
 type userType = {
+    _id: string
     first_name: string,
     last_name: string,
     user_name: string,
@@ -39,6 +40,7 @@ const UserFeed = () => {
     const [error, setError] = useState<string>("");
     const [perfect, setPerfect] = useState<string>("");
     const [isReady, setIsReady] = useState<boolean>(true);
+    const userId = localStorage.getItem("user_id");
 
     const fetchPostDetail = async () => {
         if(!post_id) return;
@@ -87,7 +89,38 @@ const UserFeed = () => {
             }, 5 * 1000);
         }
     }
+
+    const [clickOption, setClickOption] = useState<string | null>(null);
+
+    const sidePostOption = (postId: string) => {
+        setClickOption(prev => (prev === postId ? null : postId));
+    };
+
+    const handleEdit = (postId: string, postContent: string) => {
+        navigate('/create-post', {state: {postId, postContent}})
+    }
+
+    const navigate = useNavigate();
+    const handleDelete = async (postId: string) => {
+        try{
+            const {message} = await deletePost(postId);
+            setPerfect(message);
+            navigate('/all-post')
+
+        } catch(err){
+            let message = (err as Error).message;
+            setError(message);
+
+        }finally{
+            setTimeout(() => {
+                setPerfect("");
+                setError("");
+                setClickOption(null);
+            }, 8 * 1000);
+        }
+    }
  
+    const [editCommentId, setEditCommentId] = useState<string>("");
     const handleComment = async (e: React.FormEvent<HTMLFormElement>) => {
         try{
             // to prevent page from reloading
@@ -96,7 +129,15 @@ const UserFeed = () => {
             setPerfect("");
             
             const comment = content;
-            const {message} = await createComment(post_id, comment);
+            const commentId = editCommentId;
+            let message = "";
+
+            if(editCommentId && editCommentId.length === 24){
+                ({message} = await updateComment(commentId, comment));
+            } else {
+                ({message} = await createComment(post_id, comment));
+            }
+
             fetchPostDetail();
             setPerfect(message);
             setContent("");
@@ -113,6 +154,36 @@ const UserFeed = () => {
         }
     }
 
+    const [clickOptionCom, setClickOptionCom] = useState<string | null>(null);
+
+    const sideComOption = (commentId: string) => {
+        setClickOptionCom(prev => (prev === commentId ? null : commentId));
+    };
+
+    const handleEditCom = (postId: string, postContent: string) => {
+        setEditCommentId(postId);
+        setContent(postContent);
+    }
+
+    const handleDeleteCom = async (commentId: string) => {
+        try{
+            const {message} = await deleteComment(commentId);
+            setPerfect(message);
+            fetchPostDetail();
+
+        } catch(err){
+            let message = (err as Error).message;
+            setError(message);
+
+        }finally{
+            setTimeout(() => {
+                setPerfect("");
+                setError("");
+                setClickOptionCom(null);
+            }, 8 * 1000);
+        }
+    }
+
     if(isReady) return (
         <div>
             <i className="fa-solid fa-spinner lazy-page-load-icon"></i>
@@ -120,7 +191,7 @@ const UserFeed = () => {
     )
 
     return ( 
-        <div className="page-box">
+        <div className="page-box3">
             {error && <Fail error={error} loggedinStatus={true} />}
             {perfect && <Success success={`${perfect}`} loggedinStatus={true} />}
 
@@ -175,16 +246,39 @@ const UserFeed = () => {
                             </svg>
                             <p>{postDetail.commentCount}</p>
                         </span>
-                        <span>
-                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor">
-                                <path strokeLinecap="round" strokeLinejoin="round" d="M12 6.75a.75.75 0 1 1 0-1.5.75.75 0 0 1 0 1.5ZM12 12.75a.75.75 0 1 1 0-1.5.75.75 0 0 1 0 1.5ZM12 18.75a.75.75 0 1 1 0-1.5.75.75 0 0 1 0 1.5Z" />
-                            </svg>
+                        <span onClick={() => sidePostOption(postDetail._id)}>
+                            {
+                                clickOption === postDetail._id ?
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
+                                <path fillRule="evenodd" d="M5.47 5.47a.75.75 0 0 1 1.06 0L12 10.94l5.47-5.47a.75.75 0 1 1 1.06 1.06L13.06 12l5.47 5.47a.75.75 0 1 1-1.06 1.06L12 13.06l-5.47 5.47a.75.75 0 0 1-1.06-1.06L10.94 12 5.47 6.53a.75.75 0 0 1 0-1.06Z" clipRule="evenodd" />
+                                </svg> :
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor">
+                                    <path strokeLinecap="round" strokeLinejoin="round" d="M12 6.75a.75.75 0 1 1 0-1.5.75.75 0 0 1 0 1.5ZM12 12.75a.75.75 0 1 1 0-1.5.75.75 0 0 1 0 1.5ZM12 18.75a.75.75 0 1 1 0-1.5.75.75 0 0 1 0 1.5Z" />
+                                </svg>
+                            }
                         </span>
+                        {    
+                            clickOption === postDetail._id &&
+                            <div className="sidePostEDR sPEDR2">
+                                <ul>
+                                    {
+                                        userId === postDetail.user._id ?
+                                        <>
+                                            <li onClick={() => handleEdit(postDetail._id, postDetail.content)}>edit post</li>
+                                            <li onClick={() => handleDelete(postDetail._id)}>delete post</li> 
+                                        </> :
+                                        <>
+                                            <li onClick={() => setClickOption(null)}>report post</li> 
+                                        </>
+                                    }
+                                </ul>  
+                            </div> 
+                        }
                     </div>
                     <div className="feed-replies">
                         <h4>{postDetail.comments.length > 0 ? "Replies" : "No reply yet"}</h4>
                         {   postDetail.comments.map(comment => 
-                             <div key={comment._id} className="feed-each-item">
+                            <div key={comment._id} className="feed-each-item">
                                 <div className="feed-img">
                                     <span>
                                         <img src={user_pic} alt="user pic" />
@@ -196,9 +290,36 @@ const UserFeed = () => {
                                             <h4>{comment.user.first_name} {comment.user.last_name} @{comment.user.user_name}</h4>
                                             <span>
                                                 <p>lv 12</p>
-                                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor">
-                                                    <path strokeLinecap="round" strokeLinejoin="round" d="M12 6.75a.75.75 0 1 1 0-1.5.75.75 0 0 1 0 1.5ZM12 12.75a.75.75 0 1 1 0-1.5.75.75 0 0 1 0 1.5ZM12 18.75a.75.75 0 1 1 0-1.5.75.75 0 0 1 0 1.5Z" />
-                                                </svg>
+                                                <span onClick={() => sideComOption(comment._id)}>
+                                                    {
+                                                        clickOptionCom === comment._id ?
+                                                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
+                                                            <path fillRule="evenodd" d="M5.47 5.47a.75.75 0 0 1 1.06 0L12 10.94l5.47-5.47a.75.75 0 1 1 1.06 1.06L13.06 12l5.47 5.47a.75.75 0 1 1-1.06 1.06L12 13.06l-5.47 5.47a.75.75 0 0 1-1.06-1.06L10.94 12 5.47 6.53a.75.75 0 0 1 0-1.06Z" clipRule="evenodd" />
+                                                        </svg> :
+                                                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor">
+                                                            <path strokeLinecap="round" strokeLinejoin="round" d="M12 6.75a.75.75 0 1 1 0-1.5.75.75 0 0 1 0 1.5ZM12 12.75a.75.75 0 1 1 0-1.5.75.75 0 0 1 0 1.5ZM12 18.75a.75.75 0 1 1 0-1.5.75.75 0 0 1 0 1.5Z" />
+                                                        </svg>
+                                                    }
+                                                    {    
+                                                        clickOptionCom === comment._id &&
+                                                        <div className="sidePostEDR2">
+                                                            <ul>
+                                                                {
+                                                                    userId === comment.user._id ?
+                                                                    <>
+                                                                        <li onClick={() => handleEditCom(comment._id, comment.content)}>edit comment</li>
+                                                                        <li onClick={() => handleDeleteCom(comment._id)}>delete comment</li> 
+                                                                    </> :
+                                                                    <>
+                                                                        <li onClick={(e) => {e.stopPropagation(); setClickOptionCom(null)}}>
+                                                                            report comment
+                                                                        </li>
+                                                                    </>
+                                                                }
+                                                            </ul>  
+                                                        </div> 
+                                                    }
+                                                </span>
                                             </span>
                                         </span>
                                         <h5>
@@ -209,7 +330,8 @@ const UserFeed = () => {
                                         </span>
                                     </div>
                                 </div>
-                            </div> )
+                            </div> 
+                            )
                         }
                     </div>
                     <form onSubmit={handleComment} className="feed-form" action="">

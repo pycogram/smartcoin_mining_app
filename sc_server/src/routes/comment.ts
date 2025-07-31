@@ -4,8 +4,8 @@ import { createComment, deleteComment, updateComment } from '../controllers/comm
 
 const router = express.Router();
 
-router.post('/create-comment', authUser, createComment);
-router.delete('/delete/:comment_id', authUser, deleteComment);
-router.put('/update/:comment_id', authUser, updateComment);
+router.post('/create', authUser, createComment);
+router.delete('/delete', authUser, deleteComment);
+router.put('/update', authUser, updateComment);
 
 export {router as commentRoutes}

@@ -9,7 +9,7 @@ export const generateCode = (length : number) => {
 
 export const generateUsername = (first_name: string, length : number) => {
     const chars = '0123456789';
-    let result = first_name;
+    let result = first_name.trim();
     for (let i = 0; i < length; i++) {
         result += chars.charAt(Math.floor(Math.random() * chars.length));
     }

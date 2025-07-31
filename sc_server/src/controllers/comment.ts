@@ -51,7 +51,7 @@ const createComment = async(req: Request, res: Response):Promise<void> => {
 const deleteComment = async(req: Request, res: Response):Promise<void> => {
     try{
         // destructure req parameters
-        const {comment_id: commentId} = req.params;
+        const {commentId} = req.body;
 
         // get user id stored in the req
         const userId = (req as any).user_id;
@@ -91,10 +91,9 @@ const deleteComment = async(req: Request, res: Response):Promise<void> => {
 const updateComment = async(req: Request, res: Response):Promise<void> => {
     try{
         // destructure req parameters to get comment id in the url
-        const {comment_id: commentId} = req.params;
 
         // destructure req body
-        const {comment} = req.body;
+        const {commentId, comment} = req.body;
 
         // get user id stored in the req
         const userId = (req as any).user_id;

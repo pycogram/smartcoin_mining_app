@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import "../../css/page_css/user_css/setting.css";
 
 const Setting = () => {
@@ -10,15 +11,21 @@ const Setting = () => {
                         <p>dark mode</p>
                         <i className="fa-solid fa-moon"></i>
                     </span>
-                    <span>
-                        <p>notification</p>
-                        <i className="fa-solid fa-chevron-right"></i>
-                    </span>
+                    <Link to={'/history'}>
+                        <span>
+                            <p>notification</p>
+                            <i className="fa-solid fa-chevron-right"></i>
+                        </span>
+                    </Link>
                 </div>
             </div>
             <div className="setting-item">
                 <label>security</label>
                 <div className="setting-option">
+                    <span>
+                        <p>change pin</p>
+                        <i className="fa-solid fa-chevron-right"></i>
+                    </span>
                     <span>
                         <p>change password</p>
                         <i className="fa-solid fa-chevron-right"></i>

@@ -6,9 +6,9 @@ const router = express.Router();
 
 // create post routes
 
-router.post('/create-post', authUser, createPost);
-router.delete('/delete-post', authUser, deletePost);
-router.put('/update-post', authUser, updatePost);
+router.post('/create', authUser, createPost);
+router.delete('/delete', authUser, deletePost);
+router.put('/update', authUser, updatePost);
 router.get('/view', authUser, viewPost);
 router.get('/view-all', authUser, viewAllPost);
 router.post('/view-detail', authUser,  viewPostDetail)

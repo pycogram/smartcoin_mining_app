@@ -43,6 +43,19 @@ html::-webkit-scrollbar-thumb{
 html::-webkit-scrollbar-thumb:hover{
   background: #555;
 }
+
+@tailwind base;
+@tailwind component;
+@tailwind utilities
+
+@layer utilities {
+  .dark .text-gray-600,
+  .dark .text-gray-700,
+  .dark .text-gray-800 {
+    color: white !important
+  }
+}
+
 body{
   color: var(--text1-color-dark-grey);
   /* background-image: url('./images/pics/bg2.jpg'); 

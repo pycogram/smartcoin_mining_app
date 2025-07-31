@@ -1,6 +1,6 @@
 @import "tailwindcss";
 
-.page-box{
+.page-box3{
     @apply bg-white w-[100%] min-h-screen max-h-full pt-[1rem] pb-[0rem] z-20 
     place-content-start place-items-center md:pt-[1rem] 
 }
@@ -14,7 +14,7 @@
     hover:bg-gray-200 hover:border-gray-300 w-fit place-self-start mb-[1rem]
 }
 .user-feed .ref-span-go-back svg{
-    @apply size-5 md:hidden
+    @apply size-5 
 }
 .user-feed .feed-container{
     @apply w-full h-full 
@@ -66,7 +66,7 @@
 
 .user-feed .feed-impression{
     @apply w-full flex place-items-center place-content-between h-10 md:h-10 border border-transparent
-    border-t-gray-200 border-b-gray-200 px-4 
+    border-t-gray-200 border-b-gray-200 px-4 relative
 }
 .feed-impression span{
     @apply flex place-content-center place-items-center gap-x-0.5
@@ -83,21 +83,38 @@
 .feed-impression span p{
     @apply text-[13px] md:text-[17px] leading-2.5 mt-0.5
 }
+.feed-impression .sPEDR2{
+    @apply top-[3rem] right-[1rem]
+}
 
 .feed-replies{
-    @apply w-[100%] py-1 space-y-2
+    @apply w-[100%] py-1 space-y-2 relative
 }
 .feed-replies h4{
     @apply text-[15px] first-letter:capitalize text-blue-950 lg:text-[18px] 
 }
 .feed-replies .feed-each-item{
-    @apply place-content-start place-items-center gap-x-1.5
+    @apply place-content-start place-items-center gap-x-1.5 relative w-80
 }
 .feed-replies .feed-each-item h5{
-    @apply w-full h-full text-wrap 
+    @apply w-full h-full text-wrap pb-0
 }
 .feed-replies .feed-each-item :nth-child(3) {
-    @apply relative w-fit place-self-end
+    @apply relative w-fit place-self-end h-fit py-0.5 px-0.5
+}
+.feed-name-cont-time{
+    @apply relative
+}
+.feed-name-cont-time .sidePostEDR2{
+    @apply bg-white z-20 w-fit px-1 py-1 absolute right-[2.5rem] 
+    top-[0.5rem] rounded-sm shadow-xs shadow-gray-500 lg:w-30
+}
+.sidePostEDR2 ul {
+    @apply relative space-y-1
+}
+.sidePostEDR2 ul li{
+    @apply text-[13px] hover:bg-gray-200 active:bg-gray-200 rounded-sm px-1 w-fit leading-5 
+    text-blue-950 lg:text-[18px]
 }
 
 .user-feed .feed-form{

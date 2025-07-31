@@ -25,7 +25,7 @@ export const postViewDetail = async (post_id: string) => {
 }
 
 export const createPost = async (content: string) => {
-    const res = await fetch('/api/post/create-post', {
+    const res = await fetch('/api/post/create', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
@@ -40,7 +40,7 @@ export const createPost = async (content: string) => {
 }
 
 export const updatePost = async (postId: string, content: string) => {
-    const res = await fetch('/api/post/update-post', {
+    const res = await fetch('/api/post/update', {
         method: 'PUT',
         headers: {
             'Content-Type': 'application/json'
@@ -55,7 +55,7 @@ export const updatePost = async (postId: string, content: string) => {
 }
 
 export const deletePost = async (postId: string) => {
-    const res = await fetch('/api/post/delete-post', {
+    const res = await fetch('/api/post/delete', {
         method: 'DELETE',
         headers: {
             'Content-Type': 'application/json'

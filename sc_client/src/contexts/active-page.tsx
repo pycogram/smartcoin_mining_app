@@ -12,7 +12,7 @@ type Props = {
 };
 
 export const PageProvider = ({ children }: Props) => {
-  const [activePage, setActivePage] = useState<string | undefined>("dashboard");
+  const [activePage, setActivePage] = useState<string | undefined>(undefined);
 
   return (
     <PageContext.Provider value={{ activePage, setActivePage }}>

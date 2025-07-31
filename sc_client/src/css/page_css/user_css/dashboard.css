@@ -29,7 +29,7 @@
     transition ease-in-out delay-150
 }
 .img-pdp p{
-    @apply text-lg lg:text-2xl capitalize
+    @apply text-lg lg:text-2xl capitalize 
 }
 .dashboard .logo-amt-eye{
     @apply flex place-content-center place-items-center gap-x-4 rounded-lg
@@ -40,7 +40,7 @@
     @apply w-7 h-7 lg:w-12 lg:h-12
 }
 .logo-amt-eye .mined-amt{
-    @apply flex gap-x-1 place-items-center 
+    @apply flex gap-x-1 place-items-center select-none
 }
 .mined-amt h2{
     @apply text-4xl font-semibold text-orange-600 text-shadow-2xs md:text-5xl lg:text-7xl 
@@ -68,6 +68,7 @@
 }
 .lock-coin p{
     @apply text-[12px] uppercase text-blue-900 font-bold sm:text-[15px] md:text-[17px] lg:text-[20px]
+    select-none
 }
 .dashboard .db-button{
     @apply bg-white shadow-xs flex place-items-center place-content-around w-70 h-20 
@@ -82,7 +83,7 @@
     lg:h-12 lg:w-12 lg:text-2xl hover:scale-95 place-self-center
 }
 .db-button span p{
-    @apply text-[14px] mt-1 text-blue-950 font-semibold lg:text-[18px] text-center
+    @apply text-[14px] mt-1 text-blue-950 font-semibold lg:text-[18px] text-center select-none
 }
 .dashboard .pie-sidebutton{
     @apply flex place-items-start place-content-evenly sm:place-content-around 
@@ -98,7 +99,7 @@
     sm:w-55 sm:h-55 lg:w-60 lg:h-60
 }
 .piechart-sec ul{
-    @apply mt-4
+    @apply mt-4 select-none
 }
 .piechart-sec ul li{
     @apply text-xs font-semibold w-fit flex place-items-center 
