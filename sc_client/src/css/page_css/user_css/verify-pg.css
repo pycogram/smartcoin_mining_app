@@ -5,7 +5,7 @@
     h-screen 
 }
 .verify-page form{
-    @apply w-[90%] block place-self-center sm:w-[400px]  h-full relative
+    @apply w-[90%] block place-self-center sm:w-[400px] h-130 lg:h-120 relative
 }
 form .header-text{
     @apply text-2xl font-bold lg:text-center lg:text-4xl 

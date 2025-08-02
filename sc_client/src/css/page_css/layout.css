@@ -14,7 +14,7 @@
     @apply w-7 h-7 rounded-4xl border-2 border-gray-300 shadow-2xl p-0.5
 }
 .img-pdp p{
-    @apply block text-gray-600 font-semibold first-letter:capitalize
+    @apply block text-gray-600 font-semibold first-letter:capitalize dark:text-yellow-500
 }
 .nav-link .menu-notify{
     @apply flex place-content-between w-[30%] place-items-center

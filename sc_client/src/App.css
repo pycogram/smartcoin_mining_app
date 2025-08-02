@@ -1,4 +1,15 @@
 @import "tailwindcss";
+@import "tailwindcss/preflight";
+@import "tailwindcss/components";
+@import "tailwindcss/utilities";
+
+@layer utilities {
+  .dark .text-gray-600,
+  .dark .text-gray-700,
+  .dark .text-gray-800 {
+    color: white !important;
+  }
+}
 
 @import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;500;600;700&display=swap');
 
@@ -44,18 +55,6 @@ html::-webkit-scrollbar-thumb:hover{
   background: #555;
 }
 
-@tailwind base;
-@tailwind component;
-@tailwind utilities
-
-@layer utilities {
-  .dark .text-gray-600,
-  .dark .text-gray-700,
-  .dark .text-gray-800 {
-    color: white !important
-  }
-}
-
 body{
   color: var(--text1-color-dark-grey);
   /* background-image: url('./images/pics/bg2.jpg'); 
@@ -63,10 +62,6 @@ body{
   @apply h-screen w-full relative block place-content-center place-items-center
   bg-white bg-[radial-gradient(#e5e7eb_1px,transparent_1px)] [background-size:16px_16px]
 }
-
-/* .container{
-    @apply h-screen w-screen bg-yellow-300 relative place-content-center place-self-center;
-} */
 
 .lazy-page-load-icon{
   @apply animate-spin text-4xl md:text-5xl lg:text-6xl text-center 
