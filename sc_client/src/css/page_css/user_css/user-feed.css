@@ -5,9 +5,9 @@
     place-content-start place-items-center md:pt-[1rem] 
 }
 .user-feed{
-    @apply w-[90%] h-fit mb-[4rem] block space-y-4 
+    @apply w-full h-fit mb-[4rem] block space-y-4
     sm:w-[90%] md:w-120 lg:w-140 relative pt-[0rem] pb-[1rem] md:py-[0rem]  
-    lg:mb-[5rem]
+    lg:mb-[5rem] place-self-center
 }
 .user-feed .ref-span-go-back{
     @apply rounded-full bg-gray-100 border border-gray-200 
@@ -88,7 +88,7 @@
 }
 
 .feed-replies{
-    @apply w-[100%] py-1 space-y-2 relative
+    @apply w-[95%] relative py-1 space-y-2 relative
 }
 .feed-replies h4{
     @apply text-[15px] first-letter:capitalize text-blue-950 lg:text-[18px] 
@@ -118,12 +118,12 @@
 }
 
 .user-feed .feed-form{
-    @apply w-[95%] min-h-16 flex place-items-center place-content-center
+    @apply w-[90%] min-h-20 flex place-items-start place-content-center place-self-center
     fixed bottom-0 gap-x-2 sm:w-[90%] md:w-120 lg:w-140 overflow-hidden
-    max-h-30 lg:mb-[0rem] py-1 lg:py-[0.5rem] bg-white
+    max-h-30 lg:mb-[0rem] py-1 pb-2 lg:py-[0.5rem] bg-white
 }
 .feed-form textarea{
-    @apply  w-[100%] min-h-16 max-h-25 left-0 ring-0 border border-gray-400 rounded-lg py-3 px-3 
+    @apply  w-full min-h-16 max-h-25 left-0 ring-0 border border-gray-400 rounded-lg py-3 px-3 
     focus:outline-none focus:border-gray-600
     resize-none text-gray-700 text-[16px] leading-5 font-normal
 }

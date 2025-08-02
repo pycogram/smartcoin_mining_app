@@ -120,7 +120,7 @@ const UserFeed = () => {
         }
     }
  
-    const [editCommentId, setEditCommentId] = useState<string>("");
+    const [editCommentId, setEditCommentId] = useState<string | null>(null);
     const handleComment = async (e: React.FormEvent<HTMLFormElement>) => {
         try{
             // to prevent page from reloading
@@ -134,6 +134,7 @@ const UserFeed = () => {
 
             if(editCommentId && editCommentId.length === 24){
                 ({message} = await updateComment(commentId, comment));
+                setEditCommentId(null);
             } else {
                 ({message} = await createComment(post_id, comment));
             }
