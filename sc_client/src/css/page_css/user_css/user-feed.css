@@ -2,7 +2,7 @@
 
 .page-box3{
     @apply bg-white w-[100%] min-h-screen max-h-full pt-[1rem] pb-[0rem] z-20 
-    place-content-start place-items-center md:pt-[1rem] px-2 md:px-0
+    place-content-start place-items-center md:pt-[1rem] 
 }
 .user-feed{
     @apply w-full h-fit mb-[4rem] block space-y-4
