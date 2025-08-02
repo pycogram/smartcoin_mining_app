@@ -9,14 +9,17 @@
     sm:w-[90%] md:w-120 lg:w-140 relative pt-[0rem] pb-[1rem] md:py-[0rem]  
     lg:mb-[5rem] place-self-center
 }
-.user-feed .ref-span-go-back{
+.uf-box {
+    @apply w-[92%] block place-self-center relative
+}
+.uf-box .ref-span-go-back{
     @apply rounded-full bg-gray-100 border border-gray-200 
     hover:bg-gray-200 hover:border-gray-300 w-fit place-self-start mb-[1rem]
 }
-.user-feed .ref-span-go-back svg{
+.uf-box .ref-span-go-back svg{
     @apply size-5 
 }
-.user-feed .feed-container{
+.uf-box .feed-container{
     @apply w-full h-full 
 }
 .feed-container .feed-img-uname-timr-lv{
@@ -64,7 +67,7 @@
     @apply w-fit place-self-end text-[13px] md:text-[15px] leading-4 font-medium text-gray-500
 }
 
-.user-feed .feed-impression{
+.uf-box .feed-impression{
     @apply w-full flex place-items-center place-content-between h-10 md:h-10 border border-transparent
     border-t-gray-200 border-b-gray-200 px-4 relative
 }

@@ -40,7 +40,7 @@ body{
   color: var(--text1-color-dark-grey);
   /* background-image: url('./images/pics/bg2.jpg'); 
   background-position: center; background-size: cover; background-repeat: no-repeat;  */
-  @apply h-screen w-full relative block place-content-center place-items-center font-sans
+  @apply h-screen w-full relative block place-content-center place-items-center 
   bg-white bg-[radial-gradient(#e5e7eb_1px,transparent_1px)] [background-size:16px_16px]
 }
 
