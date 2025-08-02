@@ -1,13 +1,13 @@
 @import "tailwindcss";
 
 .page-box3{
-    @apply bg-white w-screen min-h-screen max-h-full pt-[1rem] pb-[0rem] z-20 
+    @apply bg-white w-[100%] min-h-screen max-h-full pt-[1rem] pb-[0rem] z-20 
     place-content-start place-items-center md:pt-[1rem] 
 }
 .user-feed{
-    @apply w-full h-fit mb-[4rem] block space-y-4 px-4
+    @apply w-[95%] h-fit mb-[4rem] block space-y-4
     sm:w-[90%] md:w-120 lg:w-140 relative pt-[0rem] pb-[1rem] md:py-[0rem]  
-    lg:mb-[5rem]
+    lg:mb-[5rem] place-self-center
 }
 .user-feed .ref-span-go-back{
     @apply rounded-full bg-gray-100 border border-gray-200 
