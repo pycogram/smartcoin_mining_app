@@ -42,7 +42,7 @@ html::-webkit-scrollbar-thumb:hover{
 
 body{
   color: var(--text1-color-dark-grey);
-  @apply h-screen w-full relative block place-content-center place-items-center 
+  @apply h-screen w-[98dvw] relative block place-content-center place-items-center 
   bg-white bg-[radial-gradient(#e5e7eb_1px,transparent_1px)] [background-size:16px_16px]
 }
 
