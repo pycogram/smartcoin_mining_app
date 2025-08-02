@@ -91,7 +91,7 @@
 }
 
 .feed-replies{
-    @apply w-[95%] relative py-1 space-y-2 relative
+    @apply w-[95%] relative py-1 space-y-2 
 }
 .feed-replies h4{
     @apply text-[15px] first-letter:capitalize text-blue-950 lg:text-[18px] 

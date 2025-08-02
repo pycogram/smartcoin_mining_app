@@ -129,7 +129,7 @@ const UserFeed = () => {
             setPerfect("");
             
             const comment = content;
-            const commentId = editCommentId;
+            const commentId = editCommentId!;
             let message = "";
 
             if(editCommentId && editCommentId.length === 24){
