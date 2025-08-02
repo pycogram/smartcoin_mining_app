@@ -1,12 +1,18 @@
 import type { Config } from 'tailwindcss'
 
 const config: Config = {
-  darkMode: 'class',
-  content: ['./index.html', './src/**/*.{js,ts,jsx,tsx}'],
+  content: [
+    './index.html',
+    './src/**/*.{js,ts,jsx,tsx}',
+  ],
   theme: {
-    extend: {},
+    extend: {
+      fontFamily: {
+        sans: ['Rubik', 'sans-serif'], 
+      },
+    },
   },
   plugins: [],
 }
 
-export default config
+export default config;

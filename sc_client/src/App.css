@@ -11,17 +11,13 @@
   }
 }
 
-@import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;500;600;700&display=swap');
 
 *{
-  font-family: "Quicksand";
   margin: 0;
   font-size: 20px;
   line-height: 25px;
-  /* color: var(--text1-color-dark-grey); */
   font-weight: normal;
   box-sizing: border-box;
-  /* @apply text-gray-800 */
 }
 a{
   text-decoration: none;
@@ -38,7 +34,6 @@ input, button, textarea{
   font: inherit;
 }
 html{
-  font-family: var(--fontFamily-open-sans);
   font-size: 18px;
   scroll-behavior: smooth;
 }
@@ -59,7 +54,7 @@ body{
   color: var(--text1-color-dark-grey);
   /* background-image: url('./images/pics/bg2.jpg'); 
   background-position: center; background-size: cover; background-repeat: no-repeat;  */
-  @apply h-screen w-full relative block place-content-center place-items-center
+  @apply h-screen w-full relative block place-content-center place-items-center font-sans
   bg-white bg-[radial-gradient(#e5e7eb_1px,transparent_1px)] [background-size:16px_16px]
 }
 
@@ -67,3 +62,5 @@ body{
   @apply animate-spin text-4xl md:text-5xl lg:text-6xl text-center 
   absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-gray-500;
 }
+
+
