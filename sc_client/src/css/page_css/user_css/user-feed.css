@@ -118,7 +118,7 @@
 }
 
 .user-feed .feed-form{
-    @apply w-[90%] min-h-20 flex place-items-center place-content-center place-self-center
+    @apply w-[90%] min-h-20 flex place-items-start place-content-center place-self-center
     fixed bottom-0 gap-x-2 sm:w-[90%] md:w-120 lg:w-140 overflow-hidden
     max-h-30 lg:mb-[0rem] py-1 pb-2 lg:py-[0.5rem] bg-white
 }
