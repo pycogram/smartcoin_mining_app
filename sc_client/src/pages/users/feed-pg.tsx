@@ -162,7 +162,7 @@ const FeedPage = () => {
                         
                             <div onClick={() => handleViewPost(post._id)} className="feed-name-cont-time">
                                 <span>
-                                    <h4>{post.user.first_name} {post.user.last_name} ~ {post.user.user_name}</h4>
+                                    <h4>{post.user.first_name} {post.user.last_name}  @{post.user.user_name}</h4>
                                     <p>lv 12</p>
                                 </span>
                                 <h5 
