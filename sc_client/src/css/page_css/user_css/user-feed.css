@@ -91,22 +91,31 @@
 }
 
 .feed-replies{
-    @apply w-[95%] relative py-1 space-y-2 
+    @apply w-full bg-red-500 relative py-1 space-y-2 
 }
 .feed-replies h4{
     @apply text-[15px] first-letter:capitalize text-blue-950 lg:text-[18px] 
 }
 .feed-replies .feed-each-item{
-    @apply place-content-start place-items-center gap-x-1.5 relative w-80
+    @apply w-full bg-yellow-500 place-content-start place-items-center gap-x-1.5 relative 
 }
 .feed-replies .feed-each-item h5{
     @apply w-full h-full text-wrap pb-0
+}
+.feed-replies .feed-each-item :nth-child(1){
+    @apply gap-x-3 md:gap-x-0
+}
+.feed-replies .feed-each-item :nth-child(1) h4{
+    @apply capitalize 
 }
 .feed-replies .feed-each-item :nth-child(3) {
     @apply relative w-fit place-self-end h-fit py-0.5 px-0.5
 }
 .feed-name-cont-time{
     @apply relative
+}
+.feed-name-cont-time .fnct-plv{
+    @apply text-nowrap
 }
 .feed-name-cont-time .sidePostEDR2{
     @apply bg-white z-20 w-fit px-1 py-1 absolute right-[2.5rem] 

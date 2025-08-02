@@ -289,9 +289,9 @@ const UserFeed = () => {
                                     <div className="feed-body">
                                         <div className="feed-name-cont-time">
                                             <span>
-                                                <h4>{comment.user.first_name} {comment.user.last_name} @{comment.user.user_name}</h4>
+                                                <h4>{comment.user.first_name} {comment.user.last_name} {comment.user.user_name}</h4>
                                                 <span>
-                                                    <p>lv 12</p>
+                                                    <p className="fnct-plv">lv 12</p>
                                                     <span onClick={() => sideComOption(comment._id)}>
                                                         {
                                                             clickOptionCom === comment._id ?
