@@ -1,8 +1,9 @@
 @import "tailwindcss";
+@custom-variant dark (&:where(.dark, .dark *));
 
 .send-sc{
     @apply w-[100%] h-screen z-20 bg-white lg:h-110 relative block 
-    py-[2rem] lg:py-[1rem] text-gray-700
+    py-[2rem] lg:py-[1rem] text-gray-700 dark:bg-neutral-600
 }
 .send-sc form{
     @apply w-[85%] h-full block gap-y-1.5 place-self-center sm:w-[400px] lg:w-[50%] lg:gap-y-5
@@ -23,6 +24,7 @@ form .w-addy:nth-child(2){
 }
 form .w-addy h3{
     @apply font-semibold text-[16px] capitalize text-gray-700 md:text-[18px] lg:text-[20px]
+    dark:text-white
 }
 .w-addy span{
     @apply flex place-content-between place-items-center relative gap-y-4  
@@ -30,13 +32,13 @@ form .w-addy h3{
 .w-addy span input{
     @apply text-lg outline outline-gray-500 px-2.5 rounded-sm 
     h-[45px] focus:outline-blue-200 focus:outline-2 md:h-[45px] lg:h-[55px] w-full 
-    pr-[4.5rem] lg:pr-[5.5rem]
+    pr-[4.5rem] lg:pr-[5.5rem] dark:text-white
 }
 .w-addy span i{
     @apply absolute right-2 bottom-1.5 text-sm place-items-center place-content-center
     bg-gray-100 border border-gray-200 rounded-full text-center h-7 w-7 
     hover:border-gray-300 hover:scale-95 transition ease-in-out delay-250
-    font-semibold lg:bottom-2.5 lg:text-lg lg:h-8 lg:w-8
+    font-semibold lg:bottom-2.5 lg:text-lg lg:h-8 lg:w-8 
 }
 .w-addy span .iconxw{
     @apply right-[2.5rem] lg:right-[3rem]
@@ -45,14 +47,14 @@ form .w-addy h3{
     @apply flex place-items-center place-content-between px-2
 }
 .w-addy div p{
-    @apply text-[13px] capitalize font-bold mt-0.5
+    @apply text-[13px] capitalize font-bold mt-0.5 dark:text-orange-500 text-blue-500
 }
 form .w-info{
     @apply block mt-4
 }
 form .w-info h3{
     @apply font-semibold text-[16px] capitalize text-gray-700 
-    md:text-[18px] lg:text-[20px]
+    md:text-[18px] lg:text-[20px] dark:text-white mb-1
 }
 .w-info span{
     @apply flex gap-x-2 border border-gray-200 py-2 px-2 lg:pl-3 bg-gray-100 lg:h-15 place-items-center

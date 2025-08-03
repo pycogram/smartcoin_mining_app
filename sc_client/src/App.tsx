@@ -1,5 +1,4 @@
 import React, { Suspense} from 'react';
-import './App.css';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import UserRoutes from './routes/user';
 import NonUserRoutes from './routes/non-user';

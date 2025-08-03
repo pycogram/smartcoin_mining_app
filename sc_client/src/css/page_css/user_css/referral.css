@@ -1,9 +1,11 @@
 @import "tailwindcss";
+@custom-variant dark (&:where(.dark, .dark *));
 
 .referral{
     @apply w-[100%] sm:px-[3rem] lg:px-0 block relative place-items-start 
     pt-[2rem] pb-[3rem] h-screen 
     md:w-100 text-gray-700 bg-white px-[1.5rem] md:px-[0] z-20
+    dark:bg-neutral-600 
 }
 .referral .ref-span-go-back{
     @apply rounded-full bg-gray-100 border border-gray-200 
@@ -17,6 +19,7 @@
 }
 .ref-wallet-ady h3{
     @apply font-semibold text-[16px] capitalize mb-1 text-gray-700 md:text-[18px] lg:text-[20px]
+    dark:text-white
 }
 .ref-wallet-ady div{
     @apply bg-gray-100 h-20 px-2 rounded-lg block place-content-center place-items-center
@@ -40,6 +43,7 @@
 }
 .ref-link h3{
     @apply font-semibold text-[16px] capitalize mb-1 text-gray-700 md:text-[18px] lg:text-[20px]
+    dark:text-white
 }
 .ref-link div{
     @apply bg-gray-100 h-20 px-2 rounded-lg block place-content-center place-items-center
@@ -74,7 +78,7 @@
     @apply md:flex py-0.5 md:place-items-center md:place-content-center md:gap-x-3
 }
 .total-claim-sc .ref-link:nth-child(1) div span h4{
-    @apply py-1.5 md:py-0.5
+    @apply py-1.5 md:py-0.5 
 }
 .total-claim-sc .ref-link div span h4{
     @apply px-3 py-0.5 
@@ -86,7 +90,7 @@
     @apply w-full mb-[3rem]
 }
 .ref-invite h3{
-    @apply font-semibold text-[16px] text-gray-700 capitalize mb-1
+    @apply font-semibold text-[16px] text-gray-700 capitalize mb-1 dark:text-white
 }
 .ref-invite ul{
     @apply list-none grid gap-y-1 

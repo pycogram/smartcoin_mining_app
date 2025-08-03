@@ -1,13 +1,14 @@
 @import 'tailwindcss';
+@custom-variant dark (&:where(.dark, .dark *));
 
 .register-page{
-    @apply w-[100%] relative block py-[2rem] lg:py-[1rem] text-gray-700
+    @apply w-[100%] relative block py-[2rem] lg:py-[1rem] text-gray-700 
 }
 .register-page form{
     @apply w-[80%] block place-self-center sm:w-[400px] lg:w-[50%]
 }
 form .header-text{
-    @apply text-2xl font-bold lg:text-center lg:text-4xl
+    @apply text-2xl font-bold lg:text-center lg:text-4xl dark:text-white
 }
 form .form-input-box{
     @apply block space-y-1 mt-2 lg:grid grid-cols-2 lg:gap-x-[1.5rem] lg:space-y-0
@@ -16,52 +17,59 @@ form .form-input-box{
     @apply relative flex flex-col mt-5.5 lg:mt-8
 }
 .form-input-box div label{
-    @apply text-sm lg:text-lg font-medium bg-gray-100 z-10 w-fit px-1.5 rounded-sm absolute block -top-3 left-2
+    @apply text-sm lg:text-lg font-medium bg-gray-100 z-10 w-fit px-1.5 rounded-sm absolute block -top-3.5 left-2
     lg:-top-5 text-gray-700
 }
 .form-input-box div input{
-    @apply text-lg outline outline-gray-600 px-2.5 rounded-sm pt-1 bg-white
+    @apply text-lg outline outline-gray-600 px-2.5 rounded-sm pt-0 bg-white border
     h-[45px] focus:outline-blue-200 focus:outline-2 md:h-[46px] lg:h-[55px] 
-    pr-[1.5rem] lg:pr-[2.5rem]
+    pr-[1.5rem] lg:pr-[2.5rem] dark:bg-gray-300 dark:outline-white my-0.5
 }
 .form-input-box div label ~ input:focus{
     @apply bg-white 
 }
 .form-input-box div i{
-    @apply absolute right-2 bottom-1 lg:bottom-2.5 text-sm place-items-center place-content-center
+    @apply absolute right-2 bottom-2 leading-4 lg:bottom-3 text-sm place-items-center place-content-center
     bg-gray-100 border border-gray-200 rounded-full text-center h-7 w-7 hover:bg-gray-200 hover:border-gray-300
-    transition ease-in-out delay-250 font-semibold cursor-pointer
+    transition ease-in-out delay-250 font-semibold cursor-pointer dark:bg-white
 }
 form .form-btn{
-    @apply relative block place-items-center place-content-center lg:w-[400px] lg:place-self-center lg:mt-4 lg:mb-6
+    @apply relative block place-items-center place-content-center lg:w-[400px] 
+    lg:place-self-center lg:mt-4 lg:mb-6 
 }
 form .form-social{
     @apply mt-3 relative block place-items-center space-y-2.5
 }
 .form-social p{
-    @apply text-lg
+    @apply text-lg dark:text-white
 }
 .form-social p::first-letter{
     @apply uppercase
 }
 .form-social p:first-child{
-    @apply flex uppercase text-lg md:text-2xl
+    @apply flex uppercase text-lg md:text-2xl 
 }
 .form-social p:first-child::before{
     @apply text-2xl w-[30%] h-[3px] bg-green-900 absolute block left-5 top-3 rounded-lg
-    md:w-[30%] md:left-10 lg:w-[25%] lg:left-30
+    md:w-[30%] md:left-10 lg:w-[25%] lg:left-30 dark:bg-green-50
     ;content: '';
+}
+.dark .form-social p:first-child::before {
+    @apply bg-white;
 }
 .form-social p:first-child::after{
     @apply text-2xl w-[30%] h-[3px] bg-green-900 absolute block right-5 top-3 rounded-lg 
-    md:w-[30%] md:right-10 lg:w-[25%] lg:right-30
+    md:w-[30%] md:right-10 lg:w-[25%] lg:right-30 
     ;content: '';
+}
+.dark .form-social p:first-child::after {
+    @apply bg-white;
 }
 .form-social ul{
     @apply h-[40px] flex gap-x-3 place-items-center lg:my-4
 }
 .form-social ul li{
-    @apply hover:text-orange-400 transition-all ease-in-out delay-75 active:text-orange-400
+    @apply hover:text-orange-400 transition-all ease-in-out delay-75 active:text-orange-400 dark:text-white
 }
 .form-social ul li .icon-link{
     @apply text-lg md:text-2xl hover:text-orange-700 hover:mx-2
@@ -71,7 +79,7 @@ form .form-social{
 }
 .form-social .login-option{
     @apply text-blue-600 text-[16px] md:text-[18px] lg:text-[20px] 
-    capitalize font-bold hover:text-blue-900 hover:ml-0.5 md:hover:ml-1
+    capitalize font-bold hover:text-blue-900 hover:ml-0.5 md:hover:ml-1 dark:text-orange-500
 }
 .login-page{
     @apply py-0 lg:py-[2rem]

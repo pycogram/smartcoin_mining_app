@@ -1,10 +1,9 @@
 @import "tailwindcss";
 
-/* .dashboard{
-    @apply w-[100%] grid bg-orange-400 gap-y-2 md:gap-y-4 md:pt-[1rem] md:pb-[2rem] place-self-center
-} */
+@custom-variant dark (&:where(.dark, .dark *));
+
  .dashboard{
-    @apply w-[100%] h-full grid gap-y-2 md:gap-y-4 pt-[5rem] pb-[4.5rem]
+    @apply w-[100%] h-full grid gap-y-2 md:gap-y-4 pt-[5rem] pb-[4.5rem] 
     md:py-[2rem] lg:pt-[1rem] lg:pb-[2rem] place-self-start md:place-self-center
  }
 .dashboard .db-navbar{
@@ -44,18 +43,18 @@
 }
 .mined-amt h2{
     @apply text-4xl font-semibold text-orange-600 text-shadow-2xs md:text-5xl lg:text-7xl 
-    flex  place-items-center place-content-center gap-x-0.5
+    flex  place-items-center place-content-center gap-x-0.5 dark:text-white
 }
 .mined-amt h3{
-    @apply text-2xl mt-0.5 font-semibold text-orange-600 lg:text-5xl
+    @apply text-2xl mt-0.5 font-semibold text-orange-600 lg:text-5xl dark:text-white
 }
 .logo-amt-eye svg{
     @apply w-7 text-red-400;
 }
 .logo-amt-eye .iconx i{
     @apply flex text-[18px] lg:text-2xl place-items-center place-content-center h-fit w-fit lg:ml-10 
-    px-1.5 py-1 text-gray-700 rounded-2xl border-2 border-gray-200 bg-white active:bg-gray-200 
-    active:border-white 
+    px-1 py-0.5 pt-1 text-gray-700 rounded-2xl border-2 border-gray-200 bg-white active:bg-gray-200 
+    active:border-white leading-3 lg:py-2
 }
 .dashboard .ref-wallet-ady{
     @apply w-75 sm:w-96 place-self-center lg:w-120 
@@ -68,11 +67,12 @@
 }
 .lock-coin p{
     @apply text-[12px] uppercase text-blue-900 font-bold sm:text-[15px] md:text-[17px] lg:text-[20px]
-    select-none
+    select-none dark:text-white
 }
 .dashboard .db-button{
     @apply bg-white shadow-xs flex place-items-center place-content-around w-70 h-20 
     rounded-lg border-2 border-gray-300 place-self-center my-2 sm:w-100 lg:w-120 lg:h-30 lg:my-5 
+    dark:bg-gray-200
 }
 .db-button span{
     @apply place-items-center w-fit 
@@ -103,7 +103,7 @@
 }
 .piechart-sec ul li{
     @apply text-xs font-semibold w-fit flex place-items-center 
-    md:text-sm lg:text-lg first-letter:capitalize text-gray-800
+    md:text-sm lg:text-lg first-letter:capitalize text-gray-800 dark:text-white
 }
 .piechart-sec ul li::before{
     @apply w-2.5 h-2.5 mr-1.5 relative rounded-xs md:w-4 md:h-4
@@ -129,7 +129,7 @@
 }
 .db-sidebutton span{
     @apply my-2 mx-1 px-1.5 py-1.5 border-2 border-gray-300 rounded-4xl bg-white
-    hover:bg-gray-100 hover:border-gray-400 
+    hover:bg-gray-100 hover:border-gray-400 dark:bg-gray-200 dark:border-gray-100
 }
 .db-sidebutton span img{
     @apply w-6 h-6 md:w-7 md:h-7 lg:w-8 lg:h-8 

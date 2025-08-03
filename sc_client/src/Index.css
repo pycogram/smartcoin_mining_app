@@ -1,8 +1,62 @@
-@import "tailwindcss/base";
-@import "tailwindcss/components";
-@import "tailwindcss/utilities";
+@import "tailwindcss";
 
-/* You can add custom CSS here */
-body {
-  @apply font-sans text-gray-800 bg-white;
+@custom-variant dark (&:where(.dark, .dark *));
+
+@import "tailwindcss";
+
+*{
+  margin: 0;
+  font-size: 20px;
+  line-height: 25px;
+  font-weight: normal;
+  box-sizing: border-box;
+}
+a{
+  text-decoration: none;
+  color: var(--text1-color-dark-grey);
+}
+li{
+  cursor: pointer;
+}
+img, span, button{
+  display: block;
+  cursor: pointer;
+}
+input, button, textarea{
+  font: inherit;
+}
+html{
+  height: 100%;
+  font-size: 18px;
+  scroll-behavior: smooth;
+}
+html::-webkit-scrollbar{
+  width: 4px;
+}
+html::-webkit-scrollbar-track{
+  background: #f1f1f1;
+}
+html::-webkit-scrollbar-thumb{
+  background: #888;
+}
+html::-webkit-scrollbar-thumb:hover{
+  background: #555;
+}
+#root{
+  @apply h-screen w-screen md:h-[100%] md:w-[100%]
+  place-self-center place-content-center place-items-center
+}
+
+body{
+  color: var(--text1-color-dark-grey);
+  @apply h-[100dvh] w-[98dvw] place-self-center relative block place-content-center place-items-center 
+  bg-[radial-gradient(#e5e7eb_1px,transparent_1px)] [background-size:16px_16px] 
+  dark:bg-neutral-600 
+  font-sans 
+}
+
+.lazy-page-load-icon{
+  @apply animate-spin text-4xl md:text-5xl lg:text-6xl text-center 
+  absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-gray-500
+  dark:text-white
 }

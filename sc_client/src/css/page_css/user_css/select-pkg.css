@@ -1,4 +1,5 @@
 @import "tailwindcss";
+@custom-variant dark (&:where(.dark, .dark *));
 
 .page-boxx{
     @apply w-full min-h-screen max-h-full pt-[4rem] pb-[4rem]  
@@ -18,7 +19,7 @@
     @apply size-5
 }
 .select-pkg h3{
-    @apply capitalize text-[16px] font-bold md:text-[18px] lg:text-[22px] mb-0.5 lg:mb-2 
+    @apply capitalize text-[16px] font-medium md:text-[18px] lg:text-[22px] mb-0.5 lg:mb-2 
 }
 .select-pkg .active-lock{
     @apply bg-gray-50 border border-gray-300 py-2 px-1.5 block mb-[1rem] w-full
@@ -31,6 +32,7 @@
     @apply bg-gray-400 text-white w-fit place-self-end px-1.5 lg:px-2.5 text-[14px] lg:text-[18px] font-bold
     leading-4 py-0.5 lg:py-1 rounded-md border-2 border-white hover:bg-gray-500 active:bg-gray-500 
     hover:border-white active:border-white capitalize transition ease-in-out delay-150 cursor-pointer
+    
 }
 .select-pkg .select-lock-pkg{
     @apply block w-full h-full space-y-1 md:grid md:grid-cols-2 md:gap-x-1.5 md:place-content-center 
@@ -41,7 +43,7 @@
     space-x-4 hover:border-blue-200 active:border-blue-200 transition ease-in-out delay-200 lg:h-35 cursor-pointer
 }
 .select-pkg .a-pkg-h3, .select-pkg .s-pkg-h3{
-    @apply place-self-start font-bold 
+    @apply place-self-start font-bold dark:text-white
 } 
 .select-lock-pkg .each-pkg:active{
     @apply border-blue-300 
@@ -97,5 +99,5 @@
 }
 
 .lock-pkg .w-button{
-    @apply lg:mb-[1rem] 
+    @apply -mb-[1.5rem] lg:mb-[1rem] 
 }
