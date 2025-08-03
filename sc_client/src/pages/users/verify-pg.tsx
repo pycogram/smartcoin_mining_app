@@ -38,11 +38,10 @@ const VerifyPage = () => {
             setTimeout(async () => {
                 const data = await verifyUser(email);
                 const {message} = data;
-                localStorage.setItem("message_user2", message);
-            }, 5 * 1000);
-            navigate('/confirm');
+                navigate('/confirm}', {state: message});
+            }, 2 * 1000);
 
-        } catch(err){
+            } catch(err){
             const message = (err as Error).message;
             if (message.includes("before requesting for another code")) {
                 setError(`${message}. ...You will be redirected shortly`);

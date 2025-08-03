@@ -39,11 +39,11 @@ html::-webkit-scrollbar-thumb:hover{
 }
 
 
-
 body{
   color: var(--text1-color-dark-grey);
   @apply h-[100dvh] w-[98dvw] place-self-center relative block place-content-center place-items-center 
-  bg-white bg-[radial-gradient(#e5e7eb_1px,transparent_1px)] [background-size:16px_16px]
+  bg-[radial-gradient(#e5e7eb_1px,transparent_1px)] [background-size:16px_16px] 
+  font-sans 
 }
 
 .lazy-page-load-icon{

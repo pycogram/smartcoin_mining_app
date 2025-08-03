@@ -28,9 +28,10 @@ const MenuPart = () => {
             localStorage.removeItem("user_id");
             localStorage.removeItem("post_id");
             localStorage.removeItem("lock_time");
-
         }
-        navigate(`${pageLink}`);
+
+        const userId = localStorage.getItem("user_id");
+        navigate(userId ? `/${pageLink}` : '/login');
     }
     return ( 
         <div>

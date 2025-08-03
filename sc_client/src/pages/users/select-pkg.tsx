@@ -56,7 +56,7 @@ const SelectPkg = () => {
     const handleSeleckPkg = (value : number) => {
         setPerfect("");
 
-        localStorage.setItem("lock_time", `${value}`);
+        localStorage.setItem("lock-time", `${value}`);
         setTimeout(() => {
             navigate('/lock-pkg');
         }, 1 * 1000);

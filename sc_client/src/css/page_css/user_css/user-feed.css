@@ -91,13 +91,13 @@
 }
 
 .feed-replies{
-    @apply w-full bg-red-500 relative py-1 space-y-2 
+    @apply w-full relative py-1 space-y-2 
 }
 .feed-replies h4{
     @apply text-[15px] first-letter:capitalize text-blue-950 lg:text-[18px] 
 }
 .feed-replies .feed-each-item{
-    @apply w-full bg-yellow-500 place-content-start place-items-center gap-x-1.5 relative 
+    @apply w-full place-content-start place-items-center gap-x-1.5 relative 
 }
 .feed-replies .feed-each-item h5{
     @apply w-full h-full text-wrap pb-0
@@ -130,7 +130,7 @@
 }
 
 .user-feed .feed-form{
-    @apply w-[85%] min-h-20 flex place-items-start place-content-center place-self-center
+    @apply w-[90%] min-h-20 flex place-items-start place-content-center place-self-center
     fixed bottom-0 gap-x-2 sm:w-[90%] md:w-120 lg:w-140 overflow-hidden
     max-h-30 lg:mb-[0rem] py-1 pb-2 lg:py-[0.5rem] bg-white
 }

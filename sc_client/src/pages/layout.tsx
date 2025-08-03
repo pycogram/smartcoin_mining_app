@@ -6,7 +6,6 @@ import { MenuContext } from "../contexts/menu";
 import pdp from "../images/pics/pdp.png";
 import { UserContext } from "../contexts/user";
 import { PageContext } from "../contexts/active-page";
-import DarkModeToggle from "../components/button/toggle-mode";
 
 const Layout = () => {
     
@@ -37,27 +36,29 @@ const Layout = () => {
 
     const navigate = useNavigate();
     const handlePage = (pageLink: string) => {
-        navigate(`${pageLink}`);
-    }
+        const userId = localStorage.getItem("user_id");
+        navigate(userId ? `/${pageLink}` : '/login');
+    };
 
     const [mode, setMode] = useState<boolean>(false);
     useEffect(() => {
-        const darkPref = localStorage.getItem("dark-mode");
-        if (darkPref === "true") {
-            setMode(true);
-            document.documentElement.classList.add("dark");
-        }
+        document.documentElement.classList.toggle(
+        "dark",
+        localStorage.theme === "dark" ||
+            (!("theme" in localStorage) && window.matchMedia("(prefers-color-scheme: dark)").matches),
+        );
     }, []);
+
 
     const bgMode = () => {
         console.log(mode);
         setMode(prev => {
             const newMode = !prev;
-            localStorage.setItem("dark-mode", String(newMode));
+            //localStorage.setItem("dark-mode", String(newMode));
             if (newMode) {
-                document.documentElement.classList.add("dark");
+                localStorage.theme = "light";
             } else {
-                document.documentElement.classList.remove("dark");
+                localStorage.theme = "dark";
             }
             return newMode;
         });
@@ -91,9 +92,9 @@ const Layout = () => {
                             <path stroke-linecap="round" stroke-linejoin="round" d="M12 3v2.25m6.364.386-1.591 1.591M21 12h-2.25m-.386 6.364-1.591-1.591M12 18.75V21m-4.773-4.227-1.591 1.591M5.25 12H3m4.227-4.773L5.636 5.636M15.75 12a3.75 3.75 0 1 1-7.5 0 3.75 3.75 0 0 1 7.5 0Z" />
                         </svg>
                     </div>
-                    <div>
+                    {/* <div>
                         <DarkModeToggle />
-                    </div>
+                    </div> */}
                 </div>
                 <Link to={"/update-profile"}>
                     <div className="img-pdp">

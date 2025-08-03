@@ -23,8 +23,16 @@ const LockPkg = () => {
     const [isReady, setIsReady] = useState<boolean>(true);
 
     const [availSC, setAvailSc] = useState<number | null>(null);
+    let lockTime = Number(localStorage.getItem("lock-time"));
 
     useEffect(() => {
+        if(!lockTime){
+            console.log(lockTime);
+            setTimeout(()=> {
+                navigate('/select-pkg');
+            }, 2 * 1000);
+        }
+
         setTimeout( async ()=> {
             try{
                 const {data} = await mineDetail();
@@ -55,15 +63,9 @@ const LockPkg = () => {
         }, 0)
     }, []);
 
-    let lockTime = Number(localStorage.getItem("lock-time"));
+
     let lockImg =  undefined;
     let lockName = undefined;
-
-    if(!lockTime){
-        setTimeout(()=> {
-            navigate('/select-pkg');
-        }, 1 * 1000);
-    }
 
     switch (lockTime) {
         case 1:

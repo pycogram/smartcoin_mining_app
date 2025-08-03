@@ -146,7 +146,7 @@ const FeedPage = () => {
     )
 
     return ( 
-        <div className="feed-pg">
+        <div className="feed-pg bg-primary">
             {error && <Fail error={error} loggedinStatus={true} />}
             {perfect && <Success success={`${perfect}`} loggedinStatus={true} />}
 

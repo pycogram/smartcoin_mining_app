@@ -4,13 +4,14 @@ import confirm_pic from "../../images/pics/verify-illustraction.png";
 import { useEffect, useState } from "react";
 import Fail from "../../components/alert/fail";
 import { confirmUser } from "../../controllers/user";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import Success from "../../components/alert/success";
 
 const ConfirmPage = () => {
     // get items stored in localstorage
     const userString = localStorage.getItem("user");
-    const message_user = localStorage.getItem("message_user2") ?? ""; 
+    const locate = useLocation();
+    const message_user =  locate.state ?? "";
     
     localStorage.removeItem("message_user");
 
