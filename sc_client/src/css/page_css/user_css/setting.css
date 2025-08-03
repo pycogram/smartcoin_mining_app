@@ -19,7 +19,7 @@
 .setting-option span{
     @apply flex place-content-between bg-white dark:bg-gray-600 dark:text-white place-items-center relative 
     rounded-lg px-2.5 py-1.5 lg:my-1 lg:h-15 border border-transparent hover:bg-gray-50 hover:border-gray-400
-    hover:scale-95 transition ease-in-out delay-200 
+    hover:scale-95 transition ease-in-out delay-200 dark:hover:bg-gray-700 dark:hover:border-gray-500
 }
 .setting-option span p{
     @apply text-sm capitalize md:text-lg 

@@ -6,7 +6,7 @@
     place-content-start place-items-start md:pt-[1rem] dark:bg-neutral-600 
 }
 .notify-pg{
-    @apply w-[93%]  place-content-center place-self-center
+    @apply w-[93%] place-content-center place-self-center
     block space-y-4 sm:w-[70%] md:w-140 lg:w-[60%]  md:h-screen  text-gray-700 
 }
 .notify-pg .ref-span-go-back{
@@ -17,7 +17,7 @@
     @apply size-5
 }
 .notify-pg h3{
-    @apply capitalize text-lg font-bold lg:text-2xl text-start place-self-start text-white
+    @apply capitalize text-lg font-bold lg:text-2xl text-start place-self-start dark:text-white
 }
 .notify-pg .notify-detail{
     @apply block relative pb-[5rem] w-full lg:w-120 

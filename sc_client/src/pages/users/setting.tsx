@@ -7,10 +7,12 @@ const Setting = () => {
             <div className="setting-item">
                 <label>preference</label>
                 <div className="setting-option">
-                    <span>
-                        <p>dark mode</p>
-                        <i className="fa-solid fa-moon"></i>
-                    </span>
+                    <Link to={'/referral'}>
+                        <span>
+                            <p>referral</p>
+                            <i className="fa-solid fa-chevron-right"></i>
+                        </span>
+                    </Link>
                     <Link to={'/history'}>
                         <span>
                             <p>notification</p>
@@ -39,6 +41,12 @@ const Setting = () => {
             <div className="setting-item">
                 <label>account</label>
                 <div className="setting-option">
+                    <Link to={'/update-profile'}>
+                        <span>
+                            <p>change account detail</p>
+                            <i className="fa-solid fa-chevron-right"></i>
+                        </span>
+                    </Link>
                     <span>
                         <p>change email address</p>
                         <i className="fa-solid fa-chevron-right"></i>

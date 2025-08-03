@@ -1,62 +1,85 @@
 @import "tailwindcss";
-
 @custom-variant dark (&:where(.dark, .dark *));
 
-@import "tailwindcss";
+@layer base {
+  html {
+    --dot-color: #e5e7eb; 
+  }
+  html.dark {
+    --dot-color: #2e2e2e; 
+  }
+}
 
-*{
+* {
   margin: 0;
   font-size: 20px;
   line-height: 25px;
   font-weight: normal;
   box-sizing: border-box;
 }
-a{
+
+a {
   text-decoration: none;
   color: var(--text1-color-dark-grey);
 }
-li{
+
+li {
   cursor: pointer;
 }
-img, span, button{
+
+img,
+span,
+button {
   display: block;
   cursor: pointer;
 }
-input, button, textarea{
+
+input,
+button,
+textarea {
   font: inherit;
 }
-html{
+
+html {
   height: 100%;
   font-size: 18px;
   scroll-behavior: smooth;
 }
-html::-webkit-scrollbar{
+
+html::-webkit-scrollbar {
   width: 4px;
 }
-html::-webkit-scrollbar-track{
+html::-webkit-scrollbar-track {
   background: #f1f1f1;
 }
-html::-webkit-scrollbar-thumb{
+html::-webkit-scrollbar-thumb {
   background: #888;
 }
-html::-webkit-scrollbar-thumb:hover{
+html::-webkit-scrollbar-thumb:hover {
   background: #555;
 }
-#root{
-  @apply h-screen w-screen md:h-[100%] md:w-[100%]
-  place-self-center place-content-center place-items-center
+
+#root {
+  @apply h-[100%] w-[100%]
+    place-self-center place-content-center place-items-center;
 }
 
-body{
+
+body {
   color: var(--text1-color-dark-grey);
-  @apply h-[100dvh] w-[98dvw] place-self-center relative block place-content-center place-items-center 
-  bg-[radial-gradient(#e5e7eb_1px,transparent_1px)] [background-size:16px_16px] 
-  dark:bg-neutral-600 
-  font-sans 
+  @apply h-[100%] w-[100%] place-self-center relative block
+  place-content-center place-items-center font-sans;
+
+  @apply bg-white dark:bg-neutral-600;
+
+  background-image: radial-gradient(var(--dot-color) 1px, transparent 1px);
+  background-size: 16px 16px;
+  transition: background-color 0.3s ease, color 0.3s ease;
 }
 
-.lazy-page-load-icon{
+/* loading icon */
+.lazy-page-load-icon {
   @apply animate-spin text-4xl md:text-5xl lg:text-6xl text-center 
-  absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-gray-500;
-  
+    absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2
+    text-gray-500 dark:text-white;
 }
