@@ -10,10 +10,10 @@
     @apply hidden md:flex relative place-content-between place-items-center mb-2 px-[4rem]
 }
 .db-navbar .menu-notify{
-    @apply flex w-fit gap-x-4 hover:cursor-pointer
+    @apply md:flex md:w-fit md:gap-x-4 md:hover:cursor-pointer
 }
 .menu-notify .nav-option{
-    @apply size-7 lg:size-8 rounded-full border-2 bg-gray-100 border-gray-300 
+    @apply size-7 lg:size-8 rounded-full border-2 border-gray-300 
     hover:bg-white hover:border-gray-400 hover:scale-95
 }
 .db-navbar .img-pdp{
