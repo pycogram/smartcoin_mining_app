@@ -1,11 +1,12 @@
 @import 'tailwindcss';
 
 .verify-page{
-    @apply w-[100%] relative block py-[1.5rem] lg:py-[1rem] text-gray-700
+    @apply w-[100%] relative block py-[1.5rem] lg:py-[1rem] text-gray-700 place-self-center
     h-screen 
 }
 .verify-page form{
-    @apply w-[90%] block place-self-center sm:w-[400px] h-130 lg:h-120 relative
+    @apply w-[90%] block place-self-center sm:w-[400px] 
+    h-fit pb-[1rem] relative 
 }
 form .header-text{
     @apply text-2xl font-bold lg:text-center lg:text-4xl 
@@ -26,5 +27,5 @@ form img{
     @apply h-[250px] w-[150] place-self-center mt-4
 }
 form .for-secondary-btn{
-    @apply  w-[90%] place-self-center absolute bottom-[0rem]
+    @apply w-[90%] place-self-center mb-[2rem]
 }

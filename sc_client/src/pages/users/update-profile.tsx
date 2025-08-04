@@ -12,7 +12,8 @@ import Success from "../../components/alert/success";
 type UserDataType  = {
     first_name: string,
     last_name: string,
-    user_name: string
+    user_name: string,
+    email: string
 }
 
 const UpdateProfile = () => {
@@ -32,6 +33,7 @@ const UpdateProfile = () => {
         first_name: user.first_name,
         last_name: user.last_name,
         user_name: user.user_name,
+        email: user.email
     });
 
     const navigate = useNavigate();
@@ -91,6 +93,10 @@ const UpdateProfile = () => {
                     <div>
                         <label>Username</label>
                         <input value={userData.user_name} onChange={(e) => setUserData({...userData, user_name: e.target.value})} type="text" placeholder="johnnythedeo"/>
+                    </div>
+                    <div>
+                        <label>Email</label>
+                        <input className="email-input" value={userData.email} onChange={(e) => setUserData({...userData, email: e.target.value})} type="text" placeholder="johnnythedeo" disabled/>
                     </div>
                 </div>
                 <div className="form-btn">

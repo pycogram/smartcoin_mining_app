@@ -29,30 +29,35 @@ const VerifyPage = () => {
     //error state
     const [error, setError] = useState<string>("");    
 
-    const handleVerify = (e: React.FormEvent<HTMLFormElement>) => {
+    const handleVerify = async(e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         setError("");
 
         // register user
         try{ 
-            setTimeout(async () => {
-                const data = await verifyUser(email);
-                const {message} = data;
-                navigate('/confirm}', {state: message});
-            }, 2 * 1000);
-
-            } catch(err){
+            const data = await verifyUser(email);
+            const {message} = data;
+            navigate('/confirm}', {state: message});
+            
+        } catch(err){
             const message = (err as Error).message;
             if (message.includes("before requesting for another code")) {
                 setError(`${message}. ...You will be redirected shortly`);
                 setTimeout(() => {
-                    navigate('/confirm');
-                }, 8 * 1000);
+                    navigate('/confirm', {state: "Enter the code sent to your email address"});
+                }, 5 * 1000);
                 return;
             }
             setError(message);
+
+        } finally {
+            setTimeout(() => {
+                setError("");
+            }, 10 * 1000);
+            
         }
     }
+
     if(!userString){return}
     return ( 
         <div className="verify-page">

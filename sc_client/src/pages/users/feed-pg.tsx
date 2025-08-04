@@ -122,7 +122,6 @@ const FeedPage = () => {
 
     const handleDelete = async (postId: string) => {
         try{
-            console.log(232, postId);
             const {message} = await deletePost(postId);
             setPerfect(message);
             fetchPost();

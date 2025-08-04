@@ -23,6 +23,11 @@ const ConfirmPage = () => {
     }, []);
 
     const [perfect, setPerfect] = useState<string>(message_user);
+    if(perfect){
+        setTimeout(() => {
+            setPerfect("");
+        }, 10 * 1000);
+    }
 
     // set value entered by the user
     const [codeForm, setCodeForm] = useState({

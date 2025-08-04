@@ -1,10 +1,10 @@
 @import "tailwindcss";
 @custom-variant dark (&:where(.dark, .dark *));
 
- .dashboard{
+.dashboard{
     @apply w-[100%] h-full grid gap-y-2 md:gap-y-4 pt-[5rem] pb-[4.5rem] 
     md:py-[2rem] lg:pt-[1rem] lg:pb-[2rem] place-self-start md:place-self-center
- }
+}
 .dashboard .db-navbar{
     @apply hidden md:flex relative place-content-between place-items-center mb-2 px-[4rem]
 }
@@ -13,7 +13,7 @@
 }
 .menu-notify .nav-option{
     @apply size-7 lg:size-8 rounded-full border-2 border-gray-300 
-    hover:bg-white hover:border-gray-400 hover:scale-95 dark:bg-neutral-600 dark:text-white
+    hover:scale-95 dark:bg-neutral-600 dark:text-white p-0.5 transition duration-300 ease-in-out
 }
 .db-navbar .img-pdp{
     @apply flex place-items-center gap-x-2

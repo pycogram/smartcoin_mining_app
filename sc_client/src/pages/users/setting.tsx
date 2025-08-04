@@ -5,7 +5,7 @@ const Setting = () => {
     return ( 
         <div className="setting">
             <div className="setting-item">
-                <label>preference</label>
+                <label>update</label>
                 <div className="setting-option">
                     <Link to={'/referral'}>
                         <span>
@@ -25,10 +25,6 @@ const Setting = () => {
                 <label>security</label>
                 <div className="setting-option">
                     <span>
-                        <p>change pin</p>
-                        <i className="fa-solid fa-chevron-right"></i>
-                    </span>
-                    <span>
                         <p>change password</p>
                         <i className="fa-solid fa-chevron-right"></i>
                     </span>
@@ -43,14 +39,10 @@ const Setting = () => {
                 <div className="setting-option">
                     <Link to={'/update-profile'}>
                         <span>
-                            <p>change account detail</p>
+                            <p>change detail</p>
                             <i className="fa-solid fa-chevron-right"></i>
                         </span>
                     </Link>
-                    <span>
-                        <p>change email address</p>
-                        <i className="fa-solid fa-chevron-right"></i>
-                    </span>
                 </div>
             </div>
             <div className="setting-item">

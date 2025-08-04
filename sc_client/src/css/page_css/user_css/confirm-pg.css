@@ -1,10 +1,11 @@
 @import "tailwindcss";
 
 .confirm-page{
-    @apply w-[100%] relative block py-[2rem] lg:py-[1rem] text-gray-700 
+    @apply w-[100%] relative block py-[2rem] lg:py-[1rem] text-gray-700 place-self-center  
 }
 .confirm-page form{
-    @apply w-[90%] block sm:w-[400px] place-self-center h-140 relative lg:h-screen
+    @apply w-[90%] block sm:w-[400px] place-self-center h-fit 
+    pb-[1rem] relative 
 }
 form header{
     @apply text-sm md:text-lg lg:text-xl font-medium w-fit text-gray-700
@@ -32,40 +33,7 @@ form img{
     @apply h-[250px] w-[150] place-self-center mb-[1rem]
 }
 form .for-secondary-btn{
-    @apply  w-[90%] lg:w-[100%] place-self-center md:mt-4 
-    absolute bottom-[4rem] md:block md:bottom-0 
+    @apply w-[90%] lg:w-[100%] place-self-center md:mt-4 
+    md:block md:bottom-0 mb-[2rem]
 }
 
-.approve-page{
-    @apply h-[100%] z-20 pb-[4rem] lg:py-[2rem] md:place-content-center 
-    md:place-items-center bg-white
-}
-form .ref-span-go-back{
-    @apply rounded-full bg-gray-100 border border-gray-200 
-    hover:bg-gray-200 hover:border-gray-300 w-fit place-self-start mb-[1rem]
-}
-form .ref-span-go-back svg{
-    @apply size-7 md:hidden
-}
-form .approve-h1-img{
-    @apply border-0 pb-1 lg:pb-4 flex place-items-center place-content-center w-full relative
-    gap-x-2 lg:gap-x-4
-}
-.approve-h1-img h1{
-    @apply text-4xl font-bold lg:text-6xl text-gray-600
-}
-.approve-h1-img h1::before{
-    @apply bg-gray-600 w-5 lg:w-10 h-1.5 lg:h-2 flex absolute 
-    -ml-[2rem] lg:-ml-[4rem] mt-[1rem] lg:mt-[1.5rem]
-    ;content: "";
-}
-.approve-h1-img img{
-    @apply w-8 h-8 mb-1 lg:w-12 lg:h-12
-}
-.approve-page .approve-info{
-    @apply ring ring-gray-300 px-1 py-1 my-[1rem] text-[16px] lg:text-[20px] lg:p-3
-}
-.approve-page .for-secondary-btn{
-    @apply absolute -bottom-[1.5rem] w-[90%] 
-    sm:w-[400px] md:relative lg:pb-[2.5rem]
-}

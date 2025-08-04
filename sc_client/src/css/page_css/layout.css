@@ -36,7 +36,7 @@
   @apply flex place-content-between w-[30%] place-items-center;
 }
 .nav-option {
-  @apply size-7 p-0.5 transition duration-300 ease-in-out  hover:font-extrabold
+  @apply size-7 p-0.5 transition duration-300 ease-in-out 
   bg-white rounded-full border-2 border-gray-300 dark:bg-neutral-600 dark:text-white 
 }
 .nav-link span {

@@ -51,9 +51,13 @@ const RegisterPage = () => {
             navigate('/verify');
 
         } catch(err){
-            setError(`${(err as Error).message}`)
+            setError(`${(err as Error).message}`);
 
-        } 
+        } finally {
+            setTimeout(() => {
+                setError("");
+            }, 10 * 1000);
+        }
     }
     return ( 
         <div className="register-page">

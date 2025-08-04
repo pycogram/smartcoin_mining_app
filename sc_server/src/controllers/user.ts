@@ -386,7 +386,7 @@ const updateUser = async (req: Request, res: Response): Promise<void> => {
     const userId = (req as any).user_id;
     if (!userId) return errHandler(res, "User not identified");
 
-    const { first_name, last_name, user_name } = req.body;
+    const { first_name, last_name, user_name, email } = req.body;
 
     // all fields are required
     if (!first_name || !last_name || !user_name)
@@ -417,7 +417,7 @@ const updateUser = async (req: Request, res: Response): Promise<void> => {
     await userDetail.updateOne(updateData);
 
     const updatedInfo = { 
-        first_name, last_name, user_name
+        first_name, last_name, user_name, email
     }
 
     res.status(200).json({

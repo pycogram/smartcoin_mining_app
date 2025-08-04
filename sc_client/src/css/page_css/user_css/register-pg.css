@@ -53,16 +53,10 @@ form .form-social{
     md:w-[30%] md:left-10 lg:w-[25%] lg:left-30 
     ;content: '';
 }
-.form-social p:first-child::before {
-    @apply bg-white;
-}
 .form-social p:first-child::after{
     @apply text-2xl w-[30%] h-[3px] bg-green-900 absolute block right-5 top-3 rounded-lg 
     md:w-[30%] md:right-10 lg:w-[25%] lg:right-30 
     ;content: '';
-}
-.form-social p:first-child::after {
-    @apply bg-white;
 }
 .form-social ul{
     @apply h-[40px] flex gap-x-3 place-items-center lg:my-4

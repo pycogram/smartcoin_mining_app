@@ -38,11 +38,12 @@
 }
 
 .menu-section .menu-img {
-  @apply h-fit w-10 place-self-center lg:w-14;
+  @apply h-fit w-12 place-self-center lg:w-14 
+  rounded-full p-1 bg-white dark:bg-neutral-600 
 }
 
 .menu-section img {
-  @apply w-7 h-6 place-self-center md:mt-8 lg:mt-0;
+  @apply w-full h-full place-self-center md:mt-8 lg:mt-0;
 }
 .scrollbar-hidden::-webkit-scrollbar {
   display: none;
