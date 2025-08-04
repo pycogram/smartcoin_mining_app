@@ -6,6 +6,7 @@ import mongoose from "mongoose";
 import userModel from "../models/user.js";
 import commentModel from "../models/comment.js";
 import likeModel from "../models/like.js";
+import minerModel from "../models/miner.js";
 
 // get post by user by one's id
 const viewPost = async(req: Request, res: Response):Promise<void> => {
@@ -72,7 +73,11 @@ const viewAllPost = async(req: Request, res: Response):Promise<void> => {
         if (!viewPosts.length) return errHandler(res, "no posts found!");
 
         const postIds = viewPosts.map(post => post._id);
+        const userIds = viewPosts.map(post2 => post2.user._id);
 
+        const allLevels = await minerModel.find({user: {$in: userIds}})                                                
+                                                .select('user total_mined total_locked');                                      
+                                                
         const allComments = await commentModel.find({ post: { $in: postIds } })
                                                 .select('content createdAt _id user post')
                                                 .sort({createdAt: "desc"})
@@ -103,11 +108,16 @@ const viewAllPost = async(req: Request, res: Response):Promise<void> => {
             const comments = commentsByPostId[postId] || [];
             const likes = likesByPostId[postId] || [];
             const liked = likes.some(like => like.user._id.toString() === userId.toString());
+            const minerInfo = allLevels.find(level => level.user.toString() === post.user._id.toString());
+            const totalMined = minerInfo ? minerInfo.total_mined : 0;
+            const totalLocked = minerInfo ? minerInfo.total_locked : 0;
+
             return {
                 ...post.toObject(), 
                 commentCount: comments ? comments.length : 0,
                 likeCount: likes ? likes.length : 0,
-                likedByUser: liked 
+                likedByUser: liked,
+                allLevel: totalMined + totalLocked
             }
         });
 
@@ -138,6 +148,9 @@ const viewPostDetail = async(req: Request, res: Response):Promise<void> => {
 
         if (!viewPost) return errHandler(res, "no posts found!");
 
+        const allLevel = await minerModel.findOne({user: viewPost.user._id})                                                
+                                         .select('total_mined total_locked');
+
         const allComments = await commentModel.find({ post: viewPost._id })
             .select('content createdAt _id user post')
             .sort({ createdAt: "asc" })
@@ -156,7 +169,8 @@ const viewPostDetail = async(req: Request, res: Response):Promise<void> => {
             likes: allLikes,
             commentCount: allComments.length,
             likeCount: allLikes.length,
-            likedByUser: liked 
+            likedByUser: liked,
+            level: allLevel && allLevel.total_mined + allLevel.total_locked
         };
 
         res.status(200).json({

@@ -36,8 +36,8 @@
   @apply flex place-content-between w-[30%] place-items-center;
 }
 .nav-option {
-  @apply size-7 p-0.5 transition duration-300 ease-in-out hover:bg-amber-200 hover:font-extrabold
-    bg-white rounded-full border-2 border-gray-300 dark:bg-gray-200 dark:border-white;
+  @apply size-7 p-0.5 transition duration-300 ease-in-out  hover:font-extrabold
+  bg-white rounded-full border-2 border-gray-300 dark:bg-neutral-600 dark:text-white 
 }
 .nav-link span {
   @apply w-10 h-10;

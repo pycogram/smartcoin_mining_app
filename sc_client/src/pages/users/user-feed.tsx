@@ -30,7 +30,8 @@ type postAllType = {
     commentCount: number,
     likeCount: number,
     comments: commentType[],
-    likedByUser: boolean
+    likedByUser: boolean,
+    level: number
 }
 
 const UserFeed = () => {
@@ -47,6 +48,7 @@ const UserFeed = () => {
 
         try{
             const {data} = await postViewDetail(post_id);
+            console.log(data);
             setPostDetail(data);
             setIsReady(false);
             
@@ -219,7 +221,7 @@ const UserFeed = () => {
                                     </span>
                                 </div>
                                 <div className="lv">
-                                    <p>lv 12</p>
+                                    <p>lv {postDetail.level != 0 ? (1 + Math.floor((postDetail.level) / 100)) : 0}</p>
                                 </div>
                             </div>
                             <div className="feed-hpp">

@@ -21,7 +21,8 @@ type postAllType = {
     content: string,
     commentCount: number,
     likeCount: number,
-    likedByUser: boolean
+    likedByUser: boolean,
+    allLevel: number
 }
 
 const FeedPage = () => {
@@ -163,7 +164,7 @@ const FeedPage = () => {
                             <div onClick={() => handleViewPost(post._id)} className="feed-name-cont-time">
                                 <span>
                                     <h4>{post.user.first_name} {post.user.last_name}  @{post.user.user_name}</h4>
-                                    <p>lv 12</p>
+                                    <p>lv {post.allLevel != 0 ? (1 + Math.floor((post.allLevel) / 100)) : 0}</p>
                                 </span>
                                 <h5 
                                     ref={(el) => {contentRefs.current[post._id] = el}} 

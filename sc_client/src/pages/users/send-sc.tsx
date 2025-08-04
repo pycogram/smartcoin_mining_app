@@ -128,12 +128,23 @@ const SendCoin = () => {
         }
     }
 
+
     const handleSend = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         try{
             const wallet_id = formInput.wallet_id;
             const amount_sc = formInput.amount_sc;
-
+            
+            if(! wallet_id || ! amount_sc){
+                throw new Error("all field is required");
+            }
+            if(wallet_id.length !== 20){
+                throw new Error("wallet address must be 20 characters");
+            }
+            if(amount_sc < 1){
+                throw new Error("amount should be minimum of 1");
+            }
+            
             const {message} = await sendSc(wallet_id, amount_sc);
             setPerfect(message);
             updateAvailSc();

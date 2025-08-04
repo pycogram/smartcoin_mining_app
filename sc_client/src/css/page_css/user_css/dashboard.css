@@ -128,7 +128,7 @@
 }
 .db-sidebutton span{
     @apply my-6 mx-1 px-1.5 py-1.5 border-2 border-gray-300 rounded-4xl bg-white
-    hover:bg-gray-100 hover:border-gray-400 dark:bg-gray-200 dark:border-gray-100
+    hover:bg-gray-100 hover:border-gray-400 dark:border-gray-100
     relative dark:bg-neutral-600 
 }
 .db-sidebutton span img{

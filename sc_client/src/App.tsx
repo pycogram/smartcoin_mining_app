@@ -15,7 +15,6 @@ const UpdateProfile = React.lazy(() => import('./pages/users/update-profile'));
 const Setting = React.lazy(() => import('./pages/users/setting'));
 const Referral = React.lazy(() => import('./pages/users/referral'));
 const SendCoin = React.lazy(() => import('./pages/users/send-sc'));
-const ApproveTx = React.lazy(() => import('./pages/users/approve-tx'));
 const NotificationPg = React.lazy(() => import('./pages/users/notification'));
 const SelectPkg = React.lazy(() => import('./pages/users/select-pkg'));
 const LockPkg = React.lazy(() => import('./pages/users/lock-pkg'));
@@ -35,13 +34,13 @@ function App() {
                   <Route path='setting' element={<Setting />} />
                   <Route path='referral' element={<Referral />} />
                   <Route path='send-sc' element={<SendCoin />} /> 
-                  <Route path='approve-tx' element={<ApproveTx />} />
                   <Route path='history' element={<NotificationPg />} />
                   <Route path='select-pkg' element={<SelectPkg />} />
                   <Route path='lock-pkg' element={<LockPkg />} />
                   <Route path='all-post' element={<FeedPg />} />
                   <Route path='post-view' element={< UserFeed />} />
                   <Route path='create-post' element={< CreatePost />} />
+                  <Route path='*' element={<Dashboard/>} />
               </Route>
             </Route>
             <Route element={<NonUserRoutes />}>
@@ -49,7 +48,8 @@ function App() {
               <Route path='/register' element={<RegisterPage />} />
               <Route path='/verify' element={<VerifyPage />} />
               <Route path='/confirm' element={<ConfirmPage />} />
-              <Route path='/login' element={<LoginPage />} /> 
+              <Route path='/login' element={<LoginPage />} />
+              <Route path='*' element={<LoginPage />} /> 
             </Route>
         </Routes>
       </Suspense>

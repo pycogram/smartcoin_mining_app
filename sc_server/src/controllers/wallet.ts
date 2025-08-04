@@ -86,12 +86,12 @@ const sendSc = async(req: Request, res: Response):Promise<void> => {
         await historyModel.create([{
             user: userId,
             subject: `sent sc`,
-            detail: `sent ${amount_sc} SC to ${first_name} ${last_name} successfully`,
+            detail: `sent ${amount_sc} SC to ${first_name} ${last_name ?? ""} successfully`,
             time: new Date()
         }, {
             user: receiverWalletIDExist.user,
             subject: `received sc`,
-            detail: `received ${amount_sc} SC from ${first_name2} ${last_name2} successfully`,
+            detail: `received ${amount_sc} SC from ${first_name2} ${last_name2 ?? ""} successfully`,
             time: new Date()
 
         }], {session, ordered: true });
@@ -167,7 +167,7 @@ const getWalletDetail = async(req: Request, res: Response):Promise<void> => {
 
         res.status(200).json({
             status: "success",
-            message: `${first_name} ${last_name} ~ @${user_name}`,
+            message: `${first_name} ${last_name ?? ""} ~ @${user_name}`,
         })
 
     } catch(err){

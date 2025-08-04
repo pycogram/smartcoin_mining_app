@@ -25,9 +25,9 @@ const MenuPart = () => {
 
         if(pageLink === "login"){
             setUser(undefined);
-            localStorage.removeItem("user_id");
-            localStorage.removeItem("post_id");
-            localStorage.removeItem("lock_time");
+            localStorage.clear();
+            const storedTheme = localStorage.getItem("theme") || "light";
+            document.documentElement.classList.toggle("dark", storedTheme === "dark");
         }
 
         const userId = localStorage.getItem("user_id");
