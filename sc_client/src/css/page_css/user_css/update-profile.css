@@ -6,7 +6,7 @@
     lg:place-items-center lg:pt-[0.5rem] lg:pb-[2rem] lg:h-[100%] bg-white dark:dark:bg-neutral-600 
 }
 .update-profile{
-    @apply h-[80%] w-fit z-10 relative text-gray-700 lg:h-[50%] place-self-start 
+    @apply h-[60%] w-fit z-10 relative text-gray-700 lg:h-[50%] place-self-start 
 }
 .update-profile .ref-span-go-back2{
     @apply rounded-full bg-gray-100 border border-gray-200 
@@ -38,6 +38,6 @@
     absolute right-0 bottom-[0.1rem] sm:bottom-[0.5rem] lg:bottom-[1rem] hover:bg-gray-100 
 }
 .update-profile .form-btn{
-    @apply absolute -bottom-[4rem] lg:bottom-0 w-full lg:relative lg:mt-[4rem] lg:pb-[2rem]
+    @apply  -bottom-[1rem] lg:bottom-0 w-full lg:relative lg:mt-[4rem] lg:pb-[2rem]
 }
 
