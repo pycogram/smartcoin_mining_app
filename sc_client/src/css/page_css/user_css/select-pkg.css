@@ -23,7 +23,7 @@
 }
 .select-pkg .active-lock{
     @apply bg-gray-50 border border-gray-300 py-2 px-1.5 block mb-[1rem] w-full
-    lg:mb-[2rem] lg:py-3 lg:px-2 relative
+    lg:mb-[2rem] lg:py-3 lg:px-2 relative dark:bg-neutral-600 dark:text-white
 }
 .active-lock p{
     @apply text-[14px] capitalize md:text-[16px] lg:text-[18px]
@@ -39,8 +39,11 @@
     transition ease-in-out delay-200 lg:gap-x-5 lg:space-y-4 lg:place-items-center 
 }
 .select-lock-pkg .each-pkg{
-    @apply bg-white px-3 w-fit lg:w-full border-2 lg:border-4 rounded-sm border-gray-100 flex place-items-center place-content-center py-2
-    space-x-4 hover:border-blue-200 active:border-blue-200 transition ease-in-out delay-200 lg:h-35 cursor-pointer
+    @apply bg-white px-3 w-fit lg:w-full border-2 lg:border-4 rounded-sm border-gray-100 
+    flex place-items-center place-content-center py-2
+    space-x-4 hover:border-blue-200 active:border-blue-200 transition 
+    ease-in-out delay-200 lg:h-35 cursor-pointer
+    dark:bg-neutral-600 dark:text-white
 }
 .select-pkg .a-pkg-h3, .select-pkg .s-pkg-h3{
     @apply place-self-start font-bold dark:text-white
@@ -50,6 +53,7 @@
 }
 .each-pkg span:nth-child(1){
     @apply bg-gray-200 place-items-center place-content-center h-25 w-30 rounded-sm
+    dark:bg-neutral-500 
 }
 .each-pkg span:nth-child(1) h4{
     @apply text-[14px] capitalize font-bold lg:text-[16px]

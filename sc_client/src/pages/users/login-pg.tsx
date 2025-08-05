@@ -78,7 +78,7 @@ const LoginPage = () => {
             localStorage.removeItem("message_user2");
             localStorage.setItem("message_user", message);
             localStorage.setItem("user_id", user_id);
-            localStorage.setItem("reload", "1");
+            localStorage.setItem("reload", "true");
             navigate('/dashboard');
 
         } catch(err){

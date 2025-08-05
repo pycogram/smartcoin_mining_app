@@ -95,8 +95,23 @@ const updateUser = async (formData: object) => {
 
     return data;
 }
+// delete user
+const deleteUser = async () => {
+
+    const res = await fetch('/api/user/delete', {
+        method: 'DELETE', 
+    });
+
+    const data = await res.json();
+
+    if(! res.ok){
+        throw new Error(`${data.message}`);
+    }
+
+    return data;
+}
 
 export { 
     registerUser , verifyUser, confirmUser, loginUser,
-    updateUser
+    updateUser, deleteUser
 };  

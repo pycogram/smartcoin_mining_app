@@ -18,8 +18,11 @@
 .update-profile .img-update{
     @apply place-self-center mb-[1rem] lg:mb-[1rem] relative cursor-pointer 
 }
+.form-input-box div input{
+    @apply dark:border-2 dark:border-blue-200
+}
 .update-profile .email-input{
-    @apply bg-gray-200
+    @apply bg-gray-200 
 }
 .img-update span{
     @apply size-18 sm:size-25 lg:size-35 border-4 border-gray-200 rounded-full overflow-hidden 

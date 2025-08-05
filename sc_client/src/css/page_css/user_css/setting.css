@@ -4,21 +4,24 @@
 .setting{
     @apply w-[90%] h-screen mt-[4rem] mb-[2rem] block 
     sm:w-[80%] md:w-120 lg:w-[60%] xl:w-180 md:h-[100%] md:my-[4rem]
-    lg:grid lg:grid-cols-2 lg:h-fit lg:gap-x-4 lg:gap-y-4
+    lg:grid lg:grid-cols-2 lg:h-fit lg:gap-x-4 lg:gap-y-4 relative text-gray-800
+}
+.setting-inactive{
+    @apply lg:block relative p-0 m-0 place-content-center
 }
 .setting .setting-item{
     @apply my-2 
 }
 .setting-item label{
-    @apply block uppercase text-[16px] font-bold md:text-[20px] lg:text-[30px]
+    @apply block uppercase text-[16px] font-medium md:text-[20px] lg:text-[30px]
     mb-1 lg:mb-4 dark:text-white
 }
 .setting-item .setting-option {
-    @apply bg-gray-200 grid gap-y-2 py-2 px-2 
+    @apply bg-gray-200 grid gap-y-2 py-2 px-2 dark:bg-neutral-600
 }
 .setting-option span{
     @apply flex place-content-between bg-white dark:bg-gray-600 dark:text-white place-items-center relative 
-    rounded-lg px-2.5 py-1.5 lg:my-1 lg:h-15 border border-transparent hover:bg-gray-50 hover:border-gray-400
+    rounded-lg px-2.5 py-1.5 lg:my-1 lg:h-15 border border-transparent dark:border-white hover:bg-gray-50 hover:border-gray-400
     hover:scale-95 transition ease-in-out delay-200 dark:hover:bg-gray-700 dark:hover:border-gray-500
 }
 .setting-option span p{
@@ -31,4 +34,63 @@
 .setting :nth-child(4n) p,
 .setting :nth-child(4n) i {
     @apply text-red-500
+}
+
+
+.setting .setting-action{
+    @apply bg-white shadow-lg border border-gray-300 
+    place-self-center py-3 px-4 rounded-lg block relative h-35 lg:h-40
+    dark:bg-neutral-600 w-full
+}
+.setting-action h4{
+    @apply font-medium text-[18px] text-wrap md:text-[20px] lg:text-[30px]
+    dark:text-white
+}
+.setting-action span{
+    @apply flex place-content-around place-items-center absolute bottom-[1rem] 
+    place-self-center w-full
+}
+.setting-action span p{
+    @apply bg-gray-600 w-18 lg:w-25 text-center rounded-lg place-items-center h-8 lg:h-10 place-content-center
+    leading-5 text-[18px] border border-gray-200 transition ease-in-out delay-150
+    capitalize md:text-[20px] lg:text-[22px] hover:bg-white hover:border-gray-300 
+    dark:bg-neutral-600 shadow-gray-300 text-white font-bold
+}
+
+
+.setting .sa-2{
+    @apply h-fit bg-transparent w-full relative place-content-center block border-0 shadow-transparent
+    sm:w-[80%] md:w-100
+}
+.sa-2 h4{
+    @apply text-[25px] dark:text-white
+}
+.sa-2 .cpwd-body{
+    @apply py-0.5 place-self-center w-full my-[0.8rem] mb-[3rem]
+}
+.cpwd-body div{
+    @apply relative
+}
+.cpwd-body div label{
+    @apply text-sm dark:text-white font-medium
+}
+.cpwd-body div input{
+    @apply text-lg outline outline-gray-100 px-2.5 rounded-sm pt-0 bg-gray-50  border
+    h-[45px] focus:outline-blue-200 focus:outline-2 md:h-[46px] lg:h-[55px] 
+    pr-[1.5rem] lg:pr-[2.5rem] w-full ring-0 mt-0.5 mb-0.5 dark:bg-gray-600 dark:text-white
+}
+.cpwd-body div input ~ input:focus{
+    @apply bg-white 
+}
+.cpwd-body div i{
+    @apply absolute right-[0.5rem] bottom-1.5 leading-4 lg:bottom-3 text-sm place-items-center place-content-center
+    bg-gray-100 border border-gray-200 rounded-full text-center h-7 w-7 hover:bg-gray-200 hover:border-gray-300
+    transition ease-in-out delay-250 font-semibold cursor-pointer 
+}
+.sa-2 .cpwd-button{
+    @apply flex place-content-between place-items-center  
+    place-self-center w-full relative bottom-0 
+}
+.sa-2 .cpwd-button p{
+    @apply w-28 h-8 md:w-30 text-[17px] lg:text-[20px] text-center
 }

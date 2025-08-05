@@ -1,5 +1,5 @@
 import express from 'express';
-import { createPost, deletePost, updatePost, viewAllPost, viewPost, viewPostDetail} from '../controllers/post.js';
+import { createPost, deletePost, updatePost, viewAllPost, viewPostDetail} from '../controllers/post.js';
 import { authUser } from '../middlewares/auth-user.js';
 
 const router = express.Router();
@@ -9,7 +9,6 @@ const router = express.Router();
 router.post('/create', authUser, createPost);
 router.delete('/delete', authUser, deletePost);
 router.put('/update', authUser, updatePost);
-router.get('/view', authUser, viewPost);
 router.get('/view-all', authUser, viewAllPost);
 router.post('/view-detail', authUser,  viewPostDetail)
 

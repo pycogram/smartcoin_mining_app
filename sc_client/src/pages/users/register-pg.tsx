@@ -1,13 +1,25 @@
 import { Link, useNavigate } from "react-router-dom";
 import PrimaryBtn from "../../components/button/primary-btn";
 import "../../css/page_css/user_css/register-pg.css";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { registerUser } from "../../controllers/user";
 import Fail from "../../components/alert/fail";
 
 const RegisterPage = () => {
+    const userDelete = localStorage.getItem("user_delete") ?? "";
+
     //error state
-    const [error, setError] = useState<string>("");
+    const [error, setError] = useState<string | null>(userDelete);
+
+    useEffect(()=> {
+        if(! userDelete) return;
+        localStorage.removeItem("user_delete");
+
+        setTimeout(() => {
+            setError(null);
+        }, 10 * 1000);
+
+    }, []);
     
     const refLink  = new URLSearchParams(window.location.search).get('ref');
     

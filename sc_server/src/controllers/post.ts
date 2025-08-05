@@ -8,56 +8,6 @@ import commentModel from "../models/comment.js";
 import likeModel from "../models/like.js";
 import minerModel from "../models/miner.js";
 
-// get post by user by one's id
-const viewPost = async(req: Request, res: Response):Promise<void> => {
-    try{
-        // get user id stored in the req
-        const userId = (req as any).user_id;
-        if(! userId) return errHandler(res, "user not identified");
-
-        // check if user still in the db atm
-        const userExist = await userModel.findById(userId).select("_id");
-        if(! userExist) return errHandler(res, "user not found");
-        
-        const viewPost = await postModel.find({user: userExist?._id})
-                                        .select('content createdAt _id user post')
-                                        .sort({createdAt: "desc"})
-                                        .populate('user', 'first_name last_name user_name email _id');
-
-        if (!viewPost.length) return errHandler(res, "no posts found!");
-        const postIds = viewPost.map(post => post._id);
-
-        const allComments = await commentModel.find({ post: { $in: postIds } });
-        if (!allComments.length) return errHandler(res, "no comment found!");
-
-        const commentsByPostId: Record<string, any[]> = {};
-        allComments.forEach(comment => {
-            if (!comment.post) return;
-            const key = comment.post.toString();
-            if(!commentsByPostId[key]) commentsByPostId[key] = [];
-            commentsByPostId[key].push(comment);
-        });
-
-        const postsWithComments = viewPost.map(post => {
-            const postId = post._id.toString();
-            return {...post.toObject(), comments: commentsByPostId[postId] || []}
-        })
-        
-        res.status(200).json({
-            status: "success",
-            user_id: userExist?._id,
-            message: "post fetched successfully",
-            data: postsWithComments
-        });
-
-    } catch(err){
-        res.status(500).json({
-            status: "failed",
-            error: `Error occured: ${err as Error}`
-        })
-    }
-
-}
 // get all users' posts
 const viewAllPost = async(req: Request, res: Response):Promise<void> => {
     try{
@@ -312,5 +262,5 @@ const updatePost = async(req: Request, res: Response):Promise<void> => {
 
 export {
     createPost, deletePost, updatePost, 
-    viewPost, viewAllPost, viewPostDetail
+    viewAllPost, viewPostDetail
 }

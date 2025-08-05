@@ -13,6 +13,8 @@ import walletModel from "../models/wallet.js";
 import historyModel from "../models/history.js";
 import postModel from "../models/post.js";
 import nodemailer from 'nodemailer';
+import likeModel from "../models/like.js";
+import commentModel from "../models/comment.js";
 
 // register user
 const registerUser = async (req: Request, res: Response):Promise<void> => {
@@ -443,14 +445,17 @@ const deleteUser = async (req: Request, res: Response):Promise<void> => {
         // Check if userId is present and valid
         if (!userId || !mongoose.Types.ObjectId.isValid(userId)) 
         return errHandler(res, "user not identified or invalid ID");
-    
-        // Delete all user-related data
+
+        const objectUserId = new mongoose.Types.ObjectId(userId);
+
         await Promise.all([
-            historyModel.deleteMany({ user_id: userId }),
-            minerModel.deleteOne({ user_id: userId }),
-            postModel.deleteMany({ user_id: userId }),
-            referralModel.deleteMany({ user_id: userId }),
-            walletModel.deleteOne({ user_id: userId })
+            historyModel.deleteMany({ user: objectUserId }),
+            minerModel.deleteOne({ user: objectUserId }),
+            postModel.deleteMany({ user: objectUserId }),
+            commentModel.deleteMany({ user: objectUserId }),
+            likeModel.deleteMany({ user: objectUserId }),
+            referralModel.deleteMany({ user: objectUserId }),
+            walletModel.deleteOne({ user: objectUserId })
         ]);
 
         await userModel.findByIdAndDelete(userId);
