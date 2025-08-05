@@ -26,7 +26,6 @@ const VerifyPage = () => {
       if (!userString) throw new Error("No user in localStorage");
       userInfo = JSON.parse(userString);
    } catch (err) {
-      console.error("Failed to load user from localStorage:", err);
       localStorage.setItem("message_no_user", "Please either login or register");
       navigate('/login');
       return; 
@@ -46,11 +45,10 @@ const VerifyPage = () => {
         // verify user
         try{ 
             const data = await verifyUser(email);
-            console.log(12, data, data.message);
             const {message} = data;
             setTimeout(() => {
               navigate('/confirm', { state: message });
-            }, 2 * 1000);
+            }, 1 * 1000);
             
         } catch(err){
             const message = (err as Error).message;
