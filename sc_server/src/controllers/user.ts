@@ -175,6 +175,11 @@ const verifyUser = async (req: Request, res: Response):Promise<void> => {
 
             await existingUser.save();
 
+            res.status(200).json({
+                status: "success",
+                message: "Verification code sent to your email address!"
+            });
+
         } else {
             res.status(500).json({
                 status: "failed",
