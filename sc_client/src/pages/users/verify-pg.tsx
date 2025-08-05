@@ -18,7 +18,7 @@ const VerifyPage = () => {
             localStorage.setItem("message_no_user", "Please either login or register");
             navigate('/login');
         }
-    }, []);
+    }, [userString]);
     
     const userInfo = JSON.parse(userString!); 
 
@@ -37,7 +37,7 @@ const VerifyPage = () => {
         try{ 
             const data = await verifyUser(email);
             const {message} = data;
-            navigate('/confirm}', {state: message});
+            navigate('/confirm', {state: message});
             
         } catch(err){
             const message = (err as Error).message;
