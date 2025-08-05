@@ -29,7 +29,7 @@
     @apply text-[14px] capitalize md:text-[16px] lg:text-[18px]
 }
 .active-lock h5{
-    @apply bg-gray-400 text-white w-fit place-self-end px-1.5 lg:px-2.5 text-[14px] lg:text-[18px] font-bold
+    @apply bg-blue-400 text-white w-fit place-self-end px-1.5 lg:px-2.5 text-[14px] lg:text-[18px] font-bold
     leading-4 py-0.5 lg:py-1 rounded-md border-2 border-white hover:bg-gray-500 active:bg-gray-500 
     hover:border-white active:border-white capitalize transition ease-in-out delay-150 cursor-pointer
     

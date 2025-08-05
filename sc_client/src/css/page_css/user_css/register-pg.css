@@ -7,7 +7,7 @@
     @apply w-[80%] block place-self-center sm:w-[400px] lg:w-[50%]
 }
 form .header-text{
-    @apply text-2xl font-bold lg:text-center lg:text-4xl 
+    @apply text-2xl font-bold lg:text-center lg:text-4xl text-blue-600
 }
 form .form-input-box{
     @apply block space-y-1 mt-2 lg:grid grid-cols-2 lg:gap-x-[1.5rem] lg:space-y-0
@@ -20,8 +20,8 @@ form .form-input-box{
     lg:-top-5 text-gray-700
 }
 .form-input-box div input{
-    @apply text-lg outline outline-gray-600 px-2.5 rounded-sm pt-0 bg-white border
-    h-[45px] focus:outline-blue-200 focus:outline-2 md:h-[46px] lg:h-[55px] 
+    @apply text-lg outline outline-blue-400 px-2.5 rounded-sm pt-0 bg-white border
+    h-[45px] focus:outline-blue-500 focus:outline-2 md:h-[46px] lg:h-[55px] 
     pr-[1.5rem] lg:pr-[2.5rem] 
 }
 .form-input-box div label ~ input:focus{
@@ -46,15 +46,15 @@ form .form-social{
     @apply uppercase
 }
 .form-social p:first-child{
-    @apply flex uppercase text-lg md:text-2xl 
+    @apply flex uppercase text-lg md:text-2xl font-bold 
 }
 .form-social p:first-child::before{
-    @apply text-2xl w-[30%] h-[3px] bg-green-900 absolute block left-5 top-3 rounded-lg
+    @apply text-2xl w-[30%] h-[3px] bg-blue-600 absolute block left-5 top-3 rounded-lg
     md:w-[30%] md:left-10 lg:w-[25%] lg:left-30 
     ;content: '';
 }
 .form-social p:first-child::after{
-    @apply text-2xl w-[30%] h-[3px] bg-green-900 absolute block right-5 top-3 rounded-lg 
+    @apply text-2xl w-[30%] h-[3px] bg-blue-600 absolute block right-5 top-3 rounded-lg 
     md:w-[30%] md:right-10 lg:w-[25%] lg:right-30 
     ;content: '';
 }
@@ -62,7 +62,8 @@ form .form-social{
     @apply h-[40px] flex gap-x-3 place-items-center lg:my-4
 }
 .form-social ul li{
-    @apply hover:text-orange-400 transition-all ease-in-out delay-75 active:text-orange-400
+    @apply text-orange-600 hover:text-orange-300 transition-all ease-in-out delay-75 
+    active:text-orange-300
 }
 .form-social ul li .icon-link{
     @apply text-lg md:text-2xl hover:text-orange-700 hover:mx-2

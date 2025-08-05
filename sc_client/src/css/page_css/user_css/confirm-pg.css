@@ -8,7 +8,7 @@
     pb-[1rem] relative 
 }
 form header{
-    @apply text-sm md:text-lg lg:text-xl font-medium w-fit text-gray-700
+    @apply text-sm md:text-lg lg:text-xl font-medium w-fit text-blue-600 mb-2
 }
 form .input-box{
     @apply bg-white relative flex flex-wrap w-full place-self-center place-content-center 
