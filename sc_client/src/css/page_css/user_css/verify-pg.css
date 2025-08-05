@@ -2,7 +2,7 @@
 
 .verify-page{
     @apply w-[100%] relative block py-[1.5rem] lg:py-[1rem] text-gray-700 place-self-center
-    h-screen place-contact-center place-items-center
+    h-screen place-content-center place-items-center
 }
 .verify-page form{
     @apply w-[90%] block place-self-center sm:w-[400px] 
