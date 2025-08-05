@@ -40,7 +40,7 @@
 .setting .setting-action{
     @apply bg-white shadow-lg border border-gray-300 
     place-self-center py-3 px-4 rounded-lg block relative h-35 lg:h-40
-    dark:bg-neutral-600 w-full
+    dark:bg-neutral-600 w-full sm:w-[80%] md:w-100 lg:w-120
 }
 .setting-action h4{
     @apply font-medium text-[18px] text-wrap md:text-[20px] lg:text-[30px]
