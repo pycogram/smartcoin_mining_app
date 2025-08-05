@@ -12,7 +12,7 @@
 }
 
 .layout-page {
-  @apply w-full;
+  @apply w-full h-full;
 }
 
 .nav-link {
