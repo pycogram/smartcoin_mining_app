@@ -41,7 +41,7 @@ textarea {
 }
 
 html {
-  height: 100dvh;
+  height: 100%;
   font-size: 18px;
   scroll-behavior: smooth;
 }
@@ -60,7 +60,7 @@ html::-webkit-scrollbar-thumb:hover {
 }
 
 #root {
-  @apply h-[100dvh] w-[100%]
+  @apply h-[100%] w-[100%]
   place-self-center place-content-center place-items-center;
 }
 
