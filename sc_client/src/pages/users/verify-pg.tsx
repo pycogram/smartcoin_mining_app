@@ -20,7 +20,17 @@ const VerifyPage = () => {
         }
     }, [userString]);
     
-    const userInfo = JSON.parse(userString!); 
+   let userInfo = null;
+
+   try {
+      if (!userString) throw new Error("No user in localStorage");
+      userInfo = JSON.parse(userString);
+   } catch (err) {
+      console.error("Failed to load user from localStorage:", err);
+      localStorage.setItem("message_no_user", "Please either login or register");
+      navigate('/login');
+      return; 
+   }
 
     //input state
     const first_name = userInfo?.first_name;
