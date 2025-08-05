@@ -39,7 +39,7 @@ const VerifyPage = () => {
             const {message} = data;
             setTimeout(() => {
               navigate('/confirm', { state: message });
-            }, 5 *'1000);
+            }, 2 * 1000);
             
         } catch(err){
             const message = (err as Error).message;
