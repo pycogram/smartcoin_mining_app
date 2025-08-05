@@ -37,7 +37,9 @@ const VerifyPage = () => {
         try{ 
             const data = await verifyUser(email);
             const {message} = data;
-            navigate('/confirm', {state: message});
+            setTimeout(() => {
+              navigate('/confirm', { state: message });
+            }, 5 *'1000);
             
         } catch(err){
             const message = (err as Error).message;
