@@ -33,9 +33,10 @@ const VerifyPage = () => {
         e.preventDefault();
         setError("");
 
-        // register user
+        // verify user
         try{ 
             const data = await verifyUser(email);
+            console.log(12, data, data.message);
             const {message} = data;
             setTimeout(() => {
               navigate('/confirm', { state: message });
