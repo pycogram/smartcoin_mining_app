@@ -131,6 +131,13 @@ const sendScSchema = Joi.object({
 const commentSchema = Joi.object({
     comment: contentField.label("Comment"),
 });
+const changePwdSchema = Joi.object({
+    old_pwd: passwordField.label("Old Password"),
+    new_pwd: passwordField.label("New Password"),
+});
+const forgetPwdSchema = Joi.object({
+    email: emailField.label("Email")
+})
 
 export {
     registerUserSchema, verifyUserSchema, confirmUserSchema, loginUserSchema, 
@@ -140,5 +147,7 @@ export {
     lockScSchema, unLockScSchema,
     claimBonusScSchema,
     sendScSchema,
-    commentSchema
+    commentSchema,
+    changePwdSchema,
+    forgetPwdSchema
 };

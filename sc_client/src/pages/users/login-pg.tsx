@@ -100,6 +100,10 @@ const LoginPage = () => {
 
     }
 
+    const handleForgetPwd = () => {
+        navigate('/forget-password');
+    }
+
     return ( 
         <div className="register-page login-page">
             <form onSubmit={handleLogin}>
@@ -116,6 +120,7 @@ const LoginPage = () => {
                         <input value={formData.password} onChange={(e) => setFormData({...formData, password: e.target.value})} type={revealPwdStatus ? "password" : "text"} placeholder="********" />
                         <i onClick={() => hideRevealPassword(1)} className={revealPwdStatus ? "fa-solid fa-eye-slash" : "fa-solid fa-eye"}></i>
                     </div>
+                    <p onClick={handleForgetPwd} className="forgetPwd">forgot password?</p>
                 </div>
                 <div className="form-btn">
                     <PrimaryBtn btnText={"login"} />
@@ -144,7 +149,7 @@ const LoginPage = () => {
                 </div>
             </form>
         </div>
-     );
+    );
 }
  
 export default LoginPage;

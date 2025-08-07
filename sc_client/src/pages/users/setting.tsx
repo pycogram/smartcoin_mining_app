@@ -2,10 +2,18 @@ import { Link, useNavigate } from "react-router-dom";
 import "../../css/page_css/user_css/setting.css";
 import { useState } from "react";
 import Fail from "../../components/alert/fail";
-import { deleteUser } from "../../controllers/user";
+import { changePassword, deleteUser } from "../../controllers/user";
+import Success from "../../components/alert/success";
+
+type FormDataType = {
+    old_pwd: string,
+    new_pwd: string,
+    confirmed_pwd: string
+}
 
 const Setting = () => {
     const [error, setError] = useState<string>("");
+    const [perfect, setPerfect] = useState<string>("");
 
     const [ action, setAction] = useState<boolean | null>(null);
     const [command, setCommand] = useState<string | null>(null);
@@ -28,7 +36,11 @@ const Setting = () => {
     }
 
     const navigate = useNavigate();
+
     const handleDelete = async () => {
+        setError("");
+        setPerfect("");
+
         try{
             const {message} = await deleteUser();
             localStorage.clear();
@@ -36,13 +48,13 @@ const Setting = () => {
             document.documentElement.classList.toggle("dark", storedTheme === "dark");
             localStorage.setItem("user_delete", message);
             navigate('/register');
-
         } catch(err){
             setError((err as Error).message);
 
         } finally{
             setTimeout(() => {
                 setError("");
+                setPerfect("");
             }, 8 * 1000);
             
             setTimeout(() => {
@@ -51,8 +63,42 @@ const Setting = () => {
         }
     }
 
+    const [formData, setFormData] = useState<FormDataType>({
+        old_pwd: "",
+        new_pwd: "",
+        confirmed_pwd: ""
+    });
+
+    const handleChangePwd = async (e: React.FormEvent<HTMLFormElement>) => {
+        e.preventDefault();
+        setError("");
+        setPerfect("");
+
+        try{
+            const {message} = await changePassword(formData);
+            setPerfect(message);
+            setAction(null);
+            
+            setFormData({
+                old_pwd: "",
+                new_pwd: "",
+                confirmed_pwd: ""
+            })
+        
+        } catch(err){
+            setError((err as Error).message);
+
+        } finally{
+            setTimeout(() => {
+                setError("");
+                setPerfect("");
+            }, 8 * 1000);
+        }
+    }
+
     return ( 
         <div className={!action ? "setting" : "setting setting-inactive"}>
+        {perfect && <Success success={`${perfect}`} />}
         {error && <Fail error={error} loggedinStatus={true} />}
             {   ! action &&  
                 <>
@@ -116,36 +162,35 @@ const Setting = () => {
                         <div className="setting-action">
                             <h4>Do you want to delete your account?</h4>
                             <span>
-                                <p onClick={handleDelete}>yes</p> 
+                                <p onClick={() => handleDelete} className="yes-delete">yes</p> 
                                 <p onClick={() => {setAction(null); setCommand(null)}}>no</p>
                             </span>
                         </div>
                     }
                     {
                         command === "change-pwd" &&
-                        <form action="" className="setting-action sa-2">
+                        <form onSubmit={handleChangePwd} className="setting-action sa-2">
                             <h4>Change Password</h4>
                             <div className="cpwd-body">
                                 <div>
                                     <label>Old Password:</label>
-                                    <input type={ "passwordtext"} placeholder="********" />
+                                    <input value={formData.old_pwd} onChange={(e) => setFormData({...formData, old_pwd: e.target.value})} type={revealPwdStatus ? "password" : "text"} placeholder="********" />
                                     <i onClick={() => hideRevealPassword(1)} className={revealPwdStatus ? "fa-solid fa-eye-slash" : "fa-solid fa-eye"}></i>
                                 </div>
                                 <div>
                                     <label>New Password:</label>
-                                    <input type={ "passwordtext"} placeholder="********" />
+                                    <input value={formData.new_pwd} onChange={(e) => setFormData({...formData, new_pwd: e.target.value})} type={revealPwdStatus2 ? "password" : "text"} placeholder="********" />
                                     <i onClick={() => hideRevealPassword(2)} className={revealPwdStatus2 ? "fa-solid fa-eye-slash" : "fa-solid fa-eye"}></i>
                                 </div>
                                 <div>
                                     <label>Confirm New Password:</label>
-                                    <input type={ "passwordtext"} placeholder="********" />
+                                    <input value={formData.confirmed_pwd} onChange={(e) => setFormData({...formData, confirmed_pwd: e.target.value})} type={revealPwdStatus3 ? "password" : "text"} placeholder="********" />
                                     <i onClick={() => hideRevealPassword(3)} className={revealPwdStatus3 ? "fa-solid fa-eye-slash" : "fa-solid fa-eye"}></i>
                                 </div>
                             </div>
                             <span className="cpwd-button">
-                                <p onClick={handleDelete}>Change</p>
                                 <p onClick={() => {setAction(null); setCommand(null)}}>Go back</p>
-                                 
+                                <p><button type="submit">Change</button></p>
                             </span>
                         </form>
                     }

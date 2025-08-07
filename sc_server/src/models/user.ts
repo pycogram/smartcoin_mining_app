@@ -42,6 +42,14 @@ const userScheme = new mongoose.Schema({
     verified_time: {
         type: Number,
         select: false
+    },
+    forget_pwdc: {
+        type: String,
+        select: false
+    },
+    forget_pwdt: {
+        type: Number,
+        select: false
     }
 }, { timestamps: true });
 

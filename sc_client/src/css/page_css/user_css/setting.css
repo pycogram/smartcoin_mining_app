@@ -52,11 +52,13 @@
 }
 .setting-action span p{
     @apply bg-blue-600 w-18 lg:w-25 text-center rounded-lg place-items-center h-8 lg:h-10 place-content-center
-    leading-5 text-[18px] border border-gray-200 transition ease-in-out delay-150
-    capitalize md:text-[20px] lg:text-[22px] hover:bg-white hover:border-gray-300 
+    leading-5 text-[18px] border border-gray-200 hover:border-gray-700 transition ease-in-out delay-150
+    capitalize md:text-[20px] lg:text-[22px] hover:bg-gray-600 
     dark:bg-neutral-600 shadow-gray-300 text-white font-medium
 }
-
+.setting .yes-delete{
+    @apply bg-red-600 dark:bg-red-600 hover:bg-red-500 hover:border-white hover:font-bold
+}
 
 .setting .sa-2{
     @apply h-fit bg-transparent w-full relative place-content-center block border-0 shadow-transparent
@@ -75,16 +77,16 @@
     @apply text-sm dark:text-white font-medium
 }
 .cpwd-body div input{
-    @apply text-lg outline outline-gray-100 px-2.5 rounded-sm pt-0 bg-gray-50  border
-    h-[45px] focus:outline-blue-200 focus:outline-2 md:h-[46px] lg:h-[55px] 
+    @apply text-lg outline outline-gray-100 px-2.5 rounded-sm pt-0 bg-gray-50 border-2 border-gray-400
+    h-[45px] focus:outline-blue-200 focus:outline-2 md:h-[46px] lg:h-[55px] ring-transparent
     pr-[1.5rem] lg:pr-[2.5rem] w-full ring-0 mt-0.5 mb-0.5 dark:bg-gray-600 dark:text-white
 }
 .cpwd-body div input ~ input:focus{
     @apply bg-white 
 }
 .cpwd-body div i{
-    @apply absolute right-[0.5rem] bottom-1.5 leading-4 lg:bottom-3 text-sm place-items-center place-content-center
-    bg-gray-100 border border-gray-200 rounded-full text-center h-7 w-7 hover:bg-gray-200 hover:border-gray-300
+    @apply absolute right-[0.5rem] bottom-2.5 leading-4 lg:bottom-3.5 text-sm place-items-center place-content-center
+    bg-gray-100 border border-gray-200 rounded-full text-center px-1.5 py-1 hover:bg-gray-200 hover:border-gray-300
     transition ease-in-out delay-250 font-semibold cursor-pointer 
 }
 .sa-2 .cpwd-button{

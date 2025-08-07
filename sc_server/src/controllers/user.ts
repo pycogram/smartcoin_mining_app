@@ -1,7 +1,7 @@
 import { Request, Response} from "express"; 
 import { errHandler } from "../utils/error-handler.js";
 import userModel from "../models/user.js";
-import { confirmUserSchema, loginUserSchema, registerUserSchema, updateUserSchema, verifyUserSchema } from "../utils/validator.js";
+import { changePwdSchema, confirmUserSchema, forgetPwdSchema, loginUserSchema, registerUserSchema, updateUserSchema, verifyUserSchema } from "../utils/validator.js";
 import HmacProcess from "../utils/hmac-process.js";
 import { PasswordHash, PasswordVerify } from "../utils/password-handler.js";
 import mongoose from "mongoose";
@@ -12,9 +12,9 @@ import { generateCode, generateUsername } from "../token/generate-code.js";
 import walletModel from "../models/wallet.js";
 import historyModel from "../models/history.js";
 import postModel from "../models/post.js";
-import nodemailer from 'nodemailer';
 import likeModel from "../models/like.js";
 import commentModel from "../models/comment.js";
+import { nodeMailer } from "../middlewares/sendMail.js";
 
 // register user
 const registerUser = async (req: Request, res: Response):Promise<void> => {
@@ -131,37 +131,16 @@ const verifyUser = async (req: Request, res: Response):Promise<void> => {
             }
         }    
 
-        const codeValue = generateCode(6); 
+        const codeValue = generateCode(6);
+        const aboutCode = "Email verification code" 
                 
-        const info = await nodemailer.createTransport(
-        {
-            service: 'gmail',
-            auth: {
-                user: process.env.EMAIL_ADDRESS, 
-                pass: process.env.EMAIL_PASSWORD
-            }
-        }).sendMail({
-            from: process.env.EMAIL_ADDRESS,
-            to: existingUser.email!,
-            subject: "Verification code",
-            html: 
-            `   <body style="font-family: Arial, position: relative; display: block; sans-serif style="background-color: #f4f4f4; padding: 10px;">
-                    <h2 style="font-size: 22px; text-align: start; font-family: Arial, sans-serif;">
-                        ~ Smartcoin, the mining app ~ 
-                    </h2>
-
-                    <div margin: 20px, 0; color: #333;">  
-                        <p style="font-size: 16px; line-height: 1.5;">To verify your email address: <b style="color: #007BFF;">${existingUser.email}</b></p>
-                        <p style="font-size: 16px; line-height: 1.5;">Please make use of the verification code below:</p>
-                        <h2 style="font-size: 36px; color: #28a745; font-weight: bold;">${codeValue}</h2>
-                    </div>
-
-                    <p style="font-size: 14px; color: #555; font-style: italic; margin: 0;">
-                        Note: verification code expires in <span style="color: #ff0000; font-weight: bold;">10 minutes</span>.
-                    </p>
-                </body>
-            `            
-        });
+        if(! process.env.EMAIL_ADDRESS || !process.env.EMAIL_PASSWORD){
+            throw new Error("process.env: EMAIL_ADDRESS || EMAIL_PASSWORD  is not defined");
+        }
+        const info = await nodeMailer(
+            process.env.EMAIL_ADDRESS, process.env.EMAIL_PASSWORD,
+            existingUser.email, codeValue, aboutCode
+        );
 
         if(info.accepted[0] === existingUser.email){
             if(! process.env.EMAIL_VERIFICATION_CODE_SECRET){
@@ -401,8 +380,7 @@ const updateUser = async (req: Request, res: Response): Promise<void> => {
 
     // validate input
     const {error, value} = updateUserSchema.validate({ first_name, last_name, user_name });
-    if (error)
-      return errHandler(res, error.details[0].message.replace(/"/g, ""));
+    if (error) return errHandler(res, error.details[0].message.replace(/"/g, ""));
 
     const userDetail = await userModel.findById(userId).select("first_name last_name user_name");
     if (!userDetail) return errHandler(res, "user info not available at the moment");
@@ -476,8 +454,123 @@ const deleteUser = async (req: Request, res: Response):Promise<void> => {
         })
     }
 }
+//change password
+const changePassword = async (req: Request, res: Response):Promise<void> => {
+    try{
+        // get user id stored in the req
+        const userId = (req as any).user_id;
+        if(! userId) return errHandler(res, "user not identified");
+        
+        // Check if userId is present and valid
+        if (!userId || !mongoose.Types.ObjectId.isValid(userId)) 
+        return errHandler(res, "user not identified or invalid ID");
+
+        //destructure user inputs
+        const {old_pwd, new_pwd, confirmed_pwd} = req.body;
+
+        //check if all input are empty
+        if(! old_pwd || ! new_pwd || ! confirmed_pwd) return errHandler(res, "all fields are required");
+
+        // validate and sanitize user inputs
+        const {error} = changePwdSchema.validate({old_pwd, new_pwd});
+        if(error) return errHandler(res, error.details[0].message.replace(/"/g, ""));
+
+        // check if password and confirm password are the same
+        if(new_pwd !== confirmed_pwd) return errHandler(res, "confirm password does not match");
+
+        if(old_pwd === new_pwd) return errHandler(res, "no changes made yet");
+
+        const existingUser = await userModel.findById(userId).select('+password');
+
+        if(!existingUser) return errHandler(res, "user does not exists");
+
+        if(! existingUser.verified) return errHandler(res, "user not verified yet");
+
+        const validatePwd = await PasswordVerify(old_pwd, existingUser.password!);
+
+        if(! validatePwd) return errHandler(res, "old password is incorrect");
+
+        const hashPassword = await PasswordHash(new_pwd);
+
+        existingUser.password = hashPassword;
+
+        await existingUser.save();
+
+        res.status(200).json({                                                                                                                                                                                                                                                  
+            success: "success",
+            message: 'Password updated'
+        });
+            
+    } catch(err){
+        res.status(500).json({
+            status: 'failed',
+            error: `Error occurred: ${(err as Error).message}`
+        })
+    }
+
+
+}
+// forget password
+const forgetPassword = async (req: Request, res: Response):Promise<void> => {
+    try{
+        //destructure user inputs
+        const {email} = req.body;
+
+        //check if all input are empty
+        if(! email) return errHandler(res, "email is required");
+
+        // validate and sanitize user inputs
+        const {error} = forgetPwdSchema.validate({email});
+        if(error) return errHandler(res, error.details[0].message.replace(/"/g, ""));
+
+        const existingUser = await userModel.findOne({email});
+        if(!existingUser) return errHandler(res, "user does not exist");
+
+        const defaultRegLink  = `${req.protocol}://${req.get('host')}`
+        const codeValue = `${defaultRegLink}/new-password?link=${generateCode(15)}`;
+        const aboutCode = "Forget password link" 
+                
+        if(! process.env.EMAIL_ADDRESS || !process.env.EMAIL_PASSWORD){
+            throw new Error("process.env: EMAIL_ADDRESS || EMAIL_PASSWORD  is not defined");
+        }
+        const info = await nodeMailer(
+            process.env.EMAIL_ADDRESS, process.env.EMAIL_PASSWORD,
+            existingUser.email, codeValue, aboutCode
+        );
+        if(info.accepted[0] === existingUser.email){
+            if(! process.env.EMAIL_VERIFICATION_CODE_SECRET){
+                throw new Error("process.env.EMAIL_VERIFICATION_CODE_SECRET is not defined");
+            }
+            const hashedCodeValue = HmacProcess(codeValue, process.env.EMAIL_VERIFICATION_CODE_SECRET);
+
+            existingUser.forget_pwdc = hashedCodeValue.toString();
+
+            existingUser.forget_pwdt = Date.now();
+
+            await existingUser.save();
+
+            res.status(200).json({
+                status: "success",
+                message: "Forget password link has been sent to your email address. Please check your inbox or spam box "
+            });
+
+        } else {
+            res.status(500).json({
+                status: "failed",
+                message: 'Code failed to send!'
+            });
+        }
+
+    } catch(err){
+        res.status(500).json({
+            status: `failed`,
+            error: `Error occured: ${err as Error}`
+        });
+    } 
+}
 
 export {
     registerUser, verifyUser, confirmUser, loginUser,
-    detailUser, updateUser, deleteUser
+    detailUser, updateUser, deleteUser, changePassword,
+    forgetPassword
 };

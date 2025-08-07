@@ -82,7 +82,11 @@ form .form-social{
     @apply w-[80%] block place-self-center sm:w-[400px]
 }
 form .login-form2{
-    @apply block space-y-[1rem] mt-2 lg:grid grid-cols-1 lg:gap-y-2 lg:space-y-0
+    @apply block space-y-[1rem] mt-2 lg:grid grid-cols-1 lg:gap-y-2 lg:space-y-0 relative
+}
+.login-form2 .forgetPwd{
+    @apply w-fit place-self-end text-[15px] text-blue-500 capitalize cursor-pointer
+    absolute -bottom-[2rem] font-medium lg:text-[18px] bg-transparent p-[0.1rem]
 }
 .fs-login2 p:first-child::before{
     @apply lg:w-[30%] lg:left-10

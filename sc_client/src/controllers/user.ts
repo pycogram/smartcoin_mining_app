@@ -110,8 +110,27 @@ const deleteUser = async () => {
 
     return data;
 }
+// update password
+const changePassword = async (formData: object) => {
+
+    const res = await fetch('/api/user/change-password', {
+        method: 'PATCH', 
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({...formData})
+    });
+
+    const data = await res.json();
+
+    if(! res.ok){
+        throw new Error(`${data.message}`);
+    }
+
+    return data;
+}
 
 export { 
     registerUser , verifyUser, confirmUser, loginUser,
-    updateUser, deleteUser
+    updateUser, deleteUser, changePassword
 };  
