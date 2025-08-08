@@ -16,7 +16,8 @@ type userType = {
 }
 type postAllType = {
     _id: string,
-    createdAt: string
+    createdAt: string,
+    updatedAt: string
     user: userType,
     content: string,
     commentCount: number,
@@ -179,7 +180,7 @@ const FeedPage = () => {
                                 </h5>
                                 <span>
                                     {overflowMap[post?._id] && ( <p className="fnct-p1" onClick={() => handleViewPost(post?._id)} >show all</p>)}
-                                    <p className="fnct-p2">{formatDistanceToNow(new Date(post?.createdAt), {addSuffix: true}).replace(/^about/, '')}</p>
+                                    <p className="fnct-p2"> {post?.createdAt.getTime() === post?.updatedAt.getTime() ? "edited - " : "" } {formatDistanceToNow(new Date(post?.createdAt), {addSuffix: true}).replace(/^about/, '')}</p>
                                 </span>
                             </div>
 
