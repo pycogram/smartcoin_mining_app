@@ -18,13 +18,15 @@ type userType = {
 }
 type commentType = {
     _id: string,
-    createdAt: string
+    createdAt: string,
+    updatedAt: string,
     user: userType,
     content: string,
 }
 type postAllType = {
     _id: string,
-    createdAt: string
+    createdAt: string,
+    updatedAt: string,
     user: userType,
     content: string,
     commentCount: number,
@@ -227,7 +229,7 @@ const UserFeed = () => {
                                 <h5>
                                     {postDetail?.content}
                                 </h5>
-                                <p>{formatDistanceToNow(new Date(postDetail?.createdAt), {addSuffix: true}).replace(/^about/, "")}</p>
+                                <p> {postDetail?.createdAt !== postDetail?.updatedAt ? "edited ~ " : ""} {formatDistanceToNow(new Date(postDetail?.createdAt), {addSuffix: true}).replace(/^about/, "")}</p>
                             </div>
                         </div>
                         <div className="feed-impression">
@@ -329,7 +331,7 @@ const UserFeed = () => {
                                                 {comment.content}
                                             </h5>
                                             <span>
-                                                <p>{formatDistanceToNow(new Date(comment.createdAt), {addSuffix: true}).replace(/^about/, "")}</p>
+                                                <p> {comment.createdAt !== comment.updatedAt ? "edited ~ " : ""} {formatDistanceToNow(new Date(comment.createdAt), {addSuffix: true}).replace(/^about/, "")}</p>
                                             </span>
                                         </div>
                                     </div>

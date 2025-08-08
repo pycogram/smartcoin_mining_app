@@ -16,7 +16,7 @@ const viewAllPost = async(req: Request, res: Response):Promise<void> => {
         if(! userId) return errHandler(res, "user not identified");
 
         const viewPosts = await postModel.find()
-                                            .select('content createdAt _id')
+                                            .select('content createdAt updatedAt _id')
                                             .sort({createdAt: "desc"})
                                             .populate('user', 'first_name last_name user_name email _id');
 
@@ -93,7 +93,7 @@ const viewPostDetail = async(req: Request, res: Response):Promise<void> => {
         const {post_id} = req.body;
 
         const viewPost = await postModel.findById(new mongoose.Types.ObjectId(post_id))
-            .select('content createdAt _id')
+            .select('content createdAt updatedAt _id')
             .populate('user', 'first_name last_name user_name email _id');
 
         if (!viewPost) return errHandler(res, "no posts found!");
@@ -102,7 +102,7 @@ const viewPostDetail = async(req: Request, res: Response):Promise<void> => {
                                          .select('total_mined total_locked');
 
         const allComments = await commentModel.find({ post: viewPost._id })
-            .select('content createdAt _id user post')
+            .select('content createdAt updatedAt _id user post')
             .sort({ createdAt: "asc" })
             .populate('user', 'first_name last_name user_name email _id');
 
