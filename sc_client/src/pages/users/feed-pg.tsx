@@ -17,7 +17,7 @@ type userType = {
 type postAllType = {
     _id: string,
     createdAt: string,
-    updatedAt: string
+    updatedAt: string,
     user: userType,
     content: string,
     commentCount: number,
