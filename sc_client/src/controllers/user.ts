@@ -129,8 +129,46 @@ const changePassword = async (formData: object) => {
 
     return data;
 }
+// forgot password
+const forgotPassword = async (formData: object) => {
+
+    const res = await fetch('/api/user/forgot-password', {
+        method: 'POST', 
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({...formData})
+    });
+
+    const data = await res.json();
+
+    if(! res.ok){
+        throw new Error(`${data.message}`);
+    }
+
+    return data;
+}
+// new password
+const newPassword = async (formData: object) => {
+
+    const res = await fetch('/api/user/new-password', {
+        method: 'POST', 
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({...formData})
+    });
+
+    const data = await res.json();
+
+    if(! res.ok){
+        throw new Error(`${data.message}`);
+    }
+
+    return data;
+}
 
 export { 
     registerUser , verifyUser, confirmUser, loginUser,
-    updateUser, deleteUser, changePassword
+    updateUser, deleteUser, changePassword, forgotPassword, newPassword
 };  

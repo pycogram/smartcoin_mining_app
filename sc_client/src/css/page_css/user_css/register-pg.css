@@ -86,7 +86,7 @@ form .login-form2{
 }
 .login-form2 .forgetPwd{
     @apply w-fit place-self-end text-[15px] text-blue-500 capitalize cursor-pointer
-    absolute -bottom-[2rem] font-medium lg:text-[18px] bg-transparent p-[0.1rem]
+    absolute -bottom-[2rem] font-medium lg:text-[18px] bg-transparent p-[0.1rem] select-none
 }
 .fs-login2 p:first-child::before{
     @apply lg:w-[30%] lg:left-10

@@ -299,6 +299,7 @@ const Dashboard = () => {
                     </div>
                 </div> 
             }
+            <span className="db-board"></span>
             <div className="pie-sidebutton">
                 <div className="piechart-sec">
                     <span className="piechart_css">

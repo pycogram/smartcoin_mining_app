@@ -4,6 +4,7 @@ import Fail from "../../components/alert/fail";
 import PrimaryBtn from '../../components/button/primary-btn';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { forgotPassword } from '../../controllers/user';
 
 type FormDataType = {
     email: string,
@@ -22,9 +23,23 @@ const ForgetPwdPage = () => {
     const [perfect, setPerfect] = useState<string>("");
 
     const navigate = useNavigate();
-    const handleForgetPwd = async () => {
+    const handleForgetPwd = async (e: React.FormEvent<HTMLFormElement>) => {
+        e.preventDefault();
         setError("");
         setPerfect("");
+        
+        try{
+            const {message} = await forgotPassword(formData);
+            setPerfect(message);
+
+        } catch(err){
+            setError((err as Error).message);
+
+        } finally{
+            setTimeout(() => {
+                setError("");
+            }, 15 * 1000);
+        }
     }
 
     const handleGoBack = () => {
@@ -45,7 +60,7 @@ const ForgetPwdPage = () => {
                     <p onClick={handleGoBack} className="forgetPwd">go back</p>
                 </div>
                 <div className="form-btn">
-                    <PrimaryBtn btnText={"reset password"} />
+                    <PrimaryBtn btnText={"send link"} />
                 </div>
             </form>
         </div>

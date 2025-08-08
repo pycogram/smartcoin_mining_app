@@ -3,7 +3,7 @@
 
 .dashboard{
     @apply w-[100%] h-full grid gap-y-2 md:gap-y-4 pt-[5rem] pb-[4.5rem] 
-    md:py-[2rem] lg:pt-[1rem] lg:pb-[2rem] place-self-start md:place-self-center
+    md:py-[2rem] lg:pt-[1rem] lg:pb-[2rem] place-self-start md:place-self-center relative
 }
 .dashboard .db-navbar{
     @apply hidden md:flex relative place-content-between place-items-center mb-2 px-[4rem]
@@ -41,11 +41,11 @@
     @apply flex gap-x-1 place-items-center select-none
 }
 .mined-amt h2{
-    @apply text-4xl font-semibold text-orange-600 text-shadow-2xs md:text-5xl lg:text-7xl 
+    @apply text-4xl font-semibold text-white text-shadow-2xs md:text-5xl lg:text-7xl 
     flex  place-items-center place-content-center gap-x-0.5 dark:text-white
 }
 .mined-amt h3{
-    @apply text-2xl mt-0.5 font-semibold text-orange-600 lg:text-5xl dark:text-white
+    @apply text-2xl mt-0.5 font-semibold text-white lg:text-5xl dark:text-white
 }
 .logo-amt-eye svg{
     @apply w-7 text-red-400;
@@ -65,8 +65,8 @@
     @apply w-70 place-self-center sm:w-100 lg:mt-0 lg:w-120 cursor-pointer flex place-content-between
 }
 .lock-coin p{
-    @apply text-[12px] uppercase text-blue-900 font-bold sm:text-[15px] md:text-[17px] lg:text-[20px]
-    select-none dark:text-orange-500
+    @apply text-[12px] uppercase text-white font-bold sm:text-[15px] md:text-[17px] lg:text-[20px]
+    select-none 
 }
 .dashboard .db-button{
     @apply bg-white shadow-xs flex place-items-center place-content-around w-70 h-20 
@@ -83,6 +83,13 @@
 }
 .db-button span p{
     @apply text-[14px] mt-1 text-blue-950 font-semibold lg:text-[18px] text-center select-none
+}
+.dashboard .db-board{
+    @apply bg-gradient-to-r from-fuchsia-600 to-pink-600 
+    border border-gray-200 dark:border-neutral-500
+    w-[95%] h-40 absolute top-[4rem] place-self-center rounded-t-lg -z-10 
+    sm:w-[85%] md:w-120 lg:w-150 lg:h-60 md:mt-[0.5rem]
+    dark:bg-gradient-to-r dark:from-neutral-600 dark:to-pink-600
 }
 .dashboard .pie-sidebutton{
     @apply flex place-items-start place-content-evenly sm:place-content-around 

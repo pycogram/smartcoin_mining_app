@@ -1,7 +1,10 @@
 import { Request, Response} from "express"; 
 import { errHandler } from "../utils/error-handler.js";
 import userModel from "../models/user.js";
-import { changePwdSchema, confirmUserSchema, forgetPwdSchema, loginUserSchema, registerUserSchema, updateUserSchema, verifyUserSchema } from "../utils/validator.js";
+import { 
+    changePwdSchema, confirmUserSchema, forgetPwdSchema, loginUserSchema, 
+    newPwdSchema, registerUserSchema, updateUserSchema, verifyUserSchema 
+} from "../utils/validator.js";
 import HmacProcess from "../utils/hmac-process.js";
 import { PasswordHash, PasswordVerify } from "../utils/password-handler.js";
 import mongoose from "mongoose";
@@ -14,7 +17,7 @@ import historyModel from "../models/history.js";
 import postModel from "../models/post.js";
 import likeModel from "../models/like.js";
 import commentModel from "../models/comment.js";
-import { nodeMailer } from "../middlewares/sendMail.js";
+import { nodeMailer } from "../middlewares/send-mail.js";
 
 // register user
 const registerUser = async (req: Request, res: Response):Promise<void> => {
@@ -132,14 +135,15 @@ const verifyUser = async (req: Request, res: Response):Promise<void> => {
         }    
 
         const codeValue = generateCode(6);
-        const aboutCode = "Email verification code" 
+        const aboutCode = "Email verification code";
+        const expiredTime = 10;
                 
         if(! process.env.EMAIL_ADDRESS || !process.env.EMAIL_PASSWORD){
             throw new Error("process.env: EMAIL_ADDRESS || EMAIL_PASSWORD  is not defined");
         }
         const info = await nodeMailer(
             process.env.EMAIL_ADDRESS, process.env.EMAIL_PASSWORD,
-            existingUser.email, codeValue, aboutCode
+            existingUser.email, codeValue, aboutCode, expiredTime
         );
 
         if(info.accepted[0] === existingUser.email){
@@ -221,14 +225,14 @@ const confirmUser = async (req: Request, res: Response):Promise<void> => {
             await existingUser.save({session});
 
             // create user's wallet db
-            const walletId =  generateCode(20).toString();
+            const walletId =  generateCode(20);
             await walletModel.create([{user: existingUser._id, wallet_id: walletId}], {session});
 
             // create user's mining db
             await minerModel.create([{user: existingUser._id}], {session});
 
             // create user's ref db
-            const refLink = generateCode(12).toString();
+            const refLink = generateCode(12);
             const [referredUser] = await referralModel.create([{user: existingUser._id, ref_link: refLink}], {session});
     
             const uplineExist = await referralModel.findOne({ref_link: req.cookies.upline_link}).session(session);
@@ -523,25 +527,43 @@ const forgetPassword = async (req: Request, res: Response):Promise<void> => {
         const {error} = forgetPwdSchema.validate({email});
         if(error) return errHandler(res, error.details[0].message.replace(/"/g, ""));
 
-        const existingUser = await userModel.findOne({email});
+        const existingUser = await userModel.findOne({email}).select('+forget_pwdt');
         if(!existingUser) return errHandler(res, "user does not exist");
 
-        const defaultRegLink  = `${req.protocol}://${req.get('host')}`
-        const codeValue = `${defaultRegLink}/new-password?link=${generateCode(15)}`;
-        const aboutCode = "Forget password link" 
+        //user can only request a code after after 5mins
+        if(existingUser?.forget_pwdt){
+            const timePassed = Date.now() - existingUser.forget_pwdt;
+            const waitTime = 5 * 60 * 1000;
+            
+            if(timePassed < waitTime){
+
+                const timeLeft = waitTime - timePassed;
+                const min = Math.floor(timeLeft / 60000);
+                const sec = Math.floor((timeLeft % 60000) / 1000);
+
+                return errHandler(res, `A link has been sent to your email address. Please wait after ${min} minute(s) and ${sec} seconds before requesting for another link`);
+            }
+        }
+
+        const defaultRegLink  = `${req.protocol}://${req.get('host')}`;
+
+        const genCode = generateCode(15);
+        const codeValue = `${defaultRegLink}/new-password?link=${genCode}`;
+        const aboutCode = "Forget password link";
+        const expiredTime = 30;
                 
         if(! process.env.EMAIL_ADDRESS || !process.env.EMAIL_PASSWORD){
             throw new Error("process.env: EMAIL_ADDRESS || EMAIL_PASSWORD  is not defined");
         }
         const info = await nodeMailer(
             process.env.EMAIL_ADDRESS, process.env.EMAIL_PASSWORD,
-            existingUser.email, codeValue, aboutCode
+            existingUser.email, codeValue, aboutCode, expiredTime
         );
         if(info.accepted[0] === existingUser.email){
             if(! process.env.EMAIL_VERIFICATION_CODE_SECRET){
                 throw new Error("process.env.EMAIL_VERIFICATION_CODE_SECRET is not defined");
             }
-            const hashedCodeValue = HmacProcess(codeValue, process.env.EMAIL_VERIFICATION_CODE_SECRET);
+            const hashedCodeValue = HmacProcess(genCode, process.env.EMAIL_VERIFICATION_CODE_SECRET);
 
             existingUser.forget_pwdc = hashedCodeValue.toString();
 
@@ -549,16 +571,101 @@ const forgetPassword = async (req: Request, res: Response):Promise<void> => {
 
             await existingUser.save();
 
-            res.status(200).json({
+            res.cookie('Email', email, {
+                expires: new Date(Date.now() + 1 * 60 * 60 * 1000), 
+                httpOnly: true,
+                secure: process.env.NODE_ENV === 'production',
+                sameSite: 'strict'
+            }).status(200).json({
                 status: "success",
-                message: "Forget password link has been sent to your email address. Please check your inbox or spam box "
+                message: "Forgot password link has been sent to your email address. Please check your inbox or spam box "
             });
 
         } else {
             res.status(500).json({
                 status: "failed",
-                message: 'Code failed to send!'
+                message: 'Link failed to send!'
             });
+        }
+
+    } catch(err){
+        res.status(500).json({
+            status: `failed`,
+            error: `Error occured: ${err as Error}`
+        });
+    } 
+}
+// reset password
+const newPassword = async (req: Request, res: Response):Promise<void> => {
+    try{
+        // grab the email from either req header or cookie based on the environment
+        let getEmail = req.headers.client === 'not-browser' 
+                    ? req.headers.authorization 
+                    : req.cookies['Email'];
+
+        if (!getEmail) {
+            return errHandler(res, "session expired. please request for a new forgot password link");
+        }
+
+        let email =  getEmail;  
+            
+        //destructure user inputs
+        const {password, confirmed_password, forget_pwdc} = req.body;
+
+        //check if all input are empty
+        if(! password || ! confirmed_password) return errHandler(res, "all fields are required");
+
+        // validate and sanitize user inputs
+        const {error} = newPwdSchema.validate({password});
+        if(error) return errHandler(res, error.details[0].message.replace(/"/g, ""));
+
+        // check if password and confirm password are the same
+        if(password !== confirmed_password) return errHandler(res, "confirm password does not match");
+
+        // get query string from the reg link and check if it exist in the db
+        const pwdLink = forget_pwdc as string || req.query.link as string;
+        
+        if(!pwdLink || pwdLink.length != 15) return errHandler(res, `link incomplete. you can't process this action`);
+
+        const existingUser = await userModel.findOne({email}).select('+forget_pwdt +forget_pwdc +password');
+        if(!existingUser) return errHandler(res, "user does not exist");
+
+        if(! process.env.EMAIL_VERIFICATION_CODE_SECRET){
+            throw new Error("process.env.EMAIL_VERIFICATION_CODE_SECRET is not defined");
+        }
+        const resetLink = pwdLink.toString();
+        const hashedCodeValue = HmacProcess(resetLink, process.env.EMAIL_VERIFICATION_CODE_SECRET);
+
+        if(hashedCodeValue !== existingUser.forget_pwdc) return errHandler(res, "Invalid forget password link - The link used does not match the link sent to your email")
+         
+        const matchedPassword = await PasswordVerify(password, existingUser.password!);
+        if(matchedPassword) return errHandler(res, "you cannot use old password as new password");
+
+        const hashedNewPassword = await PasswordHash(password);
+
+        if(Date.now() - existingUser.forget_pwdt! > 30 * 60 * 1000) return errHandler(res, "link already expired. please request for new one!");
+
+        const isVerified  = existingUser.verified;
+
+        if(hashedCodeValue === existingUser.forget_pwdc){
+            existingUser.verified  = true;
+            existingUser.password = hashedNewPassword;
+            existingUser.forget_pwdc = undefined;
+            existingUser.forget_pwdt = undefined;
+
+            await existingUser.save();
+
+            res.clearCookie('Email').status(200).json({                                                                                                                                                                                                                                                  
+                status: "success",
+                email,
+                message: ! isVerified ? 'Password reset successfully, You can now login!' : 'Password reset and Account verified successfully, You can now login!'
+            })
+        } else {
+
+            res.status(400).json({                                                                                                                                                                                                                                                  
+                status: "failed",
+                message: 'The unexpected occured!'
+            })
         }
 
     } catch(err){
@@ -572,5 +679,5 @@ const forgetPassword = async (req: Request, res: Response):Promise<void> => {
 export {
     registerUser, verifyUser, confirmUser, loginUser,
     detailUser, updateUser, deleteUser, changePassword,
-    forgetPassword
-};
+    forgetPassword, newPassword
+}

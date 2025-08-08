@@ -21,7 +21,7 @@
     @apply h-fit w-[100%] inline-block relative place-items-center place-content-center
 }
 .text-body h2{
-    @apply  text-2xl font-bold lg:text-4xl
+    @apply  text-2xl font-bold lg:text-4xl text-blue-600
 }
 .text-body h2::after{
     content: '!';

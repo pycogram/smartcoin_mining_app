@@ -10,6 +10,7 @@ const LoginPage = React.lazy(() => import('./pages/users/login-pg'));
 const ForgetPwdPage = React.lazy(() => import('./pages/users/forget-pwd'));
 const ConfirmPage = React.lazy(() => import('./pages/users/confirm-pg'));
 const VerifyPage = React.lazy(() => import('./pages/users/verify-pg'));
+const NewPwdPage = React.lazy(() => import('./pages/users/new-pwd'));
 const Layout = React.lazy(() => import('./pages/layout'));
 const Dashboard = React.lazy(() => import('./pages/users/dashboard'));
 const UpdateProfile = React.lazy(() => import('./pages/users/update-profile'));
@@ -51,6 +52,7 @@ function App() {
               <Route path='/confirm' element={<ConfirmPage />} />
               <Route path='/login' element={<LoginPage />} />
               <Route path='/forget-password' element={<ForgetPwdPage/>} />
+              <Route path='/new-password' element={<NewPwdPage />} />
               <Route path='*' element={<LoginPage />} /> 
             </Route>
         </Routes>

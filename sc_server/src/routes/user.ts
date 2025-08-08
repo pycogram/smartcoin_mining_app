@@ -1,7 +1,7 @@
 import express from 'express';
 import { 
     changePassword, confirmUser, deleteUser, 
-    detailUser, forgetPassword, loginUser, registerUser, updateUser, verifyUser 
+    detailUser, forgetPassword, loginUser, newPassword, registerUser, updateUser, verifyUser 
 } from '../controllers/user.js';
 
 import { authUser } from '../middlewares/auth-user.js';
@@ -17,6 +17,7 @@ router.get('/', authUser, detailUser);
 router.patch('/update', authUser, updateUser);
 router.delete('/delete', authUser, deleteUser);
 router.patch('/change-password', authUser, changePassword);
-router.post('/forget-password', forgetPassword);
+router.post('/forgot-password', forgetPassword);
+router.post('/new-password', newPassword);
 
 export { router as userRoutes };

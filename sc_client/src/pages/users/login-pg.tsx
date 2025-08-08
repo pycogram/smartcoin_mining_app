@@ -1,4 +1,4 @@
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import PrimaryBtn from "../../components/button/primary-btn";
 import '../../css/page_css/user_css/register-pg.css';
 import { useEffect, useState } from "react";
@@ -37,6 +37,8 @@ const LoginPage = () => {
         //input state
         email = userInfo?.email;
     }
+    const location =  useLocation();
+    email = location.state?.email_RP || "";
 
     const [formData, setFormData] = useState<FormDataType>({
         email: email,

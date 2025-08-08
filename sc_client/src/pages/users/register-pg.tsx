@@ -5,6 +5,14 @@ import React, { useEffect, useState } from "react";
 import { registerUser } from "../../controllers/user";
 import Fail from "../../components/alert/fail";
 
+type FormDataType = {
+    first_name: string,
+    email: string,
+    password: string,
+    confirmed_password: string,
+    upline_link2: string | null
+}
+
 const RegisterPage = () => {
     const userDelete = localStorage.getItem("user_delete") ?? "";
 
@@ -24,7 +32,7 @@ const RegisterPage = () => {
     const refLink  = new URLSearchParams(window.location.search).get('ref');
     
     // input state
-    const [formData, setFormData] = useState({
+    const [formData, setFormData] = useState<FormDataType>({
         first_name: "",
         email: "",
         password: "",

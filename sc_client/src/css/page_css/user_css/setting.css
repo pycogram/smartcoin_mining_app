@@ -44,7 +44,7 @@
 }
 .setting-action h4{
     @apply font-medium text-[18px] text-wrap md:text-[20px] lg:text-[30px]
-    dark:text-white
+    dark:text-white text-blue-600
 }
 .setting-action span{
     @apply flex place-content-around place-items-center absolute bottom-[1rem] 
@@ -65,7 +65,7 @@
     sm:w-[80%] md:w-100
 }
 .sa-2 h4{
-    @apply text-[25px] dark:text-white
+    @apply text-[25px] text-blue-600 dark:text-white
 }
 .sa-2 .cpwd-body{
     @apply py-0.5 place-self-center w-full my-[0.8rem] mb-[3rem]
