@@ -229,7 +229,7 @@ const UserFeed = () => {
                                 <h5>
                                     {postDetail?.content}
                                 </h5>
-                                <p> {postDetail?.createdAt.getTime() !== postDetail?.updatedAt.getTime() ? "edited ~ " : ""} {formatDistanceToNow(new Date(postDetail?.createdAt), {addSuffix: true}).replace(/^about/, "")}</p>
+                                <p> {postDetail?.createdAt !== postDetail?.updatedAt ? "edited ~ " : ""} {formatDistanceToNow(new Date(postDetail?.createdAt), {addSuffix: true}).replace(/^about/, "")}</p>
                             </div>
                         </div>
                         <div className="feed-impression">
@@ -331,7 +331,7 @@ const UserFeed = () => {
                                                 {comment.content}
                                             </h5>
                                             <span>
-                                                <p> {comment.createdAt.getTime() !== comment.updatedAt.getTime() ? "edited ~ " : ""} {formatDistanceToNow(new Date(comment.createdAt), {addSuffix: true}).replace(/^about/, "")}</p>
+                                                <p> {comment.createdAt !== comment.updatedAt ? "edited ~ " : ""} {formatDistanceToNow(new Date(comment.createdAt), {addSuffix: true}).replace(/^about/, "")}</p>
                                             </span>
                                         </div>
                                     </div>
