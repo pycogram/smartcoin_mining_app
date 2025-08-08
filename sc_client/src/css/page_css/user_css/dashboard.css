@@ -2,7 +2,7 @@
 @custom-variant dark (&:where(.dark, .dark *));
 
 .dashboard{
-    @apply w-[100%] h-full grid gap-y-2 md:gap-y-4 pt-[5rem] pb-[4.5rem] 
+    @apply w-[100%] h-full grid gap-y-2 md:gap-y-4 pt-[4.5rem] pb-[4.5rem] 
     md:py-[2rem] lg:pt-[1rem] lg:pb-[2rem] place-self-start md:place-self-center relative
 }
 .dashboard .db-navbar{
@@ -29,10 +29,18 @@
 .img-pdp p{
     @apply text-lg lg:text-2xl capitalize 
 }
+.dashboard .lock-coin{
+    @apply w-70 pt-1 place-self-center sm:w-100 lg:mt-0 lg:w-120 cursor-pointer flex place-content-between
+    lg:pt-[1rem]
+}
+.lock-coin p{
+    @apply text-[12px] leading-3.5 uppercase text-white font-bold sm:text-[15px] md:text-[17px] lg:text-[20px]
+    select-none 
+}
 .dashboard .logo-amt-eye{
     @apply flex place-content-center place-items-center gap-x-4 rounded-lg
-    text-shadow-sm place-self-center 
-    w-fit h-fit mb-3 sm:mt-[0rem] md:mt-0 md:mb-0 
+    text-shadow-sm place-self-center relative
+    w-fit h-fit mb-[2rem] 
 }
 .logo-amt-eye img{
     @apply w-7 h-7 lg:w-12 lg:h-12
@@ -41,7 +49,7 @@
     @apply flex gap-x-1 place-items-center select-none
 }
 .mined-amt h2{
-    @apply text-4xl font-semibold text-white text-shadow-2xs md:text-5xl lg:text-7xl 
+    @apply text-4xl font-semibold text-white text-shadow-lg md:text-5xl lg:text-7xl 
     flex  place-items-center place-content-center gap-x-0.5 dark:text-white
 }
 .mined-amt h3{
@@ -53,7 +61,7 @@
 .logo-amt-eye .iconx i{
     @apply flex text-[18px] lg:text-2xl place-items-center place-content-center h-fit w-fit lg:ml-10 
     px-1 py-1.5 leading-2 text-gray-700 rounded-2xl border-2 border-gray-200 bg-white active:bg-gray-200 
-    active:border-white lg:py-2
+    active:border-white lg:py-3 lg:px-1.5 lg:hover:bg-gray-200
 }
 .dashboard .ref-wallet-ady{
     @apply w-75 sm:w-96 place-self-center lg:w-120 
@@ -61,16 +69,31 @@
 .ref-wallet-ady .ref-w-a-h4{
     @apply text-gray-700
 }
-.dashboard .lock-coin{
-    @apply w-70 place-self-center sm:w-100 lg:mt-0 lg:w-120 cursor-pointer flex place-content-between
+.dashboard .wallet-ady{
+    @apply flex place-self-center place-content-end 
+    w-[90%] sm:w-[80%] lg:w-140 gap-x-4 absolute top-[9rem] 
+    md:top-[11rem] lg:top-[13rem]
 }
-.lock-coin p{
-    @apply text-[12px] uppercase text-white font-bold sm:text-[15px] md:text-[17px] lg:text-[20px]
-    select-none 
+.wallet-ady span{
+    @apply text-white flex place-items-center place-content-between gap-x-1
+}
+.wallet-ady span p{
+    @apply font-semibold
+}
+.wallet-ady span p:nth-child(1){
+    @apply text-[10px] md:text-[12px] lg:text-[14px] leading-4 md:mt-1
+}
+.wallet-ady span p:nth-child(2){
+    @apply text-[14px] md:text-[18px] lg:text-[25px]
+}
+.wallet-ady i{
+    @apply text-white px-1 py-0.5 lg:py-1.5 lg:px-2 leading-4  bg-pink-600 border-white border-1 rounded-md
+    text-[15px] md:text-[18px] lg:text-[20px] md:mt-1 cursor-pointer 
+    hover:bg-pink-400 active:bg-pink-400  
 }
 .dashboard .db-button{
-    @apply bg-white shadow-xs flex place-items-center place-content-around w-70 h-20 
-    rounded-lg border-2 border-gray-300 place-self-center my-2 sm:w-100 lg:w-120 lg:h-30 lg:my-5 
+    @apply bg-white shadow-xs flex place-items-center place-content-around w-[80%] h-20 
+    rounded-lg border-2 border-gray-300 place-self-center my-2 sm:w-90 sm:h-25 lg:w-120 lg:h-30 lg:my-5 
     dark:bg-gray-200
 }
 .db-button span{
@@ -88,7 +111,7 @@
     @apply bg-gradient-to-r from-fuchsia-600 to-pink-600 
     border border-gray-200 dark:border-neutral-500
     w-[95%] h-40 absolute top-[4rem] place-self-center rounded-t-lg -z-10 
-    sm:w-[85%] md:w-120 lg:w-150 lg:h-60 md:mt-[0.5rem]
+    sm:w-[85%] md:h-50 lg:w-150 lg:h-60 md:mt-[0.5rem]
     dark:bg-gradient-to-r dark:from-neutral-600 dark:to-pink-600
 }
 .dashboard .pie-sidebutton{
@@ -104,11 +127,14 @@
     @apply w-45 h-45 p-[0.5rem] md:p-0 rounded-[100%] border-4 border-gray-300 
     sm:w-55 sm:h-55 lg:w-60 lg:h-60
 }
+.piechart{
+    @apply bg-red-500
+}
 .piechart-sec ul{
     @apply mt-4 select-none
 }
 .piechart-sec ul li{
-    @apply text-xs font-semibold w-fit flex place-items-center 
+    @apply text-xs font-semibold w-fit flex place-items-center
     md:text-sm lg:text-lg first-letter:capitalize text-gray-800 dark:text-white
 }
 .piechart-sec ul li::before{
@@ -134,9 +160,9 @@
     @apply w-fit 
 }
 .db-sidebutton span{
-    @apply my-6 mx-1 px-1.5 py-1.5 border-2 border-gray-300 rounded-4xl bg-white
-    hover:bg-gray-100 hover:border-gray-400 dark:border-gray-100
-    relative dark:bg-neutral-600 
+    @apply my-6 mx-1 px-1.5 py-1.5 border-2 border-gray-300 rounded-4xl 
+    hover:bg-gray-100 hover:border-gray-400 dark:border-gray-100 
+    relative dark:bg-neutral-600 shadow-2xs 
 }
 .db-sidebutton span img{
     @apply w-6 h-6 md:w-7 md:h-7 lg:w-8 lg:h-8 

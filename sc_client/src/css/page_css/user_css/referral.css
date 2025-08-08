@@ -113,7 +113,7 @@
     md:flex md:w-full 
 }
 .referral img{
-    @apply w-[80%] h-full my-5 lg:my-1 place-self-center 
+    @apply w-[80%] h-fit my-[2rem] lg:my-1 place-self-center 
 }
 .referral .form-btn{
     @apply w-[80%] absolute bottom-[5rem] place-self-center lg:w-full lg:block  lg:pb-3

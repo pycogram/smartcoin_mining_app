@@ -2,7 +2,7 @@ import "../../css/page_css/user_css/dashboard.css";
 import mine from "../../images/pics/mine.png";
 import lock from "../../images/pics/Boost.png";
 import update_prof from "../../images/pics/gift.png";
-import { Link} from "react-router-dom";
+import { Link, useNavigate} from "react-router-dom";
 import pdp from "../../images/pics/pdp.png";
 import Piechart from "../../components/chart/piechart";
 import { useContext, useEffect, useState } from "react";
@@ -180,18 +180,18 @@ const Dashboard = () => {
         }
     }
 
-    const [viewW, setViewW] = useState<boolean | null>(null);
+    const [wIClick, setWIClick] = useState<boolean | null>(null);
 
     const viewWalletId = () => {
         setPerfect("");
         setError("");
         
         try{
-            setViewW(true);
+            setWIClick(true);
             setTimeout(async() => {
                 if(walletAddy){
                     await navigator.clipboard.writeText(walletAddy);
-                    setPerfect(`wallet address automatically copied`);
+                    setPerfect(`wallet address copied`);
                 }
             });
             
@@ -201,12 +201,17 @@ const Dashboard = () => {
 
         } finally{
             setTimeout(() => {
-                setViewW(prev => !prev);
+                setWIClick(null);
                 setError("");
                 setPerfect("");
 
             }, 5 * 1000);
         }
+    }
+
+    const navigate = useNavigate();
+    const goToReceive = () => {
+        navigate('/receive-sc', {state: {"wallet_id": walletAddy}});
     }
 
     if(isReady) return (
@@ -244,10 +249,15 @@ const Dashboard = () => {
                     </div>
                 </Link>
             </nav>
+            <div className="lock-coin"> 
+                <p className="lc-p1">Lv : {minedSc != 0 ? (1 + Math.floor((minedSc + lockedSc) / 100)) : 0}</p>
+                <Link to={'/select-pkg'}>
+                    <p>Locked : {!hideBalStatus  ? lockedSc : "***"} SC</p>
+                </Link>
+            </div>
             <div className="logo-amt-eye">
                 {perfect && <Success success={`${perfect}`} loggedinStatus={true} />}
                 {error && <Fail error={error} loggedinStatus={true} />}
-                
                 <span className="mined-amt">
                         { 
                         !minedScStatus ? <h3>loading...</h3> :
@@ -264,13 +274,13 @@ const Dashboard = () => {
                     <i onClick={hideRevealBalance} className={!hideBalStatus ? "fa-solid fa-eye" : "fa-solid fa-eye-slash" }></i>
                 </span>
             </div>
-            <div className="lock-coin"> 
-                <p>Level : {minedSc != 0 ? (1 + Math.floor((minedSc + lockedSc) / 100)) : 0}</p>
-                <Link to={'/select-pkg'}>
-                    <p>Locked : {!hideBalStatus  ? lockedSc : "***"} SC</p>
-                </Link>
+            <div className="wallet-ady"> 
+                <span>
+                    <p>Wallet ID </p>
+                    <p>~ {walletAddy ?? "loading.."}</p>
+                </span>
+                <i onClick={viewWalletId} className={!wIClick ? "fa-solid fa-copy": "fa-solid fa-check"}></i>
             </div>
-            {   ! viewW ?
                 <div className="db-button">
                     <span>
                         <Link to={'/send-sc'}>
@@ -278,7 +288,7 @@ const Dashboard = () => {
                             <p>Send</p>
                         </Link>
                     </span>
-                    <span onClick={viewWalletId}>
+                    <span onClick={goToReceive}>
                         <i className="fa-solid fa-repeat"></i>
                         <p>Receive</p>
                     </span>
@@ -288,17 +298,7 @@ const Dashboard = () => {
                             <p>Referral</p>
                         </Link>
                     </span>
-                </div> :
-                <div className="ref-wallet-ady">
-                    {/* <h3>wallet Address</h3> */}
-                    <div>
-                        <span>
-                            <h4 className="ref-w-a-h4" >{walletAddy ?? "loading.."}</h4>
-                            <i className="fa-solid fa-copy"></i>
-                        </span>
-                    </div>
                 </div> 
-            }
             <span className="db-board"></span>
             <div className="pie-sidebutton">
                 <div className="piechart-sec">
