@@ -180,7 +180,7 @@ const FeedPage = () => {
                                 </h5>
                                 <span>
                                     {overflowMap[post?._id] && ( <p className="fnct-p1" onClick={() => handleViewPost(post?._id)} >show all</p>)}
-                                    <p className="fnct-p2"> {post?.createdAt.getTime() !== post?.updatedAt.getTime() ? "edited ~ " : "" } {formatDistanceToNow(new Date(post?.createdAt), {addSuffix: true}).replace(/^about/, '')}</p>
+                                    <p className="fnct-p2"> {post?.createdAt !== post?.updatedAt ? "edited ~ " : "" } {formatDistanceToNow(new Date(post?.createdAt), {addSuffix: true}).replace(/^about/, '')}</p>
                                 </span>
                             </div>
 
