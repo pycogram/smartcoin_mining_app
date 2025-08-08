@@ -19,7 +19,7 @@ type userType = {
 type commentType = {
     _id: string,
     createdAt: string,
-    updatedAt: string
+    updatedAt: string,
     user: userType,
     content: string,
 }
