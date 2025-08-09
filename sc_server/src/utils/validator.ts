@@ -5,11 +5,27 @@ const nameField = Joi.string()
     .trim()
     .min(2)
     .max(30)
+    .pattern(new RegExp('^[a-zA-Z]{2,30}$'))
     .messages({
         'string.base': '{{#label}} must be a string',
         'string.empty': '{{#label}} is required',
         'string.min': '{{#label}} must be at least 2 characters',
         'string.max': '{{#label}} must not exceed 30 characters',
+        'string.pattern.base': '{{#label}} must be alpha letters only and no spaces',
+        'any.required': '{{#label}} is required'
+});
+const userNameField = Joi.string()
+    .required()
+    .trim()
+    .min(2)
+    .max(30)
+    .pattern(new RegExp('^[a-zA-Z0-9]{2,30}$'))
+    .messages({
+        'string.base': '{{#label}} must be a string',
+        'string.empty': '{{#label}} is required',
+        'string.min': '{{#label}} must be at least 2 characters',
+        'string.max': '{{#label}} must not exceed 30 characters',
+        'string.pattern.base': '{{#label}} must be alphanumerics only and no space',
         'any.required': '{{#label}} is required'
 });
 const emailField = Joi.string()
@@ -65,7 +81,6 @@ const mineScField = Joi.boolean()
     .required()
     .messages({
         'boolean.base': '{{#label}} must be a boolean',
-        'boolean.empty': '{{#label}} is required',
         'any.required': '{{#label}} is required'
 });
 const lockScField = Joi.number()
@@ -106,7 +121,7 @@ const loginUserSchema = Joi.object({
 const updateUserSchema = Joi.object({
     first_name: nameField.label("First name"),
     last_name: nameField.label("Last name"),
-    user_name: nameField.label("User name"),
+    user_name: userNameField.label("User name"),
 });
 const postSchema = Joi.object({
     content: contentField.label("Content"),
