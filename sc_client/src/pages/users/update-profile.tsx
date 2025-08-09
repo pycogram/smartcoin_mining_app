@@ -64,6 +64,13 @@ const UpdateProfile = () => {
         }
     }
 
+    const changeImg = () => {
+        setError("Sorry, you upload img at the moment. App runs on free tier.");
+        setTimeout(() => {
+            setError("");
+        }, 10 * 1000);
+    }
+
     return ( 
         <div className="register-page login-page update-profile-container">
             {error && <Fail error={error} loggedinStatus={true} />}
@@ -79,8 +86,8 @@ const UpdateProfile = () => {
                 
                 <div className="form-input-box login-form2">
                     <div className="update-img">
-                        <img  src={pdp} alt="profile pic" />                  
-                        <i className="fa-solid fa-plus update-i"></i>
+                        <img onClick={changeImg} src={pdp} alt="profile pic" />                  
+                        <i onClick={changeImg} className="fa-solid fa-plus update-i"></i>
                    </div>
                     <div>
                         <label>First name:</label>
