@@ -185,13 +185,11 @@ const Dashboard = () => {
     const viewWalletId = () => {
         setPerfect("");
         setError("");
-        
         try{
             setWIClick(true);
             setTimeout(async() => {
                 if(walletAddy){
                     await navigator.clipboard.writeText(walletAddy);
-                    setPerfect(`wallet address copied`);
                 }
             });
             
@@ -203,8 +201,6 @@ const Dashboard = () => {
             setTimeout(() => {
                 setWIClick(null);
                 setError("");
-                setPerfect("");
-
             }, 5 * 1000);
         }
     }
