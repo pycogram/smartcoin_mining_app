@@ -2,7 +2,7 @@ import PrimaryBtn from "../../components/button/primary-btn";
 import pdp from "../../images/pics/pdp.png";
 import "../../css/page_css/user_css/register-pg.css";
 import "../../css/page_css/user_css/update-profile.css";
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { UserContext } from "../../contexts/user";
 import Fail from "../../components/alert/fail";
 import { updateUser } from "../../controllers/user";
@@ -13,7 +13,7 @@ type UserDataType  = {
     first_name: string,
     last_name: string,
     user_name: string,
-    email: string
+    email: string,
 }
 
 const UpdateProfile = () => {
@@ -22,12 +22,20 @@ const UpdateProfile = () => {
     const [error, setError] = useState<string>("");
     const [perfect, setPerfect] = useState<string>("");
 
+    const [file, setFile] = useState<File | null>(null);
+    const [preview, setPreview] = useState<string>(user?.pdp_url || pdp);
+
+    useEffect(() => {
+        return () => {
+            if (preview) URL.revokeObjectURL(preview);
+        };
+    }, [preview]);
+
     const { setUser } = useContext(UserContext)!;
 
-    if(! user) {
-        setError(`user data not avaialble at the moment`);
-        return;
-    };
+    if (!user) {
+        return <Fail error="User data not available at the moment" loggedinStatus={true} />;
+    }
 
     const [userData, setUserData] = useState<UserDataType>({
         first_name: user.first_name,
@@ -44,7 +52,15 @@ const UpdateProfile = () => {
         setPerfect("")
 
         try{
-            const {message, data} = await updateUser(userData);
+            const formData = new FormData();
+                formData.append("first_name", userData.first_name);
+                formData.append("last_name", userData.last_name);
+                formData.append("user_name", userData.user_name);
+                formData.append("email", userData.email);
+
+            if (file) formData.append("image", file); 
+
+            const {message, data} = await updateUser(formData);
             setPerfect(message);
             setUser(data);
             
@@ -79,8 +95,17 @@ const UpdateProfile = () => {
                 
                 <div className="form-input-box login-form2">
                     <div className="update-img">
-                        <img  src={pdp} alt="profile pic" />                  
+                        <img src={preview} alt="profile pic" />                  
                         <i className="fa-solid fa-plus update-i"></i>
+                        <input onChange={(e) => {
+                                const selectedFile = e.target.files && e.target.files[0];
+                                if (selectedFile) {
+                                    setFile(selectedFile);
+                                    setPreview(URL.createObjectURL(selectedFile));
+                                }
+                            }}  
+                            type="file" accept="image/*" className="img-input" 
+                        />
                    </div>
                     <div>
                         <label>First name:</label>

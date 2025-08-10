@@ -37,7 +37,7 @@
 }
 .feed-name-cont-time span:nth-child(1) h4{
     @apply text-[14px] font-bold text-gray-600 leading-4 first-letter:capitalize
-    md:text-[20px] py-0.5  
+    md:text-[20px] py-0.5 
 }
 .feed-name-cont-time span:nth-child(1) span{
     @apply flex place-content-center place-items-center gap-x-2 md:gap-x-3
@@ -50,15 +50,16 @@
     @apply size-4 
 }
 .feed-name-cont-time h5{
-    @apply text-[16px] font-normal leading-4 pb-[1rem] pt-[0.2rem]
+    @apply text-[16px] font-normal leading-5 pb-[1.2rem] pt-[0.2rem]
+    lg:leading-6
     
     /* h-fit max-h-20 */
     /* md:min-h-7 md:max-h-30 overflow-hidden  */
     md:text-[20px] text-gray-600 
 }
 .feed-name-cont-time span:nth-child(3){
-    @apply flex bg-white absolute gap-x-4 w-fit place-items-center place-content-end
-    pr-4 pl-1.5 py-1.5 right-0 bottom-0 md:py-2
+    @apply flex bg-white absolute gap-x-4 w-fit place-items-start place-content-end
+    pr-4 pl-1.5 py-0.5 right-0 bottom-0 h-6 md:h-7 md:py-1 lg:py-0.5 lg:h-6
 }
 .feed-name-cont-time span:nth-child(3) p{
     @apply text-[11px] md:text-[15px] leading-3 font-medium text-gray-500 

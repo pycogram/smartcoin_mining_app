@@ -31,6 +31,10 @@ const userScheme = new mongoose.Schema({
         select: false,
         trim: true
     },
+    pdp_url: {
+        type: String,
+        trim: true,
+    },
     verified: {
         type: Boolean,
         default: false

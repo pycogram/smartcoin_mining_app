@@ -32,19 +32,20 @@ function App() {
         <Routes>
             <Route element={<UserRoutes />}>
               <Route path='/' element={<Layout />} > 
-                  <Route path='dashboard' element={<Dashboard />} />
-                  <Route path='update-profile' element={<UpdateProfile />} />
-                  <Route path='setting' element={<Setting />} />
-                  <Route path='referral' element={<Referral />} />
-                  <Route path='send-sc' element={<SendCoin />} /> 
-                  <Route path='receive-sc' element={<ReceiveCoin />} /> 
-                  <Route path='history' element={<NotificationPg />} />
-                  <Route path='select-pkg' element={<SelectPkg />} />
-                  <Route path='lock-pkg' element={<LockPkg />} />
-                  <Route path='all-post' element={<FeedPg />} />
-                  <Route path='post-view' element={< UserFeed />} />
-                  <Route path='create-post' element={< CreatePost />} />
-                  <Route path='*' element={<Dashboard/>} />
+                <Route index element={<Dashboard/>} />
+                <Route path='dashboard' element={<Dashboard />} />
+                <Route path='update-profile' element={<UpdateProfile />} />
+                <Route path='setting' element={<Setting />} />
+                <Route path='referral' element={<Referral />} />
+                <Route path='send-sc' element={<SendCoin />} /> 
+                <Route path='receive-sc' element={<ReceiveCoin />} /> 
+                <Route path='history' element={<NotificationPg />} />
+                <Route path='select-pkg' element={<SelectPkg />} />
+                <Route path='lock-pkg' element={<LockPkg />} />
+                <Route path='all-post' element={<FeedPg />} />
+                <Route path='post-view' element={< UserFeed />} />
+                <Route path='create-post' element={< CreatePost />} />
+                <Route path='*' element={<Dashboard/>} />
               </Route>
             </Route>
             <Route element={<NonUserRoutes />}>

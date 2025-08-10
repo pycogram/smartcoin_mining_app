@@ -92,7 +92,7 @@ const Layout = () => {
                 </div>
                 <Link to={"/update-profile"}>
                     <div className="img-pdp">
-                        <img src={pdp} alt="profile pic" />
+                        <img src={user.pdp_url ?? pdp} alt="profile pic" />
                         <p className="">{user.first_name} {user.last_name && '.' + user.last_name.charAt(0).toUpperCase()}</p>
                     </div>
                 </Link>

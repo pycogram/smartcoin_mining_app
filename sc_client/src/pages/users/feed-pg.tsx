@@ -13,6 +13,7 @@ type userType = {
     first_name: string,
     last_name: string,
     user_name: string,
+    pdp_url: string
 }
 type postAllType = {
     _id: string,
@@ -156,7 +157,7 @@ const FeedPage = () => {
                     <div key={post?._id} className="feed-each-item">
                         <div className="feed-img">
                             <span>
-                                <img src={user_pic} alt="user pic" />
+                                <img src={post.user?.pdp_url ?? user_pic} alt="user pic" />
                             </span>
                         </div>
                         <div className="feed-body">

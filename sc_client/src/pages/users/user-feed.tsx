@@ -15,6 +15,7 @@ type userType = {
     first_name: string,
     last_name: string,
     user_name: string,
+    pdp_url: string
 }
 type commentType = {
     _id: string,
@@ -286,7 +287,7 @@ const UserFeed = () => {
                                 <div key={comment._id} className="feed-each-item">
                                     <div className="feed-img">
                                         <span>
-                                            <img src={user_pic} alt="user pic" />
+                                            <img src={comment.user?.pdp_url ?? user_pic} alt="user pic" />
                                         </span>
                                     </div>
                                     <div className="feed-body">

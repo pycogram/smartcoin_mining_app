@@ -50,7 +50,7 @@
 }
 .span-hp p{
     @apply text-[14px] font-bold text-gray-600 leading-4 capitalize 
-    md:text-[16px]
+    md:text-[16px] 
 }
 .feed-img-uname-timr-lv .lv{
     @apply h-fit w-fit mt-1
@@ -66,6 +66,7 @@
 }
 .feed-hpp p{
     @apply w-fit place-self-end text-[13px] md:text-[15px] leading-4 font-medium text-gray-500
+    pb-1.5 py-0.5
 }
 
 .uf-box .feed-impression{

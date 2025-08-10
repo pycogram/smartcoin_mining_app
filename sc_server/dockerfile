@@ -1,0 +1,25 @@
+# Stage 1: Build frontend
+FROM node:20 AS client-build
+WORKDIR /app
+COPY sc_client/package*.json ./sc_client/
+RUN cd sc_client && npm install
+COPY sc_client ./sc_client
+RUN cd sc_client && npm run build
+
+# Stage 2: Build backend
+FROM node:20 AS server-build
+WORKDIR /app
+COPY sc_server/package*.json ./sc_server/
+RUN cd sc_server && npm install
+COPY sc_server ./sc_server
+COPY --from=client-build /app/sc_client/dist ./sc_server/public
+WORKDIR /app/sc_server
+RUN npm run build
+
+# Stage 3: Production image
+FROM node:20
+WORKDIR /app
+COPY --from=server-build /app/sc_server ./
+ENV NODE_ENV=production
+EXPOSE 5000
+CMD ["node", "dist/server.js"]

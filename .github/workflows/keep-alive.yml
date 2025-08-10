@@ -1,0 +1,28 @@
+name: Keep Render App Awake (48 hours only)
+
+on:
+  schedule:
+    - cron: "*/10 * * * *" # runs every 5 minutes
+  workflow_dispatch:
+
+jobs:
+  ping:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check if within 48 hours
+        run: |
+          START_TIME="2025-08-12T14:00:00Z"  # UTC time for 3 PM Nigerian
+          END_TIME=$(date -d "$START_TIME + 48 hours" -u +"%Y-%m-%dT%H:%M:%SZ")
+          NOW=$(date -u +"%Y-%m-%dT%H:%M:%SZ")
+
+          if [[ "$NOW" > "$END_TIME" ]]; then
+            echo "48 hours have passed. Stopping ping."
+            exit 0
+          fi
+
+          NG_END_TIME=$(TZ=Africa/Lagos date -d "$START_TIME + 48 hours")
+          echo "Keep-alive active. Will stop at $NG_END_TIME (Nigerian time)."
+
+      - name: Send request to Render app
+        run: |
+          curl -s https://smartcoin-mining-app.onrender.com > /dev/null

@@ -6,7 +6,8 @@ type UserType = {
     first_name: string,
     last_name: string,
     user_name: string,
-    email: string
+    email: string,
+    pdp_url: string
 }
 
 type UserContextType = {

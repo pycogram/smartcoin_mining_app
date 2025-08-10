@@ -372,11 +372,21 @@ const detailUser = async (req: Request, res: Response):Promise<void> => {
 }
 //update user
 const updateUser = async (req: Request, res: Response): Promise<void> => {
+    console.log(354678);
   try {
     const userId = (req as any).user_id;
     if (!userId) return errHandler(res, "User not identified");
 
     const { first_name, last_name, user_name, email } = req.body;
+
+    let pdp_url = req.body.pdp_url || ""; 
+
+    if (req.file && req.file.path) {
+      pdp_url = req.file.path; // new uploaded image URL from Cloudinary
+    }
+
+    console.log("req.body:", req.body);
+    console.log("req.file:", req.file);
 
     // all fields are required
     if (!first_name || !last_name || !user_name)
@@ -394,6 +404,7 @@ const updateUser = async (req: Request, res: Response): Promise<void> => {
     if (userDetail.first_name !== first_name) updateData.first_name = first_name;
     if (userDetail.last_name !== last_name) updateData.last_name = last_name;
     if (userDetail.user_name !== user_name) updateData.user_name = user_name;
+    updateData.pdp_url = pdp_url;
 
     if (Object.keys(updateData).length === 0)
       return errHandler(res, "No changes made yet");

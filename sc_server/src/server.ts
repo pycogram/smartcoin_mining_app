@@ -8,6 +8,9 @@ const __dirname = dirname(__filename);
 
 dotenv.config({ path: resolve(__dirname, '../../.env') });
 
+import { configureCloudinary } from './config/cloudinary.js';
+configureCloudinary();
+
 import express from 'express';
 import mongoose from 'mongoose';
 import cors from 'cors';

@@ -18,7 +18,7 @@ const viewAllPost = async(req: Request, res: Response):Promise<void> => {
         const viewPosts = await postModel.find()
                                             .select('content createdAt updatedAt _id')
                                             .sort({createdAt: "desc"})
-                                            .populate('user', 'first_name last_name user_name email _id');
+                                            .populate('user', 'first_name last_name user_name email _id pdp_url');
 
         if (!viewPosts.length) return errHandler(res, "no posts found!");
 
@@ -31,7 +31,7 @@ const viewAllPost = async(req: Request, res: Response):Promise<void> => {
         const allComments = await commentModel.find({ post: { $in: postIds } })
                                                 .select('content createdAt _id user post')
                                                 .sort({createdAt: "desc"})
-                                                .populate('user', 'first_name last_name user_name email _id');
+                                                .populate('user', 'first_name last_name user_name email _id pdp_url');
 
         const commentsByPostId: Record<string, any[]> = {};
         allComments.forEach(comment => {
@@ -94,7 +94,7 @@ const viewPostDetail = async(req: Request, res: Response):Promise<void> => {
 
         const viewPost = await postModel.findById(new mongoose.Types.ObjectId(post_id))
             .select('content createdAt updatedAt _id')
-            .populate('user', 'first_name last_name user_name email _id');
+            .populate('user', 'first_name last_name user_name email _id pdp_url');
 
         if (!viewPost) return errHandler(res, "no posts found!");
 
@@ -104,7 +104,7 @@ const viewPostDetail = async(req: Request, res: Response):Promise<void> => {
         const allComments = await commentModel.find({ post: viewPost._id })
             .select('content createdAt updatedAt _id user post')
             .sort({ createdAt: "asc" })
-            .populate('user', 'first_name last_name user_name email _id');
+            .populate('user', 'first_name last_name user_name email _id pdp_url');
 
         const allLikes = await likeModel.find({ post: viewPost._id })
             .select('_id user post')
