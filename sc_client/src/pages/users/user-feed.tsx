@@ -215,7 +215,7 @@ const UserFeed = () => {
                             <div className="feed-img-uname-timr-lv">
                                 <div className="img-uname-time">
                                     <span className="span-img">
-                                        <img src={user_pic} alt="user pic" />
+                                        <img src={postDetail.user?.pdp_url ?? user_pic} alt="user pic" />
                                     </span>
                                     <span className="span-hp">
                                         <h4>{postDetail.user?.first_name} {postDetail.user?.last_name}</h4>
