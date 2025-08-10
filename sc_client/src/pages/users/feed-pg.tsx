@@ -177,7 +177,7 @@ const FeedPage = () => {
                                         textOverflow: 'ellipsis'
                                     }}
                                 > 
-                                    {post?.content}
+                                    {post.user?.pdp_url} {post?.content}
                                 </h5>
                                 <span>
                                     {overflowMap[post?._id] && ( <p className="fnct-p1" onClick={() => handleViewPost(post?._id)} >show all</p>)}
