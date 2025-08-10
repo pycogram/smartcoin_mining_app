@@ -157,7 +157,7 @@ const FeedPage = () => {
                     <div key={post?._id} className="feed-each-item">
                         <div className="feed-img">
                             <span>
-                                <img src={post.user?.pdp_url ?? user_pic} alt="user pic" />
+                                <img src={"https://res.cloudinary.com/ddgiav2pi/image/upload/v1754816943/smartcoin_user_imgs/x706eohwxsuqy7o6huqg.jpg"} alt="user pic" />
                             </span>
                         </div>
                         <div className="feed-body">
@@ -177,7 +177,7 @@ const FeedPage = () => {
                                         textOverflow: 'ellipsis'
                                     }}
                                 > 
-                                    {post.user?.pdp_url} {post?.content}
+                                    {post?.content}
                                 </h5>
                                 <span>
                                     {overflowMap[post?._id] && ( <p className="fnct-p1" onClick={() => handleViewPost(post?._id)} >show all</p>)}
