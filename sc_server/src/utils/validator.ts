@@ -19,7 +19,7 @@ const userNameField = Joi.string()
     .trim()
     .min(2)
     .max(30)
-    .pattern(new RegExp('^[a-zA-Z0-9]{2,30}$'))
+    .pattern(/^(?=.*[a-zA-Z])[a-zA-Z0-9]{2,30}$/)
     .messages({
         'string.base': '{{#label}} must be a string',
         'string.empty': '{{#label}} is required',
