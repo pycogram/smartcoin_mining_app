@@ -1,22 +1,16 @@
 import { useState } from "react";
 import "../../css/page_css/user_css/referral.css";
 import receive_sc_pic from "../../images/pics/receive-sc-illustraction.png";
-import Success from "../../components/alert/success";
-import Fail from "../../components/alert/fail";
 import { Link, useLocation } from "react-router-dom";
 
 const ReceiveCoin = () => {
 
     const [wIClick, setWIClick] = useState<boolean | null>(null);
-    const [perfect, setPerfect] = useState<string>("");
-    const [error, setError] = useState<string>("");
     const location = useLocation();
     console.log(location);
     const walletAddy = location.state.wallet_id || "";
 
     const viewWalletId = () => {
-        setPerfect("");
-        setError("");
         
         try{
             setWIClick(true);
@@ -34,9 +28,6 @@ const ReceiveCoin = () => {
         } finally{
             setTimeout(() => {
                 setWIClick(null);
-                setError("");
-                setPerfect("");
-
             }, 5 * 1000);
         }
     }
@@ -44,8 +35,6 @@ const ReceiveCoin = () => {
 
     return ( 
         <div className="referral">
-            {perfect && <Success success={`${perfect}`} loggedinStatus={true} />}
-            {error && <Fail error={error} loggedinStatus={true} />}
             <Link to="/dashboard">
                 <span className="ref-span-go-back">
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor">
