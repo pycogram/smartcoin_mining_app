@@ -2,7 +2,6 @@ import { useNavigate } from "react-router-dom";
 import "../../css/component_css/menu/menu.css";
 import { useContext } from "react";
 import { MenuContext } from "../../contexts/menu";
-import smartcoinLogo from "../../images/logos/sc_logo.png";
 import { PageContext } from "../../contexts/active-page";
 import { UserContext } from "../../contexts/user";
 
@@ -42,7 +41,7 @@ const MenuPart = () => {
                             <path fillRule="evenodd" d="M5.47 5.47a.75.75 0 0 1 1.06 0L12 10.94l5.47-5.47a.75.75 0 1 1 1.06 1.06L13.06 12l5.47 5.47a.75.75 0 1 1-1.06 1.06L12 13.06l-5.47 5.47a.75.75 0 0 1-1.06-1.06L10.94 12 5.47 6.53a.75.75 0 0 1 0-1.06Z" clipRule="evenodd" />
                         </svg>
                     </span>
-                    <img src={smartcoinLogo} alt="" className="menu-img" />
+                    <img src={"https://res.cloudinary.com/ddgiav2pi/image/upload/v1754860087/sc_logo_xxokn4.png"} alt="logo" className="menu-img" />
                 </header>
                 <main className="menu-option">
                     {

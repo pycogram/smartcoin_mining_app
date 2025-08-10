@@ -1,6 +1,5 @@
 import PrimaryBtn from '../../components/button/primary-btn';
 import { Link } from "react-router-dom";
-import logo from '../../images/logos/sc_logo.png';
 import mining_pic from '../../images/pics/miningscpic.png';
 import "../../css/page_css/user_css/welcome-pg.css";
 
@@ -10,7 +9,7 @@ const WelcomePage = () => {
             <div className='w-box'>
                 <div className="img-text">
                     <span className='img-box'>
-                        <img src={logo} alt="img logo" />
+                        <img src={"https://res.cloudinary.com/ddgiav2pi/image/upload/v1754860087/sc_logo_xxokn4.png"} alt="img logo" />
                     </span>
                     <span className='text-body'>
                         <h2>Welcome</h2>
