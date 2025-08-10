@@ -78,10 +78,12 @@ const SelectPkg = () => {
             setError(message);
 
         } finally{
+            setTimeout(()=> {
+                setSending(null);
+            }, 3 * 1000);
             setTimeout(() => {
                 setPerfect("");
                 setError("");
-                setSending(null);
             }, 10 * 1000);
         }
     } 

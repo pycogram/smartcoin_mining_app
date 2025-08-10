@@ -31,12 +31,14 @@ const NewPwdPage = () => {
     //error state
     const [error, setError] = useState<string>("");
     const [perfect, setPerfect] = useState<string>("");
+    const [sending, setSending] = useState<boolean | null>(null);
 
     const navigate = useNavigate();
     const handleForgetPwd = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         setError("");
         setPerfect("");
+        setSending(true);
                
         try{         
             const {message, email} = await newPassword(formData);
@@ -52,6 +54,9 @@ const NewPwdPage = () => {
             setError((err as Error).message);
 
         } finally{
+            setTimeout(()=> {
+                setSending(null);
+            }, 3 * 1000);
             setTimeout(() => {
                 setError("");
             }, 10 * 1000);
@@ -92,7 +97,7 @@ const NewPwdPage = () => {
                     <p onClick={handleReqNewLink} className="forgetPwd">Request new link</p>
                 </div>
                 <div className="form-btn">
-                    <PrimaryBtn btnText={"reset password"} />
+                    <PrimaryBtn btnText={!sending ? "reset password" : "loading..."} />
                 </div>
             </form>
         </div>

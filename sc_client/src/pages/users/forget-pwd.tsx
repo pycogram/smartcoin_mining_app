@@ -21,12 +21,14 @@ const ForgetPwdPage = () => {
     //error state
     const [error, setError] = useState<string>("");
     const [perfect, setPerfect] = useState<string>("");
+    const [sending, setSending] = useState<boolean | null>(null);
 
     const navigate = useNavigate();
     const handleForgetPwd = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         setError("");
         setPerfect("");
+        setSending(true);
         
         try{
             const {message} = await forgotPassword(formData);
@@ -36,6 +38,9 @@ const ForgetPwdPage = () => {
             setError((err as Error).message);
 
         } finally{
+            setTimeout(()=> {
+                setSending(null);
+            }, 3 * 1000);
             setTimeout(() => {
                 setError("");
             }, 15 * 1000);
@@ -60,7 +65,7 @@ const ForgetPwdPage = () => {
                     <p onClick={handleGoBack} className="forgetPwd">go back</p>
                 </div>
                 <div className="form-btn">
-                    <PrimaryBtn btnText={"send link"} />
+                    <PrimaryBtn btnText={!sending ? "send link": "loading..."} />
                 </div>
             </form>
         </div>

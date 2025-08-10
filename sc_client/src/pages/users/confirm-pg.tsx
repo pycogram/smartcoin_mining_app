@@ -99,7 +99,7 @@ const ConfirmPage = () => {
         } finally{
             setTimeout(()=> {
                 setSending(null);
-            },10 * 1000);
+            }, 3 * 1000);
         }
 
     }

@@ -97,9 +97,11 @@ const LoginPage = () => {
             setError(message);
             
         } finally {
+            setTimeout(()=> {
+                setSending(null);
+            }, 3 * 1000);
             setTimeout(() => {
                 setError("");
-                setSending(null);
             }, 10 * 1000);
         }
 

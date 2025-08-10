@@ -15,11 +15,13 @@ const CreatePost = () => {
     const navigate = useNavigate();
 
 
+    const [sending, setSending] = useState<boolean | null>(null);
     const handlePost = async (e: React.FormEvent<HTMLFormElement>) => {
         try{
             // to prevent page from reloading
             e.preventDefault();
             setError("");
+            setSending(true);
 
             let message = "";
             if(postContent){
@@ -37,6 +39,9 @@ const CreatePost = () => {
             console.log(345);
 
         } finally{
+            setTimeout(()=> {
+                setSending(null);
+            }, 3 * 1000);
             setTimeout(() => {
                 setError("");
             }, 10 * 1000);
@@ -58,7 +63,7 @@ const CreatePost = () => {
                         placeholder="Create a post">
                     </textarea>
                     <div className="post-btn">
-                        <PrimaryBtn btnText={"Create Post"} />
+                        <PrimaryBtn btnText={!sending ? "Create Post" : "Loading..."} />
                     </div>
                 </form>
             </div>

@@ -81,8 +81,10 @@ const UpdateProfile = () => {
             setError(message);
 
         } finally{
-            setTimeout(() => {
+            setTimeout(()=> {
                 setSending(null);
+            }, 3 * 1000);
+            setTimeout(() => {
                 setError("");
                 setPerfect("");
             }, 10 * 1000);

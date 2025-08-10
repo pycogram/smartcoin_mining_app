@@ -92,10 +92,12 @@ const Setting = () => {
             setError((err as Error).message);
 
         } finally{
+            setTimeout(()=> {
+                setSending(null);
+            }, 3 * 1000);
             setTimeout(() => {
                 setError("");
                 setPerfect("");
-                setSending(null);
             }, 8 * 1000);
         }
     }
