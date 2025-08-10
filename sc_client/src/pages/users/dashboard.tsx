@@ -1,7 +1,6 @@
 import "../../css/page_css/user_css/dashboard.css";
 import mine from "../../images/pics/mine.png";
 import lock from "../../images/pics/Boost.png";
-import update_prof from "../../images/pics/gift.png";
 import { Link, useNavigate} from "react-router-dom";
 import pdp from "../../images/pics/pdp.png";
 import Piechart from "../../components/chart/piechart";
@@ -239,7 +238,7 @@ const Dashboard = () => {
                 <Link to={""}>
                     <div className="img-pdp">
                         <span className="">
-                            <img src={pdp} alt="profile pic" />
+                            <img src={user?.pdp_url ?? pdp} alt="profile pic" />
                         </span>
                         <p className="">{user?.first_name} {user?.last_name}</p>
                     </div>
@@ -340,7 +339,7 @@ const Dashboard = () => {
                     </span>
                     <span>
                         <Link to={'/update-profile'}>
-                            <img src={update_prof} alt="update logo" />
+                            <img src={user?.pdp_url ?? pdp} alt="update logo" />
                             <p>profile</p>
                         </Link>
                     </span>

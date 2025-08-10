@@ -33,8 +33,21 @@ const app = express();
 // middleware to parse cookies
 app.use(cookieParser());
 
-// security middleware to set various HTTP headers
-app.use(helmet()); 
+// security middleware to set various HTTP headers with CSP for images
+app.use(
+  helmet.contentSecurityPolicy({
+    directives: {
+      defaultSrc: ["'self'"],
+      imgSrc: [
+        "'self'",
+        "data:",  
+        "blob:",                  
+        "https://res.cloudinary.com",
+      ],
+    },
+  })
+);
+
 
 // cors that allows access to the server from a specified domain
 if(process.env.NODE_ENV !== 'production') {

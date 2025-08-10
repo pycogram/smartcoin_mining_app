@@ -29,7 +29,7 @@
 }
 .update-profile .update-img{
     @apply w-26 h-26 place-content-center place-self-center relative overflow-hidden lg:w-30 lg:h-30
-    cursor-pointer rounded-2xl
+    cursor-pointer rounded-full rounded-br-md bg-gray-100 
 }
 .update-img img{
     @apply w-full h-full rounded-full hover:scale-105 active:scale-105 

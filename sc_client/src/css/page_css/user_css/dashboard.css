@@ -116,8 +116,8 @@
 }
 .dashboard .pie-sidebutton{
     @apply flex place-items-start place-content-evenly sm:place-content-around 
-    lg:place-content-between w-80 place-self-center
-    sm:w-[95%] md:w-140 lg:w-150 
+    lg:place-content-between w-[95%] place-self-center
+    sm:w-[95%] md:w-140 lg:w-150 bg-gray-50 pb-10 md:px-4 rounded-2xl
 }
 .pie-sidebutton .piechart-sec{
     @apply w-fit ml-0 block relative sm:flex sm:gap-x-5 sm:place-items-end 
@@ -160,12 +160,12 @@
     @apply w-fit 
 }
 .db-sidebutton span{
-    @apply my-6 mx-1 px-1.5 py-1.5 border-2 border-gray-300 rounded-4xl 
+    @apply my-6 mx-1 px-1 py-1 border-2 border-gray-300 rounded-4xl 
     hover:bg-gray-100 hover:border-gray-400 dark:border-gray-100 
     relative dark:bg-neutral-600 shadow-2xs 
 }
 .db-sidebutton span img{
-    @apply w-6 h-6 md:w-7 md:h-7 lg:w-8 lg:h-8 
+    @apply w-6 h-6 md:w-7 md:h-7 lg:w-8 lg:h-8 rounded-full
 }
 .spin-img1{
     @apply animate-spin transition delay-1000 ease-in-out

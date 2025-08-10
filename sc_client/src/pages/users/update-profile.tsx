@@ -49,9 +49,15 @@ const UpdateProfile = () => {
     const handleUpdate = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         setError("");
-        setPerfect("")
+        setPerfect("");
 
         try{
+            if(!userData.first_name || !userData.last_name || !userData.user_name){
+                throw new Error("all text fields are required");
+            }
+            if(!file){
+                throw new Error("try selecting an image");
+            }            
             const formData = new FormData();
                 formData.append("first_name", userData.first_name);
                 formData.append("last_name", userData.last_name);

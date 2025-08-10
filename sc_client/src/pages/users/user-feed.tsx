@@ -51,6 +51,7 @@ const UserFeed = () => {
 
         try{
             const {data} = await postViewDetail(post_id);
+            console.log(23, data.user.pdp_url)
             setPostDetail(data);
             setIsReady(false);
             

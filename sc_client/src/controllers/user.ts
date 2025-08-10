@@ -86,8 +86,6 @@ const updateUser = async (formData: FormData) => {
     const data = await res.json();
 
     if(! res.ok){
-        const text = await res.text();
-        console.error('Server error response:', text);
         throw new Error(`${data.message}`);
     }
 

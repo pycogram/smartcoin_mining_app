@@ -372,7 +372,6 @@ const detailUser = async (req: Request, res: Response):Promise<void> => {
 }
 //update user
 const updateUser = async (req: Request, res: Response): Promise<void> => {
-    console.log(354678);
   try {
     const userId = (req as any).user_id;
     if (!userId) return errHandler(res, "User not identified");
@@ -384,9 +383,6 @@ const updateUser = async (req: Request, res: Response): Promise<void> => {
     if (req.file && req.file.path) {
       pdp_url = req.file.path; // new uploaded image URL from Cloudinary
     }
-
-    console.log("req.body:", req.body);
-    console.log("req.file:", req.file);
 
     // all fields are required
     if (!first_name || !last_name || !user_name)
@@ -417,7 +413,7 @@ const updateUser = async (req: Request, res: Response): Promise<void> => {
     await userDetail.updateOne(updateData);
 
     const updatedInfo = { 
-        first_name, last_name, user_name, email
+        first_name, last_name, user_name, email, pdp_url
     }
 
     res.status(200).json({
@@ -669,7 +665,7 @@ const newPassword = async (req: Request, res: Response):Promise<void> => {
             res.clearCookie('Email').status(200).json({                                                                                                                                                                                                                                                  
                 status: "success",
                 email,
-                message: ! isVerified ? 'Password reset successfully, You can now login!' : 'Password reset and Account verified successfully, You can now login!'
+                message: isVerified ? 'Password reset successfully, You can now login!' : 'Password reset and email account verified successfully, You can now login!'
             })
         } else {
 
