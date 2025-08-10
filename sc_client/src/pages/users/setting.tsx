@@ -37,6 +37,7 @@ const Setting = () => {
 
     const navigate = useNavigate();
 
+    const [sending, setSending] = useState<boolean | null>(null);
     const handleDelete = async () => {
         setError("");
         setPerfect("");
@@ -69,10 +70,12 @@ const Setting = () => {
         confirmed_pwd: ""
     });
 
+
     const handleChangePwd = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         setError("");
         setPerfect("");
+        setSending(true);
 
         try{
             const {message} = await changePassword(formData);
@@ -92,6 +95,7 @@ const Setting = () => {
             setTimeout(() => {
                 setError("");
                 setPerfect("");
+                setSending(null);
             }, 8 * 1000);
         }
     }
@@ -190,7 +194,7 @@ const Setting = () => {
                             </div>
                             <span className="cpwd-button">
                                 <p onClick={() => {setAction(null); setCommand(null)}}>Go back</p>
-                                <p><button type="submit">Change</button></p>
+                                <p><button type="submit">{!sending ? "Change" : "Loading..."}</button></p>
                             </span>
                         </form>
                     }

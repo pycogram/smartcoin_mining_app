@@ -63,12 +63,14 @@ const LoginPage = () => {
     }
 
     // fn that handle register submit request
+    const [sending, setSending] = useState<boolean | null>(null);
     const handleLogin = async (e: React.FormEvent<HTMLFormElement>) => {
         // to prevent page from reloading
         e.preventDefault();
 
         setError("");
         setPerfect("");
+        setSending(true);
 
         // login user
         try{
@@ -97,6 +99,7 @@ const LoginPage = () => {
         } finally {
             setTimeout(() => {
                 setError("");
+                setSending(null);
             }, 10 * 1000);
         }
 
@@ -125,7 +128,7 @@ const LoginPage = () => {
                     <p onClick={handleForgetPwd} className="forgetPwd">forgot password?</p>
                 </div>
                 <div className="form-btn">
-                    <PrimaryBtn btnText={"login"} />
+                    <PrimaryBtn btnText={!sending ? "login" : "Loading..."} />
                 </div>
                 <div className="form-social fs-login2">
                     <p>or</p>

@@ -99,8 +99,10 @@ const LockPkg = () => {
         }
     }
 
+    const [sending, setSending] = useState<boolean | null>(null);
     const handleLockPkg = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
+        setSending(true);
 
         const lock_sc = Math.round(Number(amountSc));
         const lock_period = lockTime;
@@ -120,6 +122,7 @@ const LockPkg = () => {
         } finally{
             setTimeout(() => {
                 setError("");
+                setSending(null);
             }, 10 * 1000);
         }
     }
@@ -169,7 +172,7 @@ const LockPkg = () => {
                             </span>
                         </div>
                         <div className="w-button">
-                            <SecondaryBtn text_1="go back" text_2="lock" link_1={'/select-pkg'} />
+                            <SecondaryBtn text_1="go back" text_2={!sending ? "lock" : "loading..."} link_1={'/select-pkg'} />
                         </div>
                     </div>
                 </form>

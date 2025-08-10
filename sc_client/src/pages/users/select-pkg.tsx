@@ -62,7 +62,9 @@ const SelectPkg = () => {
         }, 1 * 1000);
     }
 
+    const [sending, setSending] = useState<boolean | null>(null);
     const handleUnlock = async() => {
+        setSending(true);
         try{
             const {message} = await unLockSc(true);
            
@@ -79,6 +81,7 @@ const SelectPkg = () => {
             setTimeout(() => {
                 setPerfect("");
                 setError("");
+                setSending(null);
             }, 10 * 1000);
         }
     } 
@@ -100,7 +103,7 @@ const SelectPkg = () => {
                     <p>total locked: SC {isLocked && isLocked.toFixed(2)}</p>
                     {/* ${format(unlockTime, "EEEE, MMMM do yyyy, h:mm:ss a")} */}
                     <p>{isUnLockTime && isLocked ?  `time unlock: ${format(isUnLockTime, "EEEE, MMMM do, h:mm:ss")} ` : ``}</p>
-                    {isLocked ? <h5 onClick={handleUnlock}>unlock</h5> : ``}
+                    {isLocked ? <h5 onClick={handleUnlock}>{!sending ? "unlock" : "loading..."}</h5> : ``}
                 </div>
                 <h3 className="s-pkg-h3">select package </h3>
                 <div className="select-lock-pkg">

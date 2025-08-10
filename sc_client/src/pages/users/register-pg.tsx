@@ -54,11 +54,13 @@ const RegisterPage = () => {
     }
 
     // fn that handle register submit request
+    const [sending, setSending] = useState<boolean | null>(null);
     const handleRegister = async (e: React.FormEvent<HTMLFormElement>) => {
 
         // to prevent page from reloading
         e.preventDefault();
         setError("");
+        setSending(true);
 
         // register user
         try{
@@ -76,6 +78,7 @@ const RegisterPage = () => {
         } finally {
             setTimeout(() => {
                 setError("");
+                setSending(null);
             }, 10 * 1000);
         }
     }
@@ -105,7 +108,7 @@ const RegisterPage = () => {
                     </div>
                 </div>
                 <div className="form-btn">
-                    <PrimaryBtn btnText={"register"} />
+                    <PrimaryBtn btnText={!sending ? "register" : "Loading..."} />
                 </div>
                 <div className="form-social">
                     <p>or</p>

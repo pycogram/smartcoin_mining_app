@@ -129,8 +129,11 @@ const SendCoin = () => {
     }
 
 
+    const [sending, setSending] = useState<boolean | null>(null);
     const handleSend = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
+        setSending(true);
+
         try{
             const wallet_id = formInput.wallet_id;
             const amount_sc = formInput.amount_sc;
@@ -157,6 +160,7 @@ const SendCoin = () => {
             setTimeout(() => {
                 setPerfect("");
                 setError("");
+                setSending(null);
             }, 5 * 1000);
         }
     }
@@ -206,7 +210,7 @@ const SendCoin = () => {
                     </span>
                 </div>
                 <div className="w-button">
-                    <SecondaryBtn text_1="cancel" text_2="process" link_1={'/dashboard'} />
+                    <SecondaryBtn text_1="cancel" text_2={!sending ? "Approve" : "loading..."} link_1={'/dashboard'} />
                 </div>
             </form>
         </div>

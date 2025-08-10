@@ -74,10 +74,12 @@ const ConfirmPage = () => {
         }
     }
 
+    const [sending, setSending] = useState<boolean | null>(null);
     const handleConfirm = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         setPerfect("");
         setError("");
+        setSending(true);
 
         // confirm user
         try{
@@ -94,6 +96,10 @@ const ConfirmPage = () => {
 
         } catch(err){
             setError(`${(err as Error).message}`);
+        } finally{
+            setTimeout(()=> {
+                setSending(null);
+            },10 * 1000);
         }
 
     }
@@ -119,7 +125,7 @@ const ConfirmPage = () => {
                     </div>
                     <img src={confirm_pic} alt="confirm pic" />
                     <div className="for-secondary-btn">
-                        <SecondaryBtn text_1={"Go back"} text_2={"Confirm"} link_1={"/verify"} />
+                        <SecondaryBtn text_1={"Go back"} text_2={!sending ? "Confirm" : "Loading..."} link_1={"/verify"} />
                     </div>
                 </form>
             </div>

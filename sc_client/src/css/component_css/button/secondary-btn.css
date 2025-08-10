@@ -10,7 +10,7 @@
     flex place-content-center place-items-center text-nowrap gap-x-1.5 dark:text-white
 }
 .s-btn1 .icon-btn{
-    @apply size-4 text-xs lg:text-lg transition-all ease-in-out delay-75 mt-0.5 
+    @apply size-4 text-xs lg:text-lg transition-all ease-in-out delay-75 mt-1.5 
     lg:mb-3 text-orange-500 dark:text-white;
 }
 .secondary-btn .s-btn1:hover > .icon-btn{

@@ -45,11 +45,13 @@ const UpdateProfile = () => {
     });
 
     const navigate = useNavigate();
+    const [sending, setSending] = useState<boolean | null>(null);
 
     const handleUpdate = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         setError("");
         setPerfect("");
+        setSending(true);
 
         try{
             if(!userData.first_name || !userData.last_name || !userData.user_name){
@@ -80,6 +82,7 @@ const UpdateProfile = () => {
 
         } finally{
             setTimeout(() => {
+                setSending(null);
                 setError("");
                 setPerfect("");
             }, 10 * 1000);
@@ -131,7 +134,7 @@ const UpdateProfile = () => {
                     </div>
                 </div>
                 <div className="form-btn">
-                    <PrimaryBtn btnText={"update"} />
+                    <PrimaryBtn btnText={!sending ? "Update" : "Loading..."} />
                 </div>
             </form>
         </div>

@@ -38,9 +38,11 @@ const VerifyPage = () => {
     //error state
     const [error, setError] = useState<string>("");    
 
+    const [sending, setSending] = useState<boolean | null>(null);
     const handleVerify = async(e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         setError("");
+        setSending(true);
 
         // verify user
         try{ 
@@ -64,6 +66,7 @@ const VerifyPage = () => {
         } finally {
             setTimeout(() => {
                 setError("");
+                setSending(null);
             }, 10 * 1000);
             
         }
@@ -82,7 +85,7 @@ const VerifyPage = () => {
                 </p>
                 <img src={verify_pic} alt="" />
                 <div className="for-secondary-btn">
-                    <SecondaryBtn text_1={"Go back"} text_2={"Verify"} link_1={"/register"} />
+                    <SecondaryBtn text_1={"Go back"} text_2={!sending ? "Verify" : "Loading..."} link_1={"/register"} />
                 </div>
             </form>
         </div>

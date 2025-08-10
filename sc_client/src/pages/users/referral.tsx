@@ -68,9 +68,11 @@ const Referral = () => {
         }
     }
 
+    const [sending, setSending] = useState<boolean | null>(null);
     const handleClaim =  async () => {
         setPerfect("");
         setError("");
+        setSending(true);
 
         try{
             const {message} = await claimRefBonus(true);
@@ -85,6 +87,7 @@ const Referral = () => {
             setTimeout(() => {
                 setPerfect("");
                 setError("");
+                setSending(null);
             }, 10 * 1000);
         }
     }
@@ -124,7 +127,7 @@ const Referral = () => {
                     <div>
                         <span>
                             <h4 className="unclaimed-figure unclaimed-figure2">{claimBonus} sc</h4>
-                            <p onClick={handleClaim}>claim</p>
+                            <p onClick={handleClaim}>{!sending ? "claim" : "loading..."}</p>
                         </span>
                     </div>
                 </div>
