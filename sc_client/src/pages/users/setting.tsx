@@ -41,6 +41,7 @@ const Setting = () => {
     const handleDelete = async () => {
         setError("");
         setPerfect("");
+        setSending(true);
 
         try{
             const {message} = await deleteUser();
@@ -53,6 +54,10 @@ const Setting = () => {
             setError((err as Error).message);
 
         } finally{
+            setTimeout(()=> {
+                setSending(null);
+            }, 3 * 1000);
+            
             setTimeout(() => {
                 setError("");
                 setPerfect("");
@@ -168,7 +173,7 @@ const Setting = () => {
                         <div className="setting-action">
                             <h4>Do you want to delete your account?</h4>
                             <span>
-                                <p onClick={() => handleDelete} className="yes-delete">yes</p> 
+                                <p onClick={handleDelete} className="yes-delete">{!sending ? "yes" : "deleting"}</p> 
                                 <p onClick={() => {setAction(null); setCommand(null)}}>no</p>
                             </span>
                         </div>
