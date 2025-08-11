@@ -117,7 +117,7 @@
 .dashboard .pie-sidebutton{
     @apply flex place-items-start place-content-evenly sm:place-content-around 
     lg:place-content-between w-[95%] place-self-center
-    sm:w-[95%] md:w-140 lg:w-150 bg-gray-50 pb-6 md:px-4 rounded-2xl dark:bg-neutral-600
+    sm:w-[85%] lg:w-150 bg-gray-50 pb-6 lg:py-6 md:px-4 rounded-2xl dark:bg-neutral-600
 }
 .pie-sidebutton .piechart-sec{
     @apply w-fit ml-0 block relative sm:flex sm:gap-x-5 sm:place-items-end 

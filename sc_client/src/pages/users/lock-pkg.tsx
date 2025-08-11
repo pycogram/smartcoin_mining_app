@@ -108,6 +108,9 @@ const LockPkg = () => {
         const lock_period = lockTime;
 
         try {
+            if(availSC && lock_sc > availSC){
+                throw new Error("insufficient balance. check your available balance");
+            }
             const {message} = await lockSc(lock_sc, lock_period);
             localStorage.removeItem("lock-time");
             localStorage.setItem("message_user", `${message}`);

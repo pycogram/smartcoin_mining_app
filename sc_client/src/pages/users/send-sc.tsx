@@ -147,6 +147,9 @@ const SendCoin = () => {
             if(amount_sc < 1){
                 throw new Error("amount should be minimum of 1");
             }
+            if(availSC && amount_sc > availSC){
+                throw new Error("insufficient balance. check your available balance");
+            }
             
             const {message} = await sendSc(wallet_id, amount_sc);
             setPerfect(message);

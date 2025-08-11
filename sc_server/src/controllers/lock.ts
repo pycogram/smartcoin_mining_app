@@ -68,8 +68,8 @@ const lockSc = async(req: Request, res: Response):Promise<void> => {
             await historyModel.create([{
                 user: userId,
                 subject: `lock sc`,
-                detail: setNewLock ? `locked ${lock_sc} SC for ${lock_period} hr(s) with ${addReward} SC bonus. Total of ${minerInfo.total_locked} will be unlocked")}`
-                                   : `locked another ${lock_sc} SC for ${lock_period} hr(s) with ${addReward} SC bonus. Total of ${minerInfo.total_locked} will be unlocked")}`,
+                detail: setNewLock ? `locked ${lock_sc} SC for ${lock_period} hr(s) with ${addReward} SC bonus. Total of ${minerInfo.total_locked} will be unlocked`
+                                   : `locked another ${lock_sc} SC for ${lock_period} hr(s) with ${addReward} SC bonus. Total of ${minerInfo.total_locked} will be unlocked`,
                 time: new Date()
             }], {session});
 
