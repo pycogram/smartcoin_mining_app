@@ -30,8 +30,8 @@
     @apply text-lg lg:text-2xl capitalize 
 }
 .dashboard .lock-coin{
-    @apply w-70 pt-1 place-self-center sm:w-100 lg:mt-0 lg:w-120 cursor-pointer flex place-content-between
-    lg:pt-[1rem]
+    @apply w-[90%] px-[1rem] pt-3 place-self-center sm:w-100 lg:mt-0 lg:w-120 cursor-pointer flex place-content-between
+    lg:pt-[1rem] lg:px-0
 }
 .lock-coin p{
     @apply text-[12px] leading-3.5 uppercase text-white font-bold sm:text-[15px] md:text-[17px] lg:text-[20px]
@@ -71,7 +71,7 @@
 }
 .dashboard .wallet-ady{
     @apply flex place-self-center place-content-end 
-    w-[90%] sm:w-[80%] lg:w-140 gap-x-2 absolute top-[9.5rem] 
+    w-[90%] sm:w-[80%] lg:w-140 gap-x-2 absolute top-[9.6rem] 
     md:top-[11rem] lg:top-[13rem]
 }
 .wallet-ady span{
@@ -110,7 +110,7 @@
 .dashboard .db-board{
     @apply bg-gradient-to-r from-fuchsia-600 to-pink-600 
     border border-gray-200 dark:border-neutral-500
-    w-[95%] h-40 absolute top-[4rem] place-self-center rounded-t-lg -z-10 
+    w-[95%] h-40 absolute top-[4.5rem] place-self-center rounded-t-lg -z-10 
     sm:w-[85%] md:h-50 lg:w-150 lg:h-60 md:mt-[0.5rem]
     dark:bg-gradient-to-r dark:from-neutral-600 dark:to-pink-600
 }
