@@ -31,4 +31,4 @@ The frontend was first designed and prototyped by me on **Figma** and then devel
 
 ### Smartcoin Design:
 SC was first designed on figma before I started coding it. The below is the all-in-one screenshot.
-![Screenshot](./sc-figma.png)
+
