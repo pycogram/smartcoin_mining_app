@@ -329,7 +329,7 @@ const loginUser = async (req: Request, res: Response):Promise<void> => {
         }]);
 
         res.cookie('Authorization', 'Bearer ' + signedToken, {
-            expires: new Date(Date.now() + 10 * 24 * 60 * 60 * 1000), // stores token in the browser for 10days
+            expires: new Date(Date.now() + 30 * 24 * 60 * 60 * 1000), // stores token in the browser for 30days
             httpOnly: true,
             secure: process.env.NODE_ENV === 'production',
             sameSite: 'strict'
